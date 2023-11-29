@@ -122,7 +122,7 @@ QVector<QString> ChemistryLogicModel::simulateReaction(QString reactant1, QStrin
         auto reactant2Convert = m_chemicals.find(reactant2);
         if(!reactant1Convert.value().getReactions(reactant2).isEmpty() && !reactant2Convert.value().getReactions(reactant1).isEmpty())
         {
-            QList<Chemical> productions = reactant1Convert.value()->getReactions(reactant2);
+            QList<Chemical> productions = reactant1Convert.value().getReactions(reactant2);
 
             for(Chemical& production : productions)
             {

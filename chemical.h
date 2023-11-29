@@ -5,9 +5,8 @@
 #include <QMap>
 #include <QList>
 
-class Chemical : public QObject
+class Chemical
 {
-    Q_OBJECT
 public:
     /// @brief Constructor for Chemical
     /// @param cName Chemical's common name
@@ -16,7 +15,11 @@ public:
     /// @param pH Chemical's pH if in liquid state, -1 if not applicable
     /// @param note Any notes about Chemical that should be displayed when user clicks for more information
     /// @param state Chemical's state at STP, should be a solid, liquid, or gas
-    Chemical(QString cName, QString formula, QString sName, double pH, QString note, QString state, QObject *parent = nullptr);
+    explicit Chemical(QString cName, QString formula, QString sName, double pH, QString note, QString state);
+
+    explicit Chemical(const Chemical& other);
+
+    Chemical& operator=(const Chemical& other);
 
     /// @brief Getter for chemical's common name
     /// @return Returns the chemical's common name as a QString
