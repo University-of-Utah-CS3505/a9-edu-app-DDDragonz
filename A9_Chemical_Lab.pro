@@ -56,6 +56,7 @@ SOURCES += \
     Box2D/Dynamics/b2WorldCallbacks.cpp \
     Box2D/Rope/b2Rope.cpp \
     chemical.cpp \
+    chemistrylogicmodel.cpp \
     main.cpp \
     mainwindow.cpp
 
@@ -108,6 +109,7 @@ HEADERS += \
     Box2D/Dynamics/b2WorldCallbacks.h \
     Box2D/Rope/b2Rope.h \
     chemical.h \
+    chemistrylogicmodel.h \
     mainwindow.h
 
 FORMS += \

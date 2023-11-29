@@ -1,6 +1,6 @@
 #include "chemical.h"
 
-Chemical::Chemical(QString cName, QString formula, QString sName, double pH, QString note, QString state, QObject *parent) : QObject{parent}
+Chemical::Chemical(QString cName, QString formula, QString sName, double pH, QString note, QString state)
 {
     m_commonName = cName;
     m_formula = formula;
@@ -8,6 +8,27 @@ Chemical::Chemical(QString cName, QString formula, QString sName, double pH, QSt
     m_pH = pH;
     m_note = note;
     m_state = state;
+}
+
+Chemical::Chemical(const Chemical& other)
+{
+    m_commonName = other.m_commonName;
+    m_formula = other.m_formula;
+    m_systematicName = other.m_systematicName;
+    m_pH = other.m_pH;
+    m_note = other.m_note;
+    m_state = other.m_state;
+}
+
+Chemical& Chemical::operator=(const Chemical& other)
+{
+    m_commonName = other.m_commonName;
+    m_formula = other.m_formula;
+    m_systematicName = other.m_systematicName;
+    m_pH = other.m_pH;
+    m_note = other.m_note;
+    m_state = other.m_state;
+    return *this;
 }
 
 QString Chemical::getCommonName()
