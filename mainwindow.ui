@@ -46,7 +46,14 @@
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
-        <widget class="QWidget" name="gameNameWidget" native="true"/>
+        <widget class="QLabel" name="gameNameLabel">
+         <property name="text">
+          <string>Identify Mystery Substances Lab</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>
@@ -73,28 +80,11 @@
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_3">
        <item>
-        <widget class="QWidget" name="levelWidget" native="true"/>
-       </item>
-      </layout>
-     </widget>
-    </item>
-    <item row="2" column="1">
-     <widget class="QFrame" name="mixingFrame">
-      <property name="minimumSize">
-       <size>
-        <width>500</width>
-        <height>0</height>
-       </size>
-      </property>
-      <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
-      </property>
-      <property name="frameShadow">
-       <enum>QFrame::Raised</enum>
-      </property>
-      <layout class="QVBoxLayout" name="verticalLayout_5">
-       <item>
-        <widget class="QWidget" name="mixingWidget" native="true"/>
+        <widget class="QLabel" name="levelLabel">
+         <property name="text">
+          <string>Level 1</string>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>
@@ -121,7 +111,11 @@
       </property>
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
-        <widget class="QWidget" name="helpWidget" native="true"/>
+        <widget class="QPushButton" name="pushButton">
+         <property name="text">
+          <string>Help</string>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>
@@ -157,28 +151,11 @@
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_10">
        <item>
-        <widget class="QWidget" name="instructionWidget" native="true"/>
-       </item>
-      </layout>
-     </widget>
-    </item>
-    <item row="3" column="1">
-     <widget class="QFrame" name="mysterySolutionsFrame">
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>200</height>
-       </size>
-      </property>
-      <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
-      </property>
-      <property name="frameShadow">
-       <enum>QFrame::Raised</enum>
-      </property>
-      <layout class="QVBoxLayout" name="verticalLayout_8">
-       <item>
-        <widget class="QWidget" name="mysterySolutionsWidget" native="true"/>
+        <widget class="QLabel" name="instructionsLabel">
+         <property name="text">
+          <string>Instructions!</string>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>
@@ -221,6 +198,27 @@
       <layout class="QVBoxLayout" name="verticalLayout_9">
        <item>
         <widget class="QWidget" name="possibleElementsWidget" native="true"/>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="2" column="1" rowspan="2">
+     <widget class="QFrame" name="mixingFrame">
+      <property name="minimumSize">
+       <size>
+        <width>500</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_5">
+       <item>
+        <widget class="QWidget" name="mixingWidget" native="true"/>
        </item>
       </layout>
      </widget>
