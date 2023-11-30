@@ -142,3 +142,19 @@ void ChemistryLogicModel::addAllReactionRule(QVector<QPair<QVector<QString>,QVec
         addReactionRule(reactants, products);
     }
 }
+
+void ChemistryLogicModel::chemicalSelected(QString formula)
+{
+    emit sendChemical(m_chemicals.find(formula).value());
+}
+
+void ChemistryLogicModel::chemicalsMixed(QString formula1, QString formula2)
+{
+    QVector<QString> products = simulateReaction(formula1, formula2);
+    QVector<Chemical> productChemicals;
+    for (QString product : products)
+    {
+        productChemicals.append(m_chemicals.find(product).value());
+    }
+    emit sendProducts(productChemicals);
+}

@@ -31,6 +31,12 @@ private:
     void addAllReactionRule(QVector<QPair<QVector<QString>,QVector<QString>>> reactions);
 
 signals:
+    void sendChemical(Chemical& chemical);
+    void sendProducts(QVector<Chemical> products);
+
+public slots:
+    void chemicalSelected(QString formula);
+    void chemicalsMixed(QString formula1, QString formula2);
 
 };
 
