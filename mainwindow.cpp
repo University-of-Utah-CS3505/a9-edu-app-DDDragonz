@@ -98,6 +98,9 @@ void MainWindow::createVial()
     bodyDef.position.Set(windowWidth  / 4 / SCALE, windowHeight / 3 / SCALE);
     vial = world->CreateBody(&bodyDef);
 
+    vial->SetLinearDamping(3.0f);
+    vial->SetAngularDamping(3.0f);
+
     b2Vec2 vertices[4];
     vertices[0].Set(-1.0f, -3.0f); //bottom-left
     vertices[1].Set(-1.0f, 3.0f); //top-left
@@ -140,7 +143,8 @@ void MainWindow::SpawnCircle()
     bodyDef.linearDamping = 2.0f;
     bodyDef.angularDamping = 1.0f;
 
-    bodyDef.position.Set(windowWidth  / 2 / SCALE, windowHeight / 2 / SCALE);
+    b2Vec2 vialPosition = vial->GetWorldCenter();
+    bodyDef.position.Set(vialPosition.x, vialPosition.y);
     b2Body* particle = world->CreateBody(&bodyDef);
     b2CircleShape dynamicCircle;
     dynamicCircle.m_radius = 0.1f;
@@ -148,7 +152,7 @@ void MainWindow::SpawnCircle()
     b2FixtureDef fixtureDef;
     fixtureDef.shape = &dynamicCircle;
     fixtureDef.density = 1.0f;
-    fixtureDef.friction = 20.0f;
+    fixtureDef.friction = 0.1f;
     fixtureDef.restitution = 0.01f;
     particle->CreateFixture(&fixtureDef);
 }
@@ -175,19 +179,43 @@ void MainWindow::createWall(b2Body* body, b2Vec2 vertex1, b2Vec2 vertex2)
 
 void MainWindow::keyPressEvent(QKeyEvent *event)
 {
-    if(event->key() == Qt::Key_T)
+    switch(event->key())
     {
-        qDebug() << "Rotate";
-        update();
+    case Qt::Key_Q:
+        vial->ApplyAngularImpulse(5.0f, true);
+        break;
+    case Qt::Key_E:
+        vial->ApplyAngularImpulse(-5.0f, true);
+        break;
+    case Qt::Key_W:
+        vial->ApplyLinearImpulse(b2Vec2(0.0f, 10.0f), vial->GetWorldCenter(), true);
+        break;
+    case Qt::Key_A:
+        vial->ApplyLinearImpulse(b2Vec2(-10.0f, 0.0f), vial->GetWorldCenter(), true);
+        break;
+    case Qt::Key_S:
+        vial->ApplyLinearImpulse(b2Vec2(0.0f, -10.0f), vial->GetWorldCenter(), true);
+        break;
+    case Qt::Key_D:
+        vial->ApplyLinearImpulse(b2Vec2(10.0f, 0.0f), vial->GetWorldCenter(), true);
+        break;
     }
+
+    update();
+    b2Vec2 vialPosition = vial->GetPosition();
+    float32 vialAngle = vial->GetAngle();
+    qDebug() << "Vial Position: (" << vialPosition.x << ", " << vialPosition.y << ")" << "Vial Angle: " << vialAngle;
 }
 
 void MainWindow::createScene()
 {
     SpawnBox();
-    SpawnCircle();
-    createBorder();
     createVial();
+    for (int i = 0; i < 200; i++)
+    {
+        SpawnCircle();
+    }
+    createBorder();
     update();
     timer->start(1000 / 60);
 }
@@ -212,6 +240,10 @@ void MainWindow::resetScene()
 
 void MainWindow::drawEdge(QPainter& painter, b2Body* body, b2EdgeShape* edge)
 {
+    QPen pen(Qt::black);
+    pen.setWidth(0);
+    painter.setPen(pen);
+    painter.setBrush(Qt::NoBrush);
     QPointF v1 = convertCoordsBox2DToQt(body->GetWorldPoint(edge->m_vertex1));
     QPointF v2 = convertCoordsBox2DToQt(body->GetWorldPoint(edge->m_vertex2));
     painter.drawLine(v1, v2);
@@ -219,6 +251,10 @@ void MainWindow::drawEdge(QPainter& painter, b2Body* body, b2EdgeShape* edge)
 
 void MainWindow::drawPolygon(QPainter& painter, b2Body* body, b2PolygonShape* polygon)
 {
+    QPen pen(Qt::black);
+    pen.setWidth(0);
+    painter.setPen(pen);
+    painter.setBrush(Qt::NoBrush);
     QPolygonF qpolygon;
     for (int32 i = 0; i < polygon->m_count; ++i)
     {
@@ -230,6 +266,10 @@ void MainWindow::drawPolygon(QPainter& painter, b2Body* body, b2PolygonShape* po
 
 void MainWindow::drawCircle(QPainter& painter, b2Body* body, b2CircleShape* circle)
 {
+    QPen pen(Qt::blue);
+    pen.setWidth(0);
+    painter.setPen(pen);
+    painter.setBrush(Qt::blue);
     QPointF position = convertCoordsBox2DToQt(body->GetPosition());
     painter.drawEllipse(position, circle->m_radius * SCALE, circle->m_radius * SCALE);
 }
@@ -246,6 +286,7 @@ void MainWindow::Update()
     float32 timeStep = 1.0f / 60.0f;
     int32 velocityIterations = 6;
     int32 positionIterations = 2;
+    vial->ApplyForceToCenter(b2Vec2(0.0f, 14.0f), true);
     world->Step(timeStep, velocityIterations, positionIterations);
     update();
 }
