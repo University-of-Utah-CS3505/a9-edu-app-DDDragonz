@@ -20,6 +20,7 @@ void ChemicalEquations::addEquations(vector<QString> equations)
     {
         label = new QLabel();
         label->setText(equations.at(i));
+        label->setWordWrap(true);
         ui->layout->addWidget(label);
     }
 }

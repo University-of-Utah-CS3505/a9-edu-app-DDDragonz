@@ -26,8 +26,6 @@ void IdentifyChemicals::addElements(vector<QString> chemicals)
         MysteryComboPair* toAdd = new MysteryComboPair(QString::fromStdString(name), chemicals);
         ui->layout->addWidget(toAdd);
     }
-    MysteryComboPair* toAdd = new MysteryComboPair("wtf", chemicals);
-    ui->layout->addWidget(toAdd);
 }
 
 IdentifyChemicals::~IdentifyChemicals()
