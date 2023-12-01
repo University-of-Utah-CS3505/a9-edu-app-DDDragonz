@@ -176,7 +176,13 @@
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_7">
        <item>
-        <widget class="QWidget" name="reactionTableWidget" native="true"/>
+        <widget class="QPushButton" name="viewTableButton">
+         <property name="text">
+          <string>View
+Observation
+Table</string>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>
@@ -192,7 +198,7 @@
       <property name="maximumSize">
        <size>
         <width>230</width>
-        <height>300</height>
+        <height>200</height>
        </size>
       </property>
       <property name="frameShape">
