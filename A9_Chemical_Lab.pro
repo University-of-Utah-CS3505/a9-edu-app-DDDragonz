@@ -62,6 +62,8 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     mysterycombopair.cpp \
+    mysterysubstancebuttoncombo.cpp \
+    mysterysubstances.cpp \
     reaction.cpp \
     reactionidentifiers.cpp \
     reactions.cpp
@@ -120,6 +122,8 @@ HEADERS += \
     identifychemicals.h \
     mainwindow.h \
     mysterycombopair.h \
+    mysterysubstancebuttoncombo.h \
+    mysterysubstances.h \
     reaction.h \
     reactionidentifiers.h \
     reactions.h
@@ -129,6 +133,8 @@ FORMS += \
     identifychemicals.ui \
     mainwindow.ui \
     mysterycombopair.ui \
+    mysterysubstancebuttoncombo.ui \
+    mysterysubstances.ui \
     reactionidentifiers.ui
 
 # Default rules for deployment.
