@@ -76,6 +76,7 @@ QString ChemistryLogicModel::getNote(QString formula)
 void ChemistryLogicModel::levelUp()
 {
     m_level++;
+    emit sendLevel(m_level);
 }
 
 void ChemistryLogicModel::gameModel()

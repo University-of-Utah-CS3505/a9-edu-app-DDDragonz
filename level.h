@@ -25,6 +25,7 @@ signals:
 public slots:
     void getLevel(int level);
     void getToNextLevel();
+    void getLevelUp();
 };
 
 #endif // LEVEL_H

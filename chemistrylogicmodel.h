@@ -19,7 +19,6 @@ public:
     QString getSystematicName(QString formula);
     int getPH(QString formula);
     QString getNote(QString formula);
-    void levelUp();
     void gameModel();
     QVector<QString> simulateReaction(QString reactant1, QString reactant2);
 
@@ -33,11 +32,12 @@ private:
 signals:
     void sendChemical(Chemical& chemical);
     void sendProducts(QVector<Chemical> products);
+    void sendLevel(int level);
 
 public slots:
     void chemicalSelected(QString formula);
     void chemicalsMixed(QString formula1, QString formula2);
-
+    void levelUp();
 };
 
 #endif // CHEMISTRYLOGICMODEL_H

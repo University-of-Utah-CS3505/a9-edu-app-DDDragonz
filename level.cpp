@@ -19,7 +19,14 @@ void Level::getLevel(int level)
 void Level::getToNextLevel()
 {
     QuestionWindow window(this);
+    connect(this, &Level::sendLevel, &window, &QuestionWindow::getLevel);
+    connect(&window, &QuestionWindow::levelUp, this, &Level::getLevelUp);
     window.show();
+}
+
+void Level::getLevelUp()
+{
+    emit nextLevel();
 }
 
 Level::~Level()
