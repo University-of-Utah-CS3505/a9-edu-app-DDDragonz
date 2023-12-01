@@ -56,6 +56,7 @@ SOURCES += \
     Box2D/Dynamics/b2WorldCallbacks.cpp \
     Box2D/Rope/b2Rope.cpp \
     chemical.cpp \
+    chemicalequations.cpp \
     chemistrylogicmodel.cpp \
     identifychemicals.cpp \
     main.cpp \
@@ -113,6 +114,7 @@ HEADERS += \
     Box2D/Dynamics/b2WorldCallbacks.h \
     Box2D/Rope/b2Rope.h \
     chemical.h \
+    chemicalequations.h \
     chemistrylogicmodel.h \
     identifychemicals.h \
     mainwindow.h \
@@ -121,6 +123,7 @@ HEADERS += \
     reactions.h
 
 FORMS += \
+    chemicalequations.ui \
     identifychemicals.ui \
     mainwindow.ui \
     mysterycombopair.ui

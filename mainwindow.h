@@ -14,7 +14,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow(vector<QString> chemicals, QWidget *parent = nullptr);
+    MainWindow(vector<QString> chemicals, vector<QString> equations, QWidget *parent = nullptr);
     ~MainWindow();
 
 private:
