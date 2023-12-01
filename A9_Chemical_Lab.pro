@@ -58,7 +58,9 @@ SOURCES += \
     chemical.cpp \
     chemistrylogicmodel.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    reaction.cpp \
+    reactions.cpp
 
 HEADERS += \
     Box2D/Box2D.h \
@@ -110,7 +112,9 @@ HEADERS += \
     Box2D/Rope/b2Rope.h \
     chemical.h \
     chemistrylogicmodel.h \
-    mainwindow.h
+    mainwindow.h \
+    reaction.h \
+    reactions.h
 
 FORMS += \
     mainwindow.ui

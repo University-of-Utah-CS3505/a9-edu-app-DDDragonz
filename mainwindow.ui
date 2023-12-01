@@ -202,7 +202,7 @@
       </layout>
      </widget>
     </item>
-    <item row="2" column="1" rowspan="2">
+    <item row="2" column="1">
      <widget class="QFrame" name="mixingFrame">
       <property name="minimumSize">
        <size>
@@ -221,6 +221,16 @@
         <widget class="QWidget" name="mixingWidget" native="true"/>
        </item>
       </layout>
+     </widget>
+    </item>
+    <item row="3" column="1">
+     <widget class="QFrame" name="vialButtonsFrame">
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
      </widget>
     </item>
    </layout>
