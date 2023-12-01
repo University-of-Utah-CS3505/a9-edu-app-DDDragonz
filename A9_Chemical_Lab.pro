@@ -57,8 +57,10 @@ SOURCES += \
     Box2D/Rope/b2Rope.cpp \
     chemical.cpp \
     chemistrylogicmodel.cpp \
+    identifychemicals.cpp \
     main.cpp \
     mainwindow.cpp \
+    mysterycombopair.cpp \
     reaction.cpp \
     reactions.cpp
 
@@ -112,12 +114,16 @@ HEADERS += \
     Box2D/Rope/b2Rope.h \
     chemical.h \
     chemistrylogicmodel.h \
+    identifychemicals.h \
     mainwindow.h \
+    mysterycombopair.h \
     reaction.h \
     reactions.h
 
 FORMS += \
-    mainwindow.ui
+    identifychemicals.ui \
+    mainwindow.ui \
+    mysterycombopair.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
