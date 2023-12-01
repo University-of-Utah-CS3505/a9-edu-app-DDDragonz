@@ -63,6 +63,7 @@ SOURCES += \
     mainwindow.cpp \
     mysterycombopair.cpp \
     reaction.cpp \
+    reactionidentifiers.cpp \
     reactions.cpp
 
 HEADERS += \
@@ -120,13 +121,15 @@ HEADERS += \
     mainwindow.h \
     mysterycombopair.h \
     reaction.h \
+    reactionidentifiers.h \
     reactions.h
 
 FORMS += \
     chemicalequations.ui \
     identifychemicals.ui \
     mainwindow.ui \
-    mysterycombopair.ui
+    mysterycombopair.ui \
+    reactionidentifiers.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

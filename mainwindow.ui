@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
+    <width>876</width>
     <height>600</height>
    </rect>
   </property>
@@ -155,7 +155,7 @@
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_4">
        <item>
-        <widget class="QWidget" name="reactionIdentifiersWidget" native="true"/>
+        <widget class="ReactionIdentifiers" name="reactionIdentifiersWidget" native="true"/>
        </item>
       </layout>
      </widget>
@@ -246,7 +246,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>876</width>
      <height>24</height>
     </rect>
    </property>
@@ -264,6 +264,12 @@
    <class>ChemicalEquations</class>
    <extends>QWidget</extends>
    <header>chemicalequations.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>ReactionIdentifiers</class>
+   <extends>QWidget</extends>
+   <header>reactionidentifiers.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
