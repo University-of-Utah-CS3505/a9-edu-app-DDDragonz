@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>876</width>
+    <width>905</width>
     <height>600</height>
    </rect>
   </property>
@@ -109,6 +109,9 @@
          <property name="text">
           <string>Level 1</string>
          </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
         </widget>
        </item>
       </layout>
@@ -147,6 +150,18 @@
     </item>
     <item row="1" column="0" rowspan="2">
      <widget class="QFrame" name="reactionIdentifiersFrame">
+      <property name="minimumSize">
+       <size>
+        <width>150</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>150</width>
+        <height>16777215</height>
+       </size>
+      </property>
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
       </property>
@@ -222,6 +237,24 @@ Table</string>
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <widget class="MysterySubstances" name="vialButtonsWidget" native="true"/>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_2">
+         <property name="maximumSize">
+          <size>
+           <width>50</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Mix</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </widget>
     </item>
     <item row="1" column="1" rowspan="2">
@@ -252,8 +285,8 @@ Table</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>876</width>
-     <height>24</height>
+     <width>905</width>
+     <height>22</height>
     </rect>
    </property>
   </widget>
@@ -276,6 +309,12 @@ Table</string>
    <class>ReactionIdentifiers</class>
    <extends>QWidget</extends>
    <header>reactionidentifiers.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>MysterySubstances</class>
+   <extends>QWidget</extends>
+   <header>mysterysubstances.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

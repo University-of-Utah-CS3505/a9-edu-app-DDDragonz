@@ -12,6 +12,7 @@ MainWindow::MainWindow(vector<QString> chemicals, vector<QString> equations, QWi
     ui->setupUi(this);
     ui->possibleElementsWidget->addElements(chemicals);
     ui->significantReactionsWidget->addEquations(equations);
+    ui->vialButtonsWidget->addMysterySubstances(chemicals.size());
 }
 
 MainWindow::~MainWindow()
