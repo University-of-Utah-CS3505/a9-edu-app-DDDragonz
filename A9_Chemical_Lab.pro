@@ -56,11 +56,19 @@ SOURCES += \
     Box2D/Dynamics/b2WorldCallbacks.cpp \
     Box2D/Rope/b2Rope.cpp \
     chemical.cpp \
+    chemicalequations.cpp \
     chemistrylogicmodel.cpp \
     level.cpp \
+    questionwindow.cpp \
+    identifychemicals.cpp \
     main.cpp \
     mainwindow.cpp \
-    questionwindow.cpp
+    mysterycombopair.cpp \
+    mysterysubstancebuttoncombo.cpp \
+    mysterysubstances.cpp \
+    reaction.cpp \
+    reactionidentifiers.cpp \
+    reactions.cpp
 
 HEADERS += \
     Box2D/Box2D.h \
@@ -111,15 +119,29 @@ HEADERS += \
     Box2D/Dynamics/b2WorldCallbacks.h \
     Box2D/Rope/b2Rope.h \
     chemical.h \
+    chemicalequations.h \
     chemistrylogicmodel.h \
     level.h \
+    questionwindow.h \
+    identifychemicals.h \
     mainwindow.h \
-    questionwindow.h
+    mysterycombopair.h \
+    mysterysubstancebuttoncombo.h \
+    mysterysubstances.h \
+    reaction.h \
+    reactionidentifiers.h \
+    reactions.h
 
 FORMS += \
     level.ui \
+    questionwindow.ui \
+    chemicalequations.ui \
+    identifychemicals.ui \
     mainwindow.ui \
-    questionwindow.ui
+    mysterycombopair.ui \
+    mysterysubstancebuttoncombo.ui \
+    mysterysubstances.ui \
+    reactionidentifiers.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

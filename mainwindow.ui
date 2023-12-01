@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
+    <width>905</width>
     <height>600</height>
    </rect>
   </property>
@@ -17,6 +17,12 @@
    <layout class="QGridLayout" name="gridLayout">
     <item row="1" column="2" rowspan="2">
      <widget class="QFrame" name="significantReactionsFrame">
+      <property name="maximumSize">
+       <size>
+        <width>240</width>
+        <height>16777215</height>
+       </size>
+      </property>
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
       </property>
@@ -24,8 +30,27 @@
        <enum>QFrame::Raised</enum>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_6">
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
        <item>
-        <widget class="QWidget" name="significantReactionsWidget" native="true"/>
+        <widget class="ChemicalEquations" name="significantReactionsWidget" native="true">
+         <property name="maximumSize">
+          <size>
+           <width>240</width>
+           <height>16777215</height>
+          </size>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>
@@ -46,7 +71,14 @@
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
-        <widget class="QWidget" name="gameNameWidget" native="true"/>
+        <widget class="QLabel" name="gameNameLabel">
+         <property name="text">
+          <string>Identify Mystery Substances Lab</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>
@@ -61,7 +93,7 @@
       </property>
       <property name="maximumSize">
        <size>
-        <width>200</width>
+        <width>300</width>
         <height>50</height>
        </size>
       </property>
@@ -73,28 +105,7 @@
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_3">
        <item>
-        <widget class="Level" name="levelWidget" native="true"/>
-       </item>
-      </layout>
-     </widget>
-    </item>
-    <item row="2" column="1">
-     <widget class="QFrame" name="mixingFrame">
-      <property name="minimumSize">
-       <size>
-        <width>500</width>
-        <height>0</height>
-       </size>
-      </property>
-      <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
-      </property>
-      <property name="frameShadow">
-       <enum>QFrame::Raised</enum>
-      </property>
-      <layout class="QVBoxLayout" name="verticalLayout_5">
-       <item>
-        <widget class="QWidget" name="mixingWidget" native="true"/>
+        <widget class="QWidget" name="levelWidget" native="true"/>
        </item>
       </layout>
      </widget>
@@ -121,13 +132,29 @@
       </property>
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
-        <widget class="QWidget" name="helpWidget" native="true"/>
+        <widget class="QPushButton" name="pushButton">
+         <property name="text">
+          <string>Help</string>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>
     </item>
     <item row="1" column="0" rowspan="2">
      <widget class="QFrame" name="reactionIdentifiersFrame">
+      <property name="minimumSize">
+       <size>
+        <width>150</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>150</width>
+        <height>16777215</height>
+       </size>
+      </property>
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
       </property>
@@ -136,49 +163,7 @@
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_4">
        <item>
-        <widget class="QWidget" name="reactionIdentifiersWidget" native="true"/>
-       </item>
-      </layout>
-     </widget>
-    </item>
-    <item row="1" column="1">
-     <widget class="QFrame" name="instructionFrame">
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>50</height>
-       </size>
-      </property>
-      <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
-      </property>
-      <property name="frameShadow">
-       <enum>QFrame::Raised</enum>
-      </property>
-      <layout class="QVBoxLayout" name="verticalLayout_10">
-       <item>
-        <widget class="QWidget" name="instructionWidget" native="true"/>
-       </item>
-      </layout>
-     </widget>
-    </item>
-    <item row="3" column="1">
-     <widget class="QFrame" name="mysterySolutionsFrame">
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>200</height>
-       </size>
-      </property>
-      <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
-      </property>
-      <property name="frameShadow">
-       <enum>QFrame::Raised</enum>
-      </property>
-      <layout class="QVBoxLayout" name="verticalLayout_8">
-       <item>
-        <widget class="QWidget" name="mysterySolutionsWidget" native="true"/>
+        <widget class="ReactionIdentifiers" name="reactionIdentifiersWidget" native="true"/>
        </item>
       </layout>
      </widget>
@@ -188,7 +173,7 @@
       <property name="maximumSize">
        <size>
         <width>16777215</width>
-        <height>200</height>
+        <height>16777215</height>
        </size>
       </property>
       <property name="frameShape">
@@ -199,16 +184,28 @@
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_7">
        <item>
-        <widget class="QWidget" name="reactionTableWidget" native="true"/>
+        <widget class="QPushButton" name="viewTableButton">
+         <property name="text">
+          <string>View
+Observation
+Table</string>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>
     </item>
     <item row="3" column="2">
      <widget class="QFrame" name="possibleElementsFrame">
+      <property name="minimumSize">
+       <size>
+        <width>220</width>
+        <height>0</height>
+       </size>
+      </property>
       <property name="maximumSize">
        <size>
-        <width>16777215</width>
+        <width>230</width>
         <height>200</height>
        </size>
       </property>
@@ -220,7 +217,74 @@
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_9">
        <item>
-        <widget class="QWidget" name="possibleElementsWidget" native="true"/>
+        <widget class="IdentifyChemicals" name="possibleElementsWidget" native="true"/>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="3" column="1">
+     <widget class="QFrame" name="vialButtonsFrame">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>200</height>
+       </size>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>12</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+       <item>
+        <widget class="MysterySubstances" name="vialButtonsWidget" native="true"/>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_2">
+         <property name="maximumSize">
+          <size>
+           <width>50</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Mix</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="1" column="1" rowspan="2">
+     <widget class="QFrame" name="mixingFrame">
+      <property name="minimumSize">
+       <size>
+        <width>500</width>
+        <height>300</height>
+       </size>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_5">
+       <item>
+        <widget class="QWidget" name="mixingWidget" native="true"/>
        </item>
       </layout>
      </widget>
@@ -232,7 +296,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>905</width>
      <height>21</height>
     </rect>
    </property>
@@ -241,9 +305,27 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>Level</class>
+   <class>IdentifyChemicals</class>
    <extends>QWidget</extends>
-   <header location="global">level.h</header>
+   <header>identifychemicals.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>ChemicalEquations</class>
+   <extends>QWidget</extends>
+   <header>chemicalequations.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>ReactionIdentifiers</class>
+   <extends>QWidget</extends>
+   <header>reactionidentifiers.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>MysterySubstances</class>
+   <extends>QWidget</extends>
+   <header>mysterysubstances.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
