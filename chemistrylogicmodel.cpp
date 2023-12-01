@@ -92,7 +92,7 @@ void ChemistryLogicModel::levelOneSetUp()
     Chemical NaOH("Sodium Hydroxide", "NaOH", "Sodium Hydroxide", 14.0, "Sodium Hydroxide is a solid at room temperature. However, for the purposes of this lab, we will refer to sodium hydroxide as the aqueous solution of NaOH dissolved in water.", "Liquid");
     Chemical H2O2("Hydrogen peroxide", "H2O2", "Hydrogen peroxide",3.0, "None", "Liquid");
     Chemical NaCl("Salt", "NaCl", "Sodium chloride", 7.0, "NaCl is commonly known as table salt and is used widely to season and preserve food.", "Solid");
-    Chemical H2O("Water", "H2O", "Dihydrogen monoxide", 7.0, "None", "");
+    Chemical H2O("Water", "H2O", "Dihydrogen monoxide", 7.0, "None", "Liquid");
     Chemical Cl2("Chlorine gas", "Cl2", "Dichlorine", NULL, "Chlorine gas is dangerous to humans and exposure should be avoided.", "Gas");
     Chemical O2("Oxygen", "O2", "Dioxygen", NULL, "None", "Gas");
     Chemical NaIon("Sodium", "Na+", "Sodium ion", NULL, "None", "None");
