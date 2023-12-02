@@ -6,7 +6,11 @@ MysterySubstanceButtonCombo::MysterySubstanceButtonCombo(int number, QWidget *pa
     ui(new Ui::MysterySubstanceButtonCombo)
 {
     ui->setupUi(this);
-    ui->label->setText(ui->label->text() + QString::fromStdString(std::to_string('A' + number)));
+    char character = 'A' + number;
+    QString textString = "Substance ";
+    textString += character;
+    ui->label->setText(textString);
+    ui->selectButton->setText(textString);
 
     connect(ui->selectButton,
             &QPushButton::clicked,
