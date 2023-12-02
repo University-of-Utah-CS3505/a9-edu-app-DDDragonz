@@ -36,6 +36,7 @@ signals:
     void sendProducts(QVector<Chemical> products);
     void sendAllReactionsFormula(QString reactions);
     void sendLevel(int level);
+    void sendAllReactants(std::vector<QString> reactants);
 
 public slots:
     void chemicalSelected(QString formula);

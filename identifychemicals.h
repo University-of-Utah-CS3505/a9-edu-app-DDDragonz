@@ -18,7 +18,6 @@ class IdentifyChemicals : public QWidget
 public:
     IdentifyChemicals(QWidget *parent = nullptr);
     ~IdentifyChemicals();
-    void addElements(vector<QString> chemicals);
 
 private:
     Ui::IdentifyChemicals *ui;
@@ -28,6 +27,7 @@ signals:
 
 public slots:
     void submitClick();
+    void addElements(vector<QString> chemicals);
 
 };
 

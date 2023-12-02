@@ -13,7 +13,7 @@ MainWindow::MainWindow(ChemistryLogicModel& logicModel, QWidget *parent)// vecto
 {
     ui->setupUi(this);
     //ui->possibleElementsWidget->addElements(chemicals);
-    ui->possibleElementsWidget->addElements(logicModel.getAllReactants());
+    //ui->possibleElementsWidget->addElements(logicModel.getAllReactants());
     //ui->significantReactionsWidget->addEquations(equations);
     //ui->vialButtonsWidget->addMysterySubstances(chemicals.size());
     ui->vialButtonsWidget->addMysterySubstances(logicModel.getAllReactants().size());
@@ -27,6 +27,7 @@ MainWindow::MainWindow(ChemistryLogicModel& logicModel, QWidget *parent)// vecto
     connect(&logicModel, &ChemistryLogicModel::sendLevel, this, &MainWindow::updateLevelLabel);
     connect(ui->pushButton, &QPushButton::clicked, this, &MainWindow::helpClicked);
     connect(&logicModel, &ChemistryLogicModel::sendAllReactionsFormula, ui->significantReactionsWidget, &ChemicalEquations::receiveFormula);
+    connect(&logicModel, &ChemistryLogicModel::sendAllReactants, ui->possibleElementsWidget, &IdentifyChemicals::addElements);
 }
 
 void MainWindow::updateLevelLabel(int level)

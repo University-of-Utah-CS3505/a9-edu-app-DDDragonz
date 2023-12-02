@@ -64,6 +64,8 @@ void ChemistryLogicModel::levelOneSetUp()
     m_reactants.push_back("FeCl3");
     m_reactants.push_back("Na2CO3");
     m_reactants.push_back("HCl");
+
+    emit sendAllReactants(vector<QString>{"FeCl3", "Na2CO3", "HCl"});
 }
 
 void ChemistryLogicModel::levelTwoSetUp()
@@ -74,6 +76,7 @@ void ChemistryLogicModel::levelTwoSetUp()
     m_chemicals.insert("FeOH", FeOH);
 
     m_reactants.push_back("NaOH");
+    emit sendAllReactants(vector<QString>{"NaOH"});
 }
 
 void ChemistryLogicModel::levelThreeSetUp()
@@ -93,6 +96,7 @@ void ChemistryLogicModel::levelThreeSetUp()
     m_chemicals.insert("AgCO3", AgCO3);
 
     m_reactants.push_back("AgNO3");
+    emit sendAllReactants(vector<QString>{"AgNO3"});
 }
 
 void ChemistryLogicModel::levelFourSetUp()
@@ -104,6 +108,7 @@ void ChemistryLogicModel::levelFourSetUp()
     m_chemicals.insert("FePO4", FePO4);
 
     m_reactants.push_back("Na3PO4");
+    emit sendAllReactants(vector<QString>{"Na3PO4"});
 }
 
 void ChemistryLogicModel::chemicalSelected(QString formula)
