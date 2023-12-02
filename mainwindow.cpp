@@ -14,11 +14,6 @@ MainWindow::MainWindow(ChemistryLogicModel& logicModel, QWidget *parent)
     ui->setupUi(this);
     ui->vialButtonsWidget->addMysterySubstances(logicModel.getAllReactants().size());
 
-    int level = logicModel.getLevel();
-    QString levelText = "Level " + QString::number(level);
-    ui->levelLabel->setText(levelText);
-
-
     connect(ui->possibleElementsWidget, &IdentifyChemicals::submitToNextLevel, &logicModel, &ChemistryLogicModel::levelUp);
     connect(&logicModel, &ChemistryLogicModel::sendLevel, this, &MainWindow::updateLevelLabel);
     connect(ui->pushButton, &QPushButton::clicked, this, &MainWindow::helpClicked);
@@ -26,6 +21,7 @@ MainWindow::MainWindow(ChemistryLogicModel& logicModel, QWidget *parent)
     connect(&logicModel, &ChemistryLogicModel::sendAllReactants, ui->possibleElementsWidget, &IdentifyChemicals::addElements);
     connect(ui->pushButton, &QPushButton::clicked, this, &MainWindow::showHelp);
 
+    logicModel.levelUp();
 }
 
 void MainWindow::updateLevelLabel(int level)

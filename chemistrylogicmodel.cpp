@@ -4,9 +4,9 @@ using std::vector;
 
 ChemistryLogicModel::ChemistryLogicModel(QObject *parent)
     : QObject{parent},
-    m_level(1)
+    m_level(0)
 {
-    gameModel();
+
 }
 
 int ChemistryLogicModel::getLevel()
@@ -26,6 +26,7 @@ void ChemistryLogicModel::levelUp()
 
 void ChemistryLogicModel::gameModel()
 {
+    m_reactions.addLevels();
     switch(m_level)
     {
         case 1:
@@ -66,6 +67,7 @@ void ChemistryLogicModel::levelOneSetUp()
     m_reactants.push_back("HCl");
 
     emit sendAllReactants(m_reactants);
+    emit sendAllReactionsFormula(m_reactions.getAllReactions());
 }
 
 void ChemistryLogicModel::levelTwoSetUp()
@@ -77,6 +79,7 @@ void ChemistryLogicModel::levelTwoSetUp()
 
     m_reactants.push_back("NaOH");
     emit sendAllReactants(m_reactants);
+    emit sendAllReactionsFormula(m_reactions.getAllReactions());
 }
 
 void ChemistryLogicModel::levelThreeSetUp()
@@ -97,6 +100,7 @@ void ChemistryLogicModel::levelThreeSetUp()
 
     m_reactants.push_back("AgNO3");
     emit sendAllReactants(m_reactants);
+    emit sendAllReactionsFormula(m_reactions.getAllReactions());
 }
 
 void ChemistryLogicModel::levelFourSetUp()
@@ -109,6 +113,7 @@ void ChemistryLogicModel::levelFourSetUp()
 
     m_reactants.push_back("Na3PO4");
     emit sendAllReactants(m_reactants);
+    emit sendAllReactionsFormula(m_reactions.getAllReactions());
 }
 
 void ChemistryLogicModel::chemicalSelected(QString formula)
