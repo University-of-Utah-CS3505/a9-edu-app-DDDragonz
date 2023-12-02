@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include "mysterycombopair.h"
+#include "mysteries.h"
 
 using std::vector;
 using std::map;
