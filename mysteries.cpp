@@ -42,7 +42,8 @@ bool Mysteries::checkSubstances(QString substances[])
 
 void Mysteries::addChemical(QString chemical)
 {
-
+    m_substances[m_size++] = chemical;
+    shuffle();
 }
 
 bool Mysteries::checkChemicals(vector<QString> toCheck)
