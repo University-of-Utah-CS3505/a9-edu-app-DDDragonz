@@ -20,6 +20,9 @@ public:
 
 private:
     Ui::ChemicalEquations *ui;
+
+public slots:
+    void receiveFormula(QString formulas);
 };
 
 #endif // CHEMICALEQUATIONS_H

@@ -10,6 +10,7 @@ IdentifyChemicals::IdentifyChemicals(QWidget *parent) :
     ui(new Ui::IdentifyChemicals)
 {
     ui->setupUi(this);
+    connect(ui->pushButton, &QPushButton::clicked, this, &IdentifyChemicals::submitClick);
 }
 
 void IdentifyChemicals::addElements(vector<QString> chemicals)
@@ -26,6 +27,11 @@ void IdentifyChemicals::addElements(vector<QString> chemicals)
         MysteryComboPair* toAdd = new MysteryComboPair(QString::fromStdString(name), chemicals);
         ui->layout->addWidget(toAdd);
     }
+}
+
+void IdentifyChemicals::submitClick()
+{
+    emit submitToNextLevel();
 }
 
 IdentifyChemicals::~IdentifyChemicals()

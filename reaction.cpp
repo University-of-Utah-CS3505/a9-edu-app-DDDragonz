@@ -2,18 +2,18 @@
 #include "chemical.h"
 
 
-Reaction::Reaction(vector<Chemical> chemicals)
+Reaction::Reaction(vector<Chemical> products)
 {
-    for(int i = 0; i < (int)chemicals.size(); i++)
+    for(int i = 0; i < (int)products.size(); i++)
     {
-        switch(chemicals.at(i).getState())
+        switch(products.at(i).getState())
         {
         case State::gas:
             m_hasGas = true;
             break;
         case State::solid:
             m_hasSolid = true;
-            m_colorOfSolid = chemicals.at(i).getColorOfSolid();
+            m_colorOfSolid = products.at(i).getColorOfSolid();
             break;
         default:
             break;

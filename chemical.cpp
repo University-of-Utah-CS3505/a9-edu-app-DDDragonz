@@ -22,17 +22,17 @@ Chemical& Chemical::operator=(const Chemical& other)
     return *this;
 }
 
-QString Chemical::getFormula()
+QString Chemical::getFormula() const
 {
     return m_formula;
 }
 
-State Chemical::getState()
+State Chemical::getState() const
 {
     return m_state;
 }
 
-QColor Chemical::getColorOfSolid()
+QColor Chemical::getColorOfSolid() const
 {
     return m_colorOfSolid;
 }

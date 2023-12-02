@@ -26,13 +26,13 @@ public:
 
     /// @brief Getter for chemical's formula
     /// @return Returns the chemical's formula as a QString
-    QString getFormula();
+    QString getFormula() const;
 
     /// @brief Getter for the state of the chemical at STP
     /// @return Returns state of chemical as QString
-    State getState();
+    State getState() const;
 
-    QColor getColorOfSolid();
+    QColor getColorOfSolid() const;
 
 private:
     QString m_formula;

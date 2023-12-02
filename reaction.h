@@ -9,10 +9,11 @@ using std::vector;
 class Reaction
 {
 public:
-    Reaction(vector<Chemical> chemicals);
+    Reaction(vector<Chemical> products);
     bool hasGas();
     bool hasSolid();
     QColor colorOfSolid();
+    QString toString() const;
 
 private:
     bool m_hasGas;

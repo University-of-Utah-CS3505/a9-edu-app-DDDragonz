@@ -58,8 +58,7 @@ SOURCES += \
     chemical.cpp \
     chemicalequations.cpp \
     chemistrylogicmodel.cpp \
-    level.cpp \
-    questionwindow.cpp \
+    helpwindow.cpp \
     identifychemicals.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -121,8 +120,7 @@ HEADERS += \
     chemical.h \
     chemicalequations.h \
     chemistrylogicmodel.h \
-    level.h \
-    questionwindow.h \
+    helpwindow.h \
     identifychemicals.h \
     mainwindow.h \
     mysterycombopair.h \
@@ -133,9 +131,8 @@ HEADERS += \
     reactions.h
 
 FORMS += \
-    level.ui \
-    questionwindow.ui \
     chemicalequations.ui \
+    helpwindow.ui \
     identifychemicals.ui \
     mainwindow.ui \
     mysterycombopair.ui \

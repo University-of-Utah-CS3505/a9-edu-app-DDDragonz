@@ -22,6 +22,13 @@ public:
 
 private:
     Ui::IdentifyChemicals *ui;
+
+signals:
+    void submitToNextLevel();
+
+public slots:
+    void submitClick();
+
 };
 
 #endif // IDENTIFYCHEMICALS_H

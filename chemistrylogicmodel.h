@@ -2,36 +2,39 @@
 #define CHEMISTRYLOGICMODEL_H
 
 #include "chemical.h"
+#include "reactions.h"
 #include <QMap>
 #include <QVector>
 #include <QPair>
 #include <QObject>
+#include <QColor>
 
 class ChemistryLogicModel : public QObject
 {
     Q_OBJECT
 public:
     explicit ChemistryLogicModel(QObject *parent = nullptr);
-
-    void addReactionRule(QList<QString> reactants, QList<QString> products);
     int getLevel();
-    QString getCommonName(QString formula);
-    QString getSystematicName(QString formula);
-    int getPH(QString formula);
-    QString getNote(QString formula);
     void gameModel();
-    QVector<QString> simulateReaction(QString reactant1, QString reactant2);
+    Reactions getAllReaction();
+    QVector<QString> getAllChemicals();
+    std::vector<QString> getAllReactants();
 
 private:
     QMap<QString, Chemical> m_chemicals;
     int m_level;
+    Reactions m_reactions;
+    std::vector<QString> m_reactants;
 
     void levelOneSetUp();
-    void addAllReactionRule(QVector<QPair<QVector<QString>,QVector<QString>>> reactions);
+    void levelTwoSetUp();
+    void levelThreeSetUp();
+    void levelFourSetUp();
 
 signals:
     void sendChemical(Chemical& chemical);
     void sendProducts(QVector<Chemical> products);
+    void sendAllReactionsFormula(QString reactions);
     void sendLevel(int level);
 
 public slots:
