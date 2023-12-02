@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include "reactions.h"
 
 #include <QApplication>
 
@@ -9,10 +10,10 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
 
     QString chemicalsOrdered[] {"FeCl3", "NaCO3", "HCl"};
-    vector<QString> chemicals;
+    vector<QString> chemicalNames;
     for(int i = 0; i < 3; i++)
     {
-        chemicals.push_back(chemicalsOrdered[i]);
+        chemicalNames.push_back(chemicalsOrdered[i]);
     }
 
     vector<QString> equations;
@@ -20,7 +21,10 @@ int main(int argc, char *argv[])
     equations.push_back("Na<sub>2</sub>CO<sub>3</sub>(aq) + HCl(aq) -> NaCl(aq) + H<sub>2</sub>O + CO<sub>2</sub>(g)");
     equations.push_back("FeCl<sub>3</sub>(aq) + HCl(aq) -> FeCl<sub>3</sub>(aq) + HCl(aq)");
 
-    MainWindow w(chemicals, equations);
+    Reactions reactions;
+    reactions.addLevels();
+
+    MainWindow w(chemicalNames, equations);
     w.show();
     return a.exec();
 }

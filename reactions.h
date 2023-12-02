@@ -12,10 +12,15 @@ class Reactions
 public:
     Reactions();
     Reaction getReaction(Chemical reactantA, Chemical reactantB);
-    void addReaction(Chemical reactantA, Chemical reactantB, vector<Chemical> products);
+    void addLevels();
 
 private:
     map<vector<QString>, vector<Chemical>> m_reactions;
+    void addReaction(Chemical reactantA, Chemical reactantB, vector<Chemical> products);
+    void addLevelOne();
+    void addLevelTwo();
+    void addLevelThree();
+    void addLevelFour();
 };
 
 #endif // REACTIONS_H
