@@ -19,6 +19,7 @@ MainWindow::MainWindow(ChemistryLogicModel& logicModel, QWidget *parent)
     connect(ui->pushButton, &QPushButton::clicked, this, &MainWindow::helpClicked);
     connect(&logicModel, &ChemistryLogicModel::sendAllReactionsFormula, ui->significantReactionsWidget, &ChemicalEquations::receiveFormula);
     connect(&logicModel, &ChemistryLogicModel::sendAllReactants, ui->possibleElementsWidget, &IdentifyChemicals::addElements);
+    connect(&logicModel, &ChemistryLogicModel::sendReactant, ui->possibleElementsWidget, &IdentifyChemicals::addElement);
     connect(ui->pushButton, &QPushButton::clicked, this, &MainWindow::showHelp);
 
     logicModel.levelUp();
