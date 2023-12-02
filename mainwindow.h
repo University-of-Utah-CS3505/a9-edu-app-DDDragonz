@@ -27,5 +27,6 @@ private slots:
     void updateLevelLabel(int level);
     void showHelp();
     void showObservationTable();
+    void wrongAnswerReminder();
 };
 #endif // MAINWINDOW_H

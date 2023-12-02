@@ -5,6 +5,7 @@
 #include "helpwindow.h"
 #include "observationtable.h"
 #include <QString>
+#include <QMessageBox>
 
 using std::vector;
 
@@ -26,8 +27,9 @@ MainWindow::MainWindow(ChemistryLogicModel& logicModel, QWidget *parent)
     connect(ui->pushButton, &QPushButton::clicked, this, &MainWindow::showHelp);
     connect(ui->viewTableButton, &QPushButton::clicked, this, &MainWindow::showObservationTable);
     connect(&logicModel, &ChemistryLogicModel::sendLevel, observationTable, &ObservationTable::levelUp);
+    connect(&logicModel, &ChemistryLogicModel::levelKeep, this, &MainWindow::wrongAnswerReminder);
 
-    logicModel.levelUp();
+    logicModel.levelUp(vector<QString>());
 }
 
 void MainWindow::updateLevelLabel(int level)
@@ -45,6 +47,11 @@ void MainWindow::showHelp()
 {
     HelpWindow* help = new HelpWindow();
     help->show();
+}
+
+void MainWindow::wrongAnswerReminder()
+{
+    QMessageBox::information(this, "Wrong Answer", "At least one of the answer is false, please try again.", "OK");
 }
 
 void MainWindow::showObservationTable()

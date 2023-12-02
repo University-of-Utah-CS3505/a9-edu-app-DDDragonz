@@ -3,7 +3,8 @@
 
 MysteryComboPair::MysteryComboPair(QString mystery, vector<QString> chemicals, QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::MysteryComboPair)
+    ui(new Ui::MysteryComboPair),
+    index(0)
 {
     ui->setupUi(this);
     ui->label->setText(mystery);
@@ -11,6 +12,8 @@ MysteryComboPair::MysteryComboPair(QString mystery, vector<QString> chemicals, Q
     {
         ui->comboBox->addItem(chemicals.at(i));
     }
+
+    connect(ui->comboBox, &QComboBox::currentTextChanged, this, &MysteryComboPair::comboChange);
 }
 
 MysteryComboPair::MysteryComboPair(QWidget *parent) :
@@ -20,9 +23,15 @@ MysteryComboPair::MysteryComboPair(QWidget *parent) :
     ui->setupUi(this);
 }
 
-void MysteryComboPair::addComboItem(QString name)
+void MysteryComboPair::addComboItem(QString name, int index)
 {
     ui->comboBox->addItem(name);
+    this->index = index;
+}
+
+void MysteryComboPair::comboChange(QString chemical)
+{
+    emit choiceChange(chemical, index);
 }
 
 MysteryComboPair::~MysteryComboPair()

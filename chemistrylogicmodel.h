@@ -41,11 +41,12 @@ signals:
     void sendAllReactants(std::vector<QString> reactants);
     void sendReactant(QString reactant);
     void addReactants(int number);
+    void levelKeep();
 
 public slots:
     void chemicalSelected(QString formula);
     void chemicalsMixed(QString formula1, QString formula2);
-    void levelUp();
+    void levelUp(vector<QString> choices);
 };
 
 #endif // CHEMISTRYLOGICMODEL_H

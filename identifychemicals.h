@@ -25,14 +25,16 @@ private:
     vector<MysteryComboPair*> m_comboPairs;
     vector<QString> m_prevChemicals;
     int m_numberOfSubstances;
+    vector<QString> m_choices;
 
 signals:
-    void submitToNextLevel();
+    void submitToNextLevel(vector<QString> choices);
 
 public slots:
     void submitClick();
     void addElements(vector<QString> chemicals);
     void addElement(QString chemical);
+    void choiceChange(QString chemical, int index);
 };
 
 #endif // IDENTIFYCHEMICALS_H
