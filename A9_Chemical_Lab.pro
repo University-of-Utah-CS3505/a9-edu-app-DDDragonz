@@ -57,7 +57,9 @@ SOURCES += \
     Box2D/Rope/b2Rope.cpp \
     contactlistener.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    mixinglogic.cpp \
+    mixingmodel.cpp
 
 HEADERS += \
     Box2D/Box2D.h \
@@ -108,10 +110,13 @@ HEADERS += \
     Box2D/Dynamics/b2WorldCallbacks.h \
     Box2D/Rope/b2Rope.h \
     contactlistener.h \
-    mainwindow.h
+    mainwindow.h \
+    mixinglogic.h \
+    mixingmodel.h
 
 FORMS += \
-    mainwindow.ui
+    mainwindow.ui \
+    mixingmodel.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
