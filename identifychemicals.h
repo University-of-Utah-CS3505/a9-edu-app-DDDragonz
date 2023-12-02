@@ -21,6 +21,8 @@ public:
 
 private:
     Ui::IdentifyChemicals *ui;
+    vector<MysteryComboPair*> m_comboPairs;
+    vector<QString> m_prevChemicals;
 
 signals:
     void submitToNextLevel();
@@ -28,7 +30,7 @@ signals:
 public slots:
     void submitClick();
     void addElements(vector<QString> chemicals);
-
+    void addElement(int number, QString chemical);
 };
 
 #endif // IDENTIFYCHEMICALS_H

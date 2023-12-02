@@ -15,7 +15,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow(ChemistryLogicModel& logicModel, QWidget *parent = nullptr);// vector<QString> chemicals, QWidget *parent = nullptr)// vector<QString> equations, QWidget *parent = nullptr);
+    MainWindow(ChemistryLogicModel& logicModel, QWidget *parent = nullptr);
     ~MainWindow();
 
 private:
@@ -24,5 +24,6 @@ private:
 private slots:
     void updateLevelLabel(int level);
     void helpClicked();
+    void showHelp();
 };
 #endif // MAINWINDOW_H

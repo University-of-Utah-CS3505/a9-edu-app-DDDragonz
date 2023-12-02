@@ -7,15 +7,11 @@
 
 using std::vector;
 
-MainWindow::MainWindow(ChemistryLogicModel& logicModel, QWidget *parent)// vector<QString> chemicals, QWidget *parent)// vector<QString> equations, QWidget *parent)
+MainWindow::MainWindow(ChemistryLogicModel& logicModel, QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    //ui->possibleElementsWidget->addElements(chemicals);
-    //ui->possibleElementsWidget->addElements(logicModel.getAllReactants());
-    //ui->significantReactionsWidget->addEquations(equations);
-    //ui->vialButtonsWidget->addMysterySubstances(chemicals.size());
     ui->vialButtonsWidget->addMysterySubstances(logicModel.getAllReactants().size());
 
     int level = logicModel.getLevel();
@@ -28,6 +24,7 @@ MainWindow::MainWindow(ChemistryLogicModel& logicModel, QWidget *parent)// vecto
     connect(ui->pushButton, &QPushButton::clicked, this, &MainWindow::helpClicked);
     connect(&logicModel, &ChemistryLogicModel::sendAllReactionsFormula, ui->significantReactionsWidget, &ChemicalEquations::receiveFormula);
     connect(&logicModel, &ChemistryLogicModel::sendAllReactants, ui->possibleElementsWidget, &IdentifyChemicals::addElements);
+    connect(ui->pushButton, &QPushButton::clicked, this, &MainWindow::showHelp);
 
 }
 
@@ -46,4 +43,10 @@ void MainWindow::helpClicked()
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::showHelp()
+{
+    HelpWindow* help = new HelpWindow();
+    help->show();
 }

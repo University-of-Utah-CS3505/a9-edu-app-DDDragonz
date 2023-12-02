@@ -40,3 +40,46 @@ QString Reactions::getAllReactions() const
     }
     return allReactions;
 }
+
+void Reactions::addLevelOne()
+{
+    vector<Chemical> products;
+    products.push_back(Chemical("FeO", State::solid, QColor(92, 64, 51)));
+    products.push_back(Chemical("CO2", State::gas, QColor()));
+    products.push_back(Chemical("NaCl", State::liquid, QColor()));
+    addReaction(Chemical("FeCl3", State::liquid, QColor()), Chemical("NaCO3", State::liquid, QColor()), products);
+
+    products.clear();
+    products.push_back(Chemical("H2O", State::liquid, QColor(92, 64, 51)));
+    products.push_back(Chemical("CO2", State::gas, QColor()));
+    products.push_back(Chemical("NaCl", State::liquid, QColor()));
+    addReaction(Chemical("HCl", State::liquid, QColor()), Chemical("NaCO3", State::liquid, QColor()), products);
+
+    products.clear();
+    products.push_back(Chemical("FeCl3", State::liquid, QColor(92, 64, 51)));
+    products.push_back(Chemical("HCl", State::liquid, QColor()));
+    addReaction(Chemical("FeCl3", State::liquid, QColor()), Chemical("HCl", State::liquid, QColor()), products);
+}
+
+void Reactions::addLevels()
+{
+    addLevelOne();
+    addLevelTwo();
+    addLevelThree();
+    addLevelFour();
+}
+
+void Reactions::addLevelTwo()
+{
+
+}
+
+void Reactions::addLevelThree()
+{
+
+}
+
+void Reactions::addLevelFour()
+{
+
+}

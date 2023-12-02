@@ -18,9 +18,11 @@ MysteryComboPair::MysteryComboPair(QWidget *parent) :
     ui(new Ui::MysteryComboPair)
 {
     ui->setupUi(this);
-    ui->label->setText("FeCl<sub>3</sub>");
-    ui->comboBox->addItem("NaOh");
-    ui->comboBox->addItem("FeCl<sub>3</sub>");
+}
+
+void MysteryComboPair::addComboItem(QString name)
+{
+    ui->comboBox->addItem(name);
 }
 
 MysteryComboPair::~MysteryComboPair()
