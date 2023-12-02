@@ -22,6 +22,7 @@ private:
     map<vector<QString>, vector<Chemical>> m_reactions;
     void addReaction(Chemical reactantA, Chemical reactantB, vector<Chemical> products);
     QString getStateString(State state) const;
+    QString getColorString(QColor color) const;
 };
 
 #endif // REACTIONS_H

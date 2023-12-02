@@ -31,12 +31,17 @@ void MysterySubstances::addMysterySubstances(int number)
 {
     for(int i = 0; i < number; i++)
     {
-        addMysterySubstance(i);
+        addMysterySubstance(m_numberOfSubstances++);
     }
 }
 
 void MysterySubstances::addMysterySubstance(int number)
 {
+    if(m_numberOfSubstances > 6)
+    {
+        return;
+    }
+
     MysterySubstanceButtonCombo* toAdd = new MysterySubstanceButtonCombo(number);
     ui->layout->addWidget(toAdd);
 

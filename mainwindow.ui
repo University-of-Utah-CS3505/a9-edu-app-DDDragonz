@@ -73,7 +73,7 @@
        <item>
         <widget class="QLabel" name="gameNameLabel">
          <property name="text">
-          <string>Identify Mystery Substances Lab</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;Identify Mystery Substances Lab&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -127,7 +127,7 @@
       </property>
       <property name="maximumSize">
        <size>
-        <width>200</width>
+        <width>220</width>
         <height>50</height>
        </size>
       </property>
@@ -152,13 +152,13 @@
      <widget class="QFrame" name="reactionIdentifiersFrame">
       <property name="minimumSize">
        <size>
-        <width>150</width>
+        <width>170</width>
         <height>0</height>
        </size>
       </property>
       <property name="maximumSize">
        <size>
-        <width>150</width>
+        <width>170</width>
         <height>16777215</height>
        </size>
       </property>
@@ -291,7 +291,7 @@ Table</string>
      <x>0</x>
      <y>0</y>
      <width>926</width>
-     <height>22</height>
+     <height>24</height>
     </rect>
    </property>
   </widget>

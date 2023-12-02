@@ -20,6 +20,7 @@ private:
     Ui::MysterySubstances *ui;
     int m_numberSelected;
     void updateMixButton();
+    int m_numberOfSubstances;
 
 public slots:
     void buttonSelected();
