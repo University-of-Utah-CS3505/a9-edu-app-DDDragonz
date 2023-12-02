@@ -23,7 +23,6 @@ private:
 
 private slots:
     void updateLevelLabel(int level);
-    void helpClicked();
     void showHelp();
 };
 #endif // MAINWINDOW_H

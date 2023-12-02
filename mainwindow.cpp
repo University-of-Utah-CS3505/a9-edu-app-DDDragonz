@@ -16,7 +16,6 @@ MainWindow::MainWindow(ChemistryLogicModel& logicModel, QWidget *parent)
 
     connect(ui->possibleElementsWidget, &IdentifyChemicals::submitToNextLevel, &logicModel, &ChemistryLogicModel::levelUp);
     connect(&logicModel, &ChemistryLogicModel::sendLevel, this, &MainWindow::updateLevelLabel);
-    connect(ui->pushButton, &QPushButton::clicked, this, &MainWindow::helpClicked);
     connect(&logicModel, &ChemistryLogicModel::sendAllReactionsFormula, ui->significantReactionsWidget, &ChemicalEquations::receiveFormula);
     connect(&logicModel, &ChemistryLogicModel::sendAllReactants, ui->possibleElementsWidget, &IdentifyChemicals::addElements);
     connect(&logicModel, &ChemistryLogicModel::sendReactant, ui->possibleElementsWidget, &IdentifyChemicals::addElement);
@@ -30,12 +29,6 @@ void MainWindow::updateLevelLabel(int level)
 {
     QString levelText = "Level " + QString::number(level);
     ui->levelLabel->setText(levelText);
-}
-
-void MainWindow::helpClicked()
-{
-    HelpWindow* help = new HelpWindow();
-    help->show();
 }
 
 MainWindow::~MainWindow()
