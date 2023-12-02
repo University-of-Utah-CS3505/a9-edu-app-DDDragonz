@@ -37,6 +37,11 @@ void MysterySubstances::addMysterySubstances(int number)
 
 void MysterySubstances::addMysterySubstance(int number)
 {
+    if(m_numberOfSubstances > 6)
+    {
+        return;
+    }
+
     MysterySubstanceButtonCombo* toAdd = new MysterySubstanceButtonCombo(number);
     ui->layout->addWidget(toAdd);
 

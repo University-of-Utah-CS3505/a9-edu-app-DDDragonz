@@ -37,7 +37,7 @@ signals:
     void sendAllReactionsFormula(QString reactions);
     void sendLevel(int level);
     void sendAllReactants(std::vector<QString> reactants);
-    void sendReactant(int number, QString reactant);
+    void sendReactant(QString reactant);
     void addReactants(int number);
 
 public slots:

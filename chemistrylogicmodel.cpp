@@ -82,7 +82,7 @@ void ChemistryLogicModel::levelTwoSetUp()
 
     m_reactants.push_back("NaOH");
     emit sendAllReactionsFormula(m_reactions.getAllReactions());
-    emit sendReactant(3, "NaOH");
+    emit sendReactant("NaOH");
     emit addReactants(1);
 }
 
@@ -105,7 +105,7 @@ void ChemistryLogicModel::levelThreeSetUp()
 
     m_reactants.push_back("AgNO3");
     emit sendAllReactionsFormula(m_reactions.getAllReactions());
-    emit sendReactant(4, "AgNO3");
+    emit sendReactant("AgNO3");
     emit addReactants(1);
 }
 
@@ -120,7 +120,7 @@ void ChemistryLogicModel::levelFourSetUp()
 
     m_reactants.push_back("Na3PO4");
     emit sendAllReactionsFormula(m_reactions.getAllReactions());
-    emit sendReactant(5, "Na3PO4");
+    emit sendReactant("Na3PO4");
     emit addReactants(1);
 }
 

@@ -11,13 +11,14 @@ IdentifyChemicals::IdentifyChemicals(QWidget *parent) :
 {
     ui->setupUi(this);
     connect(ui->pushButton, &QPushButton::clicked, this, &IdentifyChemicals::submitClick);
+    m_numberOfSubstances = 0;
 }
 
 void IdentifyChemicals::addElements(vector<QString> chemicals)
 {
     for(int i = 0; i < (int)chemicals.size(); i++)
     {
-       addElement(i, chemicals.at(i));
+       addElement(chemicals.at(i));
     }
 }
 
@@ -27,9 +28,14 @@ void IdentifyChemicals::submitClick()
     emit submitToNextLevel();
 }
 
-void IdentifyChemicals::addElement(int number, QString chemical)
+void IdentifyChemicals::addElement(QString chemical)
 {
-    char numberCharacter = 'A' + number;
+    if(m_numberOfSubstances >= 6)
+    {
+       return;
+    }
+
+    char numberCharacter = 'A' + m_numberOfSubstances;
     string name = "Substance ";
     name += numberCharacter;
     m_prevChemicals.push_back(chemical);
@@ -41,6 +47,7 @@ void IdentifyChemicals::addElement(int number, QString chemical)
         m_comboPairs.at(i)->addComboItem(chemical);
     }
     m_comboPairs.push_back(toAdd);
+    m_numberOfSubstances++;
 }
 
 IdentifyChemicals::~IdentifyChemicals()
