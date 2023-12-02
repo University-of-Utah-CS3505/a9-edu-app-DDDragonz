@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "contactlistener.h"
 #include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent)
@@ -23,6 +24,8 @@ MainWindow::MainWindow(QWidget *parent)
             &QPushButton::clicked,
             this,
             &MainWindow::resetScene);
+
+    world->SetContactListener(&contact);
 
     createScene();
 }
@@ -92,7 +95,7 @@ void MainWindow::mouseMoveEvent(QMouseEvent *event)
 void MainWindow::createVial()
 {
     b2BodyDef bodyDef;
-    bodyDef.type = b2_dynamicBody;
+    bodyDef.type = b2_kinematicBody;
     //bodyDef.fixedRotation = true;
     bodyDef.bullet = true;
     bodyDef.position.Set(windowWidth  / 4 / SCALE, windowHeight / 3 / SCALE);
@@ -182,10 +185,10 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
     switch(event->key())
     {
     case Qt::Key_Q:
-        vial->ApplyAngularImpulse(5.0f, true);
+        vial->SetAngularVelocity(-1);
         break;
     case Qt::Key_E:
-        vial->ApplyAngularImpulse(-5.0f, true);
+        vial->SetAngularVelocity(1);
         break;
     case Qt::Key_W:
         vial->ApplyLinearImpulse(b2Vec2(0.0f, 10.0f), vial->GetWorldCenter(), true);
@@ -211,10 +214,11 @@ void MainWindow::createScene()
 {
     SpawnBox();
     createVial();
-    for (int i = 0; i < 200; i++)
+    for (int i = 0; i < 2; i++)
     {
         SpawnCircle();
     }
+
     createBorder();
     update();
     timer->start(1000 / 60);
@@ -289,6 +293,7 @@ void MainWindow::Update()
     vial->ApplyForceToCenter(b2Vec2(0.0f, 14.0f), true);
     world->Step(timeStep, velocityIterations, positionIterations);
     update();
+    vial->SetLinearVelocity(b2Vec2(0,0));
 }
 
 MainWindow::~MainWindow()

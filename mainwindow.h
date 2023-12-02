@@ -1,6 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "contactlistener.h"
 #include <QMainWindow>
 #include <Box2D/Box2D.h>
 #include <QTimer>
@@ -49,6 +50,8 @@ private:
     b2World *world;
     QTimer *timer;
     b2Body* vial;
+
+    myContactListener contact;
 
     const float SCALE = 32.0f;
     float windowWidth;
