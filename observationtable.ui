@@ -16,10 +16,10 @@
   <widget class="QTableWidget" name="levelOneTable">
    <property name="geometry">
     <rect>
-     <x>70</x>
-     <y>40</y>
-     <width>231</width>
-     <height>121</height>
+     <x>170</x>
+     <y>110</y>
+     <width>221</width>
+     <height>91</height>
     </rect>
    </property>
    <row>
@@ -30,11 +30,6 @@
    <row>
     <property name="text">
      <string>B</string>
-    </property>
-   </row>
-   <row>
-    <property name="text">
-     <string>C</string>
     </property>
    </row>
    <column>
@@ -48,6 +43,9 @@
     </property>
    </column>
    <item row="0" column="0">
+    <property name="text">
+     <string/>
+    </property>
     <property name="textAlignment">
      <set>AlignCenter</set>
     </property>
@@ -65,6 +63,9 @@
     </property>
    </item>
    <item row="0" column="1">
+    <property name="text">
+     <string/>
+    </property>
     <property name="textAlignment">
      <set>AlignCenter</set>
     </property>
@@ -82,6 +83,9 @@
     </property>
    </item>
    <item row="1" column="0">
+    <property name="text">
+     <string/>
+    </property>
     <property name="textAlignment">
      <set>AlignCenter</set>
     </property>
@@ -99,11 +103,14 @@
     </property>
    </item>
    <item row="1" column="1">
+    <property name="text">
+     <string/>
+    </property>
     <property name="textAlignment">
      <set>AlignCenter</set>
     </property>
     <property name="background">
-     <brush brushstyle="SolidPattern">
+     <brush brushstyle="NoBrush">
       <color alpha="255">
        <red>255</red>
        <green>255</green>
@@ -111,37 +118,6 @@
       </color>
      </brush>
     </property>
-    <property name="flags">
-     <set>ItemIsEnabled</set>
-    </property>
-   </item>
-   <item row="2" column="0">
-    <property name="textAlignment">
-     <set>AlignCenter</set>
-    </property>
-    <property name="background">
-     <brush brushstyle="SolidPattern">
-      <color alpha="255">
-       <red>255</red>
-       <green>255</green>
-       <blue>255</blue>
-      </color>
-     </brush>
-    </property>
-    <property name="foreground">
-     <brush brushstyle="SolidPattern">
-      <color alpha="255">
-       <red>255</red>
-       <green>255</green>
-       <blue>255</blue>
-      </color>
-     </brush>
-    </property>
-    <property name="flags">
-     <set>ItemIsEnabled</set>
-    </property>
-   </item>
-   <item row="2" column="1">
     <property name="flags">
      <set>NoItemFlags</set>
     </property>
@@ -150,10 +126,10 @@
   <widget class="QTableWidget" name="levelTwoTable">
    <property name="geometry">
     <rect>
-     <x>0</x>
-     <y>20</y>
+     <x>120</x>
+     <y>90</y>
      <width>321</width>
-     <height>151</height>
+     <height>121</height>
     </rect>
    </property>
    <row>
@@ -169,11 +145,6 @@
    <row>
     <property name="text">
      <string>C</string>
-    </property>
-   </row>
-   <row>
-    <property name="text">
-     <string>D</string>
     </property>
    </row>
    <column>
@@ -308,7 +279,7 @@
      <set>AlignCenter</set>
     </property>
     <property name="background">
-     <brush brushstyle="SolidPattern">
+     <brush brushstyle="NoBrush">
       <color alpha="255">
        <red>255</red>
        <green>255</green>
@@ -317,7 +288,7 @@
      </brush>
     </property>
     <property name="flags">
-     <set>ItemIsEnabled</set>
+     <set>NoItemFlags</set>
     </property>
    </item>
    <item row="2" column="0">
@@ -348,7 +319,7 @@
      <set>AlignCenter</set>
     </property>
     <property name="background">
-     <brush brushstyle="SolidPattern">
+     <brush brushstyle="NoBrush">
       <color alpha="255">
        <red>255</red>
        <green>255</green>
@@ -357,43 +328,13 @@
      </brush>
     </property>
     <property name="flags">
-     <set>ItemIsEnabled</set>
+     <set>NoItemFlags</set>
     </property>
    </item>
    <item row="2" column="2">
-    <property name="flags">
-     <set>NoItemFlags</set>
-    </property>
-   </item>
-   <item row="3" column="0">
     <property name="text">
      <string/>
     </property>
-    <property name="textAlignment">
-     <set>AlignCenter</set>
-    </property>
-    <property name="background">
-     <brush brushstyle="SolidPattern">
-      <color alpha="255">
-       <red>255</red>
-       <green>255</green>
-       <blue>255</blue>
-      </color>
-     </brush>
-    </property>
-    <property name="flags">
-     <set>ItemIsEnabled</set>
-    </property>
-   </item>
-   <item row="3" column="1">
-    <property name="text">
-     <string/>
-    </property>
-    <property name="flags">
-     <set>NoItemFlags</set>
-    </property>
-   </item>
-   <item row="3" column="2">
     <property name="flags">
      <set>NoItemFlags</set>
     </property>
@@ -402,10 +343,10 @@
   <widget class="QTableWidget" name="levelThreeTable">
    <property name="geometry">
     <rect>
-     <x>0</x>
-     <y>20</y>
+     <x>70</x>
+     <y>80</y>
      <width>421</width>
-     <height>171</height>
+     <height>151</height>
     </rect>
    </property>
    <row>
@@ -426,11 +367,6 @@
    <row>
     <property name="text">
      <string>D</string>
-    </property>
-   </row>
-   <row>
-    <property name="text">
-     <string>E</string>
     </property>
    </row>
    <column>
@@ -454,6 +390,9 @@
     </property>
    </column>
    <item row="0" column="0">
+    <property name="text">
+     <string/>
+    </property>
     <property name="textAlignment">
      <set>AlignCenter</set>
     </property>
@@ -471,6 +410,9 @@
     </property>
    </item>
    <item row="0" column="1">
+    <property name="text">
+     <string/>
+    </property>
     <property name="textAlignment">
      <set>AlignCenter</set>
     </property>
@@ -488,6 +430,9 @@
     </property>
    </item>
    <item row="0" column="2">
+    <property name="text">
+     <string/>
+    </property>
     <property name="textAlignment">
      <set>AlignCenter</set>
     </property>
@@ -505,6 +450,9 @@
     </property>
    </item>
    <item row="0" column="3">
+    <property name="text">
+     <string/>
+    </property>
     <property name="textAlignment">
      <set>AlignCenter</set>
     </property>
@@ -522,6 +470,9 @@
     </property>
    </item>
    <item row="1" column="0">
+    <property name="text">
+     <string/>
+    </property>
     <property name="textAlignment">
      <set>AlignCenter</set>
     </property>
@@ -539,6 +490,9 @@
     </property>
    </item>
    <item row="1" column="1">
+    <property name="text">
+     <string/>
+    </property>
     <property name="textAlignment">
      <set>AlignCenter</set>
     </property>
@@ -556,6 +510,9 @@
     </property>
    </item>
    <item row="1" column="2">
+    <property name="text">
+     <string/>
+    </property>
     <property name="textAlignment">
      <set>AlignCenter</set>
     </property>
@@ -573,11 +530,14 @@
     </property>
    </item>
    <item row="1" column="3">
+    <property name="text">
+     <string/>
+    </property>
     <property name="textAlignment">
      <set>AlignCenter</set>
     </property>
     <property name="background">
-     <brush brushstyle="SolidPattern">
+     <brush brushstyle="NoBrush">
       <color alpha="255">
        <red>255</red>
        <green>255</green>
@@ -586,10 +546,13 @@
      </brush>
     </property>
     <property name="flags">
-     <set>ItemIsEnabled</set>
+     <set>NoItemFlags</set>
     </property>
    </item>
    <item row="2" column="0">
+    <property name="text">
+     <string/>
+    </property>
     <property name="textAlignment">
      <set>AlignCenter</set>
     </property>
@@ -607,6 +570,9 @@
     </property>
    </item>
    <item row="2" column="1">
+    <property name="text">
+     <string/>
+    </property>
     <property name="textAlignment">
      <set>AlignCenter</set>
     </property>
@@ -624,11 +590,14 @@
     </property>
    </item>
    <item row="2" column="2">
+    <property name="text">
+     <string/>
+    </property>
     <property name="textAlignment">
      <set>AlignCenter</set>
     </property>
     <property name="background">
-     <brush brushstyle="SolidPattern">
+     <brush brushstyle="NoBrush">
       <color alpha="255">
        <red>255</red>
        <green>255</green>
@@ -637,15 +606,21 @@
      </brush>
     </property>
     <property name="flags">
-     <set>ItemIsEnabled</set>
+     <set>NoItemFlags</set>
     </property>
    </item>
    <item row="2" column="3">
+    <property name="text">
+     <string/>
+    </property>
     <property name="flags">
      <set>NoItemFlags</set>
     </property>
    </item>
    <item row="3" column="0">
+    <property name="text">
+     <string/>
+    </property>
     <property name="textAlignment">
      <set>AlignCenter</set>
     </property>
@@ -663,11 +638,14 @@
     </property>
    </item>
    <item row="3" column="1">
+    <property name="text">
+     <string/>
+    </property>
     <property name="textAlignment">
      <set>AlignCenter</set>
     </property>
     <property name="background">
-     <brush brushstyle="SolidPattern">
+     <brush brushstyle="NoBrush">
       <color alpha="255">
        <red>255</red>
        <green>255</green>
@@ -676,47 +654,21 @@
      </brush>
     </property>
     <property name="flags">
-     <set>ItemIsEnabled</set>
+     <set>NoItemFlags</set>
     </property>
    </item>
    <item row="3" column="2">
+    <property name="text">
+     <string/>
+    </property>
     <property name="flags">
      <set>NoItemFlags</set>
     </property>
    </item>
    <item row="3" column="3">
-    <property name="flags">
-     <set>NoItemFlags</set>
+    <property name="text">
+     <string/>
     </property>
-   </item>
-   <item row="4" column="0">
-    <property name="textAlignment">
-     <set>AlignCenter</set>
-    </property>
-    <property name="background">
-     <brush brushstyle="SolidPattern">
-      <color alpha="255">
-       <red>255</red>
-       <green>255</green>
-       <blue>255</blue>
-      </color>
-     </brush>
-    </property>
-    <property name="flags">
-     <set>ItemIsEnabled</set>
-    </property>
-   </item>
-   <item row="4" column="1">
-    <property name="flags">
-     <set>NoItemFlags</set>
-    </property>
-   </item>
-   <item row="4" column="2">
-    <property name="flags">
-     <set>NoItemFlags</set>
-    </property>
-   </item>
-   <item row="4" column="3">
     <property name="flags">
      <set>NoItemFlags</set>
     </property>
@@ -725,10 +677,10 @@
   <widget class="QTableWidget" name="levelFourTable">
    <property name="geometry">
     <rect>
-     <x>0</x>
-     <y>20</y>
+     <x>30</x>
+     <y>70</y>
      <width>531</width>
-     <height>211</height>
+     <height>181</height>
     </rect>
    </property>
    <row>
@@ -754,11 +706,6 @@
    <row>
     <property name="text">
      <string>E</string>
-    </property>
-   </row>
-   <row>
-    <property name="text">
-     <string>F</string>
     </property>
    </row>
    <column>
@@ -787,6 +734,9 @@
     </property>
    </column>
    <item row="0" column="0">
+    <property name="text">
+     <string/>
+    </property>
     <property name="textAlignment">
      <set>AlignCenter</set>
     </property>
@@ -804,6 +754,9 @@
     </property>
    </item>
    <item row="0" column="1">
+    <property name="text">
+     <string/>
+    </property>
     <property name="textAlignment">
      <set>AlignCenter</set>
     </property>
@@ -821,6 +774,9 @@
     </property>
    </item>
    <item row="0" column="2">
+    <property name="text">
+     <string/>
+    </property>
     <property name="textAlignment">
      <set>AlignCenter</set>
     </property>
@@ -838,6 +794,9 @@
     </property>
    </item>
    <item row="0" column="3">
+    <property name="text">
+     <string/>
+    </property>
     <property name="textAlignment">
      <set>AlignCenter</set>
     </property>
@@ -855,6 +814,9 @@
     </property>
    </item>
    <item row="0" column="4">
+    <property name="text">
+     <string/>
+    </property>
     <property name="textAlignment">
      <set>AlignCenter</set>
     </property>
@@ -872,6 +834,9 @@
     </property>
    </item>
    <item row="1" column="0">
+    <property name="text">
+     <string/>
+    </property>
     <property name="textAlignment">
      <set>AlignCenter</set>
     </property>
@@ -889,6 +854,9 @@
     </property>
    </item>
    <item row="1" column="1">
+    <property name="text">
+     <string/>
+    </property>
     <property name="textAlignment">
      <set>AlignCenter</set>
     </property>
@@ -906,6 +874,9 @@
     </property>
    </item>
    <item row="1" column="2">
+    <property name="text">
+     <string/>
+    </property>
     <property name="textAlignment">
      <set>AlignCenter</set>
     </property>
@@ -923,6 +894,9 @@
     </property>
    </item>
    <item row="1" column="3">
+    <property name="text">
+     <string/>
+    </property>
     <property name="textAlignment">
      <set>AlignCenter</set>
     </property>
@@ -940,11 +914,14 @@
     </property>
    </item>
    <item row="1" column="4">
+    <property name="text">
+     <string/>
+    </property>
     <property name="textAlignment">
      <set>AlignCenter</set>
     </property>
     <property name="background">
-     <brush brushstyle="SolidPattern">
+     <brush brushstyle="NoBrush">
       <color alpha="255">
        <red>255</red>
        <green>255</green>
@@ -953,10 +930,13 @@
      </brush>
     </property>
     <property name="flags">
-     <set>ItemIsEnabled</set>
+     <set>NoItemFlags</set>
     </property>
    </item>
    <item row="2" column="0">
+    <property name="text">
+     <string/>
+    </property>
     <property name="textAlignment">
      <set>AlignCenter</set>
     </property>
@@ -974,6 +954,9 @@
     </property>
    </item>
    <item row="2" column="1">
+    <property name="text">
+     <string/>
+    </property>
     <property name="textAlignment">
      <set>AlignCenter</set>
     </property>
@@ -991,6 +974,9 @@
     </property>
    </item>
    <item row="2" column="2">
+    <property name="text">
+     <string/>
+    </property>
     <property name="textAlignment">
      <set>AlignCenter</set>
     </property>
@@ -1008,11 +994,14 @@
     </property>
    </item>
    <item row="2" column="3">
+    <property name="text">
+     <string/>
+    </property>
     <property name="textAlignment">
      <set>AlignCenter</set>
     </property>
     <property name="background">
-     <brush brushstyle="SolidPattern">
+     <brush brushstyle="NoBrush">
       <color alpha="255">
        <red>255</red>
        <green>255</green>
@@ -1021,10 +1010,13 @@
      </brush>
     </property>
     <property name="flags">
-     <set>ItemIsEnabled</set>
+     <set>NoItemFlags</set>
     </property>
    </item>
    <item row="3" column="0">
+    <property name="text">
+     <string/>
+    </property>
     <property name="textAlignment">
      <set>AlignCenter</set>
     </property>
@@ -1042,6 +1034,9 @@
     </property>
    </item>
    <item row="3" column="1">
+    <property name="text">
+     <string/>
+    </property>
     <property name="textAlignment">
      <set>AlignCenter</set>
     </property>
@@ -1059,11 +1054,14 @@
     </property>
    </item>
    <item row="3" column="2">
+    <property name="text">
+     <string/>
+    </property>
     <property name="textAlignment">
      <set>AlignCenter</set>
     </property>
     <property name="background">
-     <brush brushstyle="SolidPattern">
+     <brush brushstyle="NoBrush">
       <color alpha="255">
        <red>255</red>
        <green>255</green>
@@ -1072,15 +1070,21 @@
      </brush>
     </property>
     <property name="flags">
-     <set>ItemIsEnabled</set>
+     <set>NoItemFlags</set>
     </property>
    </item>
    <item row="3" column="3">
+    <property name="text">
+     <string/>
+    </property>
     <property name="flags">
      <set>NoItemFlags</set>
     </property>
    </item>
    <item row="4" column="0">
+    <property name="text">
+     <string/>
+    </property>
     <property name="textAlignment">
      <set>AlignCenter</set>
     </property>
@@ -1098,11 +1102,14 @@
     </property>
    </item>
    <item row="4" column="1">
+    <property name="text">
+     <string/>
+    </property>
     <property name="textAlignment">
      <set>AlignCenter</set>
     </property>
     <property name="background">
-     <brush brushstyle="SolidPattern">
+     <brush brushstyle="NoBrush">
       <color alpha="255">
        <red>255</red>
        <green>255</green>
@@ -1111,52 +1118,30 @@
      </brush>
     </property>
     <property name="flags">
-     <set>ItemIsEnabled</set>
+     <set>NoItemFlags</set>
     </property>
    </item>
    <item row="4" column="2">
+    <property name="text">
+     <string/>
+    </property>
     <property name="flags">
      <set>NoItemFlags</set>
     </property>
    </item>
    <item row="4" column="3">
-    <property name="flags">
-     <set>NoItemFlags</set>
+    <property name="text">
+     <string/>
     </property>
-   </item>
-   <item row="5" column="0">
-    <property name="textAlignment">
-     <set>AlignCenter</set>
-    </property>
-    <property name="background">
-     <brush brushstyle="SolidPattern">
-      <color alpha="255">
-       <red>255</red>
-       <green>255</green>
-       <blue>255</blue>
-      </color>
-     </brush>
-    </property>
-    <property name="flags">
-     <set>ItemIsEnabled</set>
-    </property>
-   </item>
-   <item row="5" column="1">
-    <property name="flags">
-     <set>NoItemFlags</set>
-    </property>
-   </item>
-   <item row="5" column="2">
-    <property name="flags">
-     <set>NoItemFlags</set>
-    </property>
-   </item>
-   <item row="5" column="3">
     <property name="flags">
      <set>NoItemFlags</set>
     </property>
    </item>
   </widget>
+  <zorder>levelTwoTable</zorder>
+  <zorder>levelThreeTable</zorder>
+  <zorder>levelFourTable</zorder>
+  <zorder>levelOneTable</zorder>
  </widget>
  <resources/>
  <connections/>
