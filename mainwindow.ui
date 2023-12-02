@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>926</width>
+    <width>946</width>
     <height>600</height>
    </rect>
   </property>
@@ -152,13 +152,13 @@
      <widget class="QFrame" name="reactionIdentifiersFrame">
       <property name="minimumSize">
        <size>
-        <width>170</width>
+        <width>150</width>
         <height>0</height>
        </size>
       </property>
       <property name="maximumSize">
        <size>
-        <width>170</width>
+        <width>150</width>
         <height>16777215</height>
        </size>
       </property>
@@ -169,6 +169,18 @@
        <enum>QFrame::Raised</enum>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_4">
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>12</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
        <item>
         <widget class="ReactionIdentifiers" name="reactionIdentifiersWidget" native="true"/>
        </item>
@@ -213,7 +225,7 @@ Table</string>
       <property name="maximumSize">
        <size>
         <width>230</width>
-        <height>200</height>
+        <height>250</height>
        </size>
       </property>
       <property name="frameShape">
@@ -234,7 +246,7 @@ Table</string>
       <property name="maximumSize">
        <size>
         <width>16777215</width>
-        <height>200</height>
+        <height>250</height>
        </size>
       </property>
       <property name="frameShape">
@@ -290,7 +302,7 @@ Table</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>926</width>
+     <width>946</width>
      <height>24</height>
     </rect>
    </property>
