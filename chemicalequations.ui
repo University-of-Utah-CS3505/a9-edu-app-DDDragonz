@@ -66,7 +66,28 @@
         <number>0</number>
        </property>
        <item>
-        <layout class="QVBoxLayout" name="layout"/>
+        <layout class="QVBoxLayout" name="layout">
+         <item>
+          <widget class="QLabel" name="titleLabel">
+           <property name="text">
+            <string>Significant Equations</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="equationsLabel">
+           <property name="text">
+            <string>TextLabel</string>
+           </property>
+           <property name="wordWrap">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </item>
       </layout>
      </widget>

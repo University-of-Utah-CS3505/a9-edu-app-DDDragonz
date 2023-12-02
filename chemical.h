@@ -6,7 +6,7 @@
 #include <QList>
 #include <QColor>
 
-enum class State {gas, liquid, solid};
+enum class State {gas, liquid, solid, aqueous};
 
 class Chemical
 {
