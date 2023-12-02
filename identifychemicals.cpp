@@ -25,6 +25,12 @@ void IdentifyChemicals::addElements(vector<QString> chemicals)
 //    label->setText("Identify the Substances");
 //    label->setAlignment(Qt::AlignHCenter);
 //    ui->layout->addWidget(label);
+    QLayoutItem* item;
+    while ((item = ui->layout->takeAt(0)) != nullptr)
+    {
+        delete item->widget();
+        delete item;
+    }
     for(int i = 0; i < (int)chemicals.size(); i++)
     {
         char number = 'A' + i;
