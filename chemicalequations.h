@@ -17,6 +17,7 @@ public:
     explicit ChemicalEquations(QWidget *parent = nullptr);
     ~ChemicalEquations();
     void addEquations(vector<QString> equations);
+    void addEquation(QString equation);
 
 private:
     Ui::ChemicalEquations *ui;

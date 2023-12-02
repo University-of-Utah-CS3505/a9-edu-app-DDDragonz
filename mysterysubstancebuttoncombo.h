@@ -17,6 +17,17 @@ public:
 
 private:
     Ui::MysterySubstanceButtonCombo *ui;
+
+public slots:
+    void buttonSelected();
+    void mixingChemicals();
+    void doneMixingChemicals();
+
+signals:
+    void substanceSelected(QString name);
+    void substanceDeselected(QString name);
+    void mysterySubstanceSelected();
+    void mysterySubstanceDeselected();
 };
 
 #endif // MYSTERYSUBSTANCEBUTTONCOMBO_H

@@ -19,9 +19,12 @@ public:
     IdentifyChemicals(QWidget *parent = nullptr);
     ~IdentifyChemicals();
     void addElements(vector<QString> chemicals);
+    void addElement(int number, QString chemical);
 
 private:
     Ui::IdentifyChemicals *ui;
+    vector<MysteryComboPair*> m_comboPairs;
+    vector<QString> m_prevChemicals;
 };
 
 #endif // IDENTIFYCHEMICALS_H

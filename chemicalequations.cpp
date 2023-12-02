@@ -18,11 +18,16 @@ void ChemicalEquations::addEquations(vector<QString> equations)
 
     for(int i = 0; i < (int)equations.size(); i++)
     {
-        label = new QLabel();
-        label->setText(equations.at(i));
-        label->setWordWrap(true);
-        ui->layout->addWidget(label);
+        addEquation(equations.at(i));
     }
+}
+
+void ChemicalEquations::addEquation(QString equation)
+{
+    QLabel* label = new QLabel();
+    label->setText(equation);
+    label->setWordWrap(true);
+    ui->layout->addWidget(label);
 }
 
 ChemicalEquations::~ChemicalEquations()
