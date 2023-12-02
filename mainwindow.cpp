@@ -8,6 +8,9 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
     , world(new b2World(b2Vec2(0.0f, -10.0f)))
     , timer(new QTimer(this))
+//    , chemicals({Chemical(0, Qt::yellow), Chemical(1, Qt::green)})
+    , chemA()
+    , chemB()
 {
     ui->setupUi(this);
     windowWidth = this->width();
@@ -24,6 +27,16 @@ MainWindow::MainWindow(QWidget *parent)
             &QPushButton::clicked,
             this,
             &MainWindow::resetScene);
+
+    for(int i = 0; i < 100; i++)
+    {
+        chemA[i] = Chemical(0, Qt::yellow);
+    }
+
+    for(int i = 0; i < 100; i++)
+    {
+        chemB[i] = Chemical(1, Qt::green);
+    }
 
     world->SetContactListener(&contact);
 
@@ -70,7 +83,8 @@ void MainWindow::paintEvent(QPaintEvent*)
             }
             else if (shape->GetType() == b2Shape::e_circle)
             {
-                drawCircle(painter, body, (b2CircleShape*)shape);
+                Chemical c = *static_cast<Chemical*>(body->GetUserData());
+                drawCircle(painter, body, (b2CircleShape*)shape, c.s_color);
             }
             else if (shape->GetType() == b2Shape::e_polygon)
             {
@@ -95,7 +109,7 @@ void MainWindow::mouseMoveEvent(QMouseEvent *event)
 void MainWindow::createVial()
 {
     b2BodyDef bodyDef;
-    bodyDef.type = b2_kinematicBody;
+    bodyDef.type = b2_dynamicBody;
     //bodyDef.fixedRotation = true;
     bodyDef.bullet = true;
     bodyDef.position.Set(windowWidth  / 4 / SCALE, windowHeight / 3 / SCALE);
@@ -113,6 +127,29 @@ void MainWindow::createVial()
     createWall(vial, vertices[0], vertices[1]); // Left wall
     createWall(vial, vertices[2], vertices[3]); // Right wall
     createWall(vial, vertices[0], vertices[3]); // Bottom wall
+}
+
+void MainWindow::createStaticVial()
+{
+    b2BodyDef bodyDef;
+    bodyDef.type = b2_kinematicBody;
+    bodyDef.fixedRotation = true;
+    bodyDef.bullet = true;
+    bodyDef.position.Set(3*windowWidth  / 4 / SCALE, windowHeight / 3 / SCALE);
+    staticVial = world->CreateBody(&bodyDef);
+
+    staticVial->SetLinearDamping(3.0f);
+    staticVial->SetAngularDamping(3.0f);
+
+    b2Vec2 vertices[4];
+    vertices[0].Set(-1.0f, -3.0f); //bottom-left
+    vertices[1].Set(-1.0f, 3.0f); //top-left
+    vertices[2].Set(1.0f, 3.0f); //top-right
+    vertices[3].Set(1.0f, -3.0f); //bottom-right
+
+    createWall(staticVial, vertices[0], vertices[1]); // Left wall
+    createWall(staticVial, vertices[2], vertices[3]); // Right wall
+    createWall(staticVial, vertices[0], vertices[3]); // Bottom wall
 }
 
 void MainWindow::SpawnBox()
@@ -139,7 +176,7 @@ void MainWindow::SpawnBox()
 }
 
 
-void MainWindow::SpawnCircle()
+void MainWindow::SpawnCircle(Chemical* chemical, b2Body* vial)
 {
     b2BodyDef bodyDef;
     bodyDef.type = b2_dynamicBody;
@@ -149,6 +186,8 @@ void MainWindow::SpawnCircle()
     b2Vec2 vialPosition = vial->GetWorldCenter();
     bodyDef.position.Set(vialPosition.x, vialPosition.y);
     b2Body* particle = world->CreateBody(&bodyDef);
+    particle->SetUserData((void*)chemical);
+
     b2CircleShape dynamicCircle;
     dynamicCircle.m_radius = 0.1f;
 
@@ -214,10 +253,22 @@ void MainWindow::createScene()
 {
     SpawnBox();
     createVial();
-    for (int i = 0; i < 2; i++)
-    {
-        SpawnCircle();
-    }
+    createStaticVial();
+
+//    Chemical c(0, Qt::red);
+    //for (int i = 0; i < 99; i++)
+    //{
+    //    SpawnCircle(&chemA[i], vial);
+    //}
+
+//    for (int i = 0; i < 99; i++)
+//    {
+//        SpawnCircle(&chemB[i], staticVial);
+//    }
+
+
+//    SpawnCircle(&chemicals[0]);
+//    SpawnCircle(&chemicals[1]);
 
     createBorder();
     update();
@@ -239,6 +290,7 @@ void MainWindow::resetScene()
         world = nullptr;
     }
     world = new b2World(gravity);
+    chh = 0;
     createScene();
 }
 
@@ -268,12 +320,12 @@ void MainWindow::drawPolygon(QPainter& painter, b2Body* body, b2PolygonShape* po
     painter.drawPolygon(qpolygon);
 }
 
-void MainWindow::drawCircle(QPainter& painter, b2Body* body, b2CircleShape* circle)
+void MainWindow::drawCircle(QPainter& painter, b2Body* body, b2CircleShape* circle, QColor color)
 {
-    QPen pen(Qt::blue);
+    QPen pen(color);
     pen.setWidth(0);
     painter.setPen(pen);
-    painter.setBrush(Qt::blue);
+    painter.setBrush(color);
     QPointF position = convertCoordsBox2DToQt(body->GetPosition());
     painter.drawEllipse(position, circle->m_radius * SCALE, circle->m_radius * SCALE);
 }
@@ -292,6 +344,11 @@ void MainWindow::Update()
     int32 positionIterations = 2;
     vial->ApplyForceToCenter(b2Vec2(0.0f, 14.0f), true);
     world->Step(timeStep, velocityIterations, positionIterations);
+    if(chh < 100) {
+        SpawnCircle(&chemA[chh], vial);
+        SpawnCircle(&chemB[chh], staticVial);
+        chh++;
+    }
     update();
     vial->SetLinearVelocity(b2Vec2(0,0));
 }
