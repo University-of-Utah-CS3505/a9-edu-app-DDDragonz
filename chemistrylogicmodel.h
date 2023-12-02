@@ -3,6 +3,7 @@
 
 #include "chemical.h"
 #include "reactions.h"
+#include "mysteries.h"
 #include <QMap>
 #include <QVector>
 #include <QPair>
@@ -25,6 +26,7 @@ private:
     int m_level;
     Reactions m_reactions;
     std::vector<QString> m_reactants;
+    Mysteries m_mysteries;
 
     void levelOneSetUp();
     void levelTwoSetUp();

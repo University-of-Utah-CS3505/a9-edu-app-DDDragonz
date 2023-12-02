@@ -4,9 +4,9 @@ using std::vector;
 
 ChemistryLogicModel::ChemistryLogicModel(QObject *parent)
     : QObject{parent},
-    m_level(0)
+    m_level(0),
+    m_mysteries(vector<QString>())
 {
-
 }
 
 int ChemistryLogicModel::getLevel()
