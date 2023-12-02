@@ -62,6 +62,7 @@ SOURCES += \
     identifychemicals.cpp \
     main.cpp \
     mainwindow.cpp \
+    mysteries.cpp \
     mysterycombopair.cpp \
     mysterysubstancebuttoncombo.cpp \
     mysterysubstances.cpp \
@@ -123,6 +124,7 @@ HEADERS += \
     helpwindow.h \
     identifychemicals.h \
     mainwindow.h \
+    mysteries.h \
     mysterycombopair.h \
     mysterysubstancebuttoncombo.h \
     mysterysubstances.h \
