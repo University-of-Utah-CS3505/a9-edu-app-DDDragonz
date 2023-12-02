@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "chemistrylogicmodel.h"
+#include "observationtable.h"
 
 using std::vector;
 
@@ -20,9 +21,11 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    ObservationTable* observationTable;
 
 private slots:
     void updateLevelLabel(int level);
     void showHelp();
+    void showObservationTable();
 };
 #endif // MAINWINDOW_H
