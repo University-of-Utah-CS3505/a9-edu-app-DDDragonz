@@ -26,7 +26,6 @@ void ChemistryLogicModel::levelUp()
 
 void ChemistryLogicModel::gameModel()
 {
-    m_reactions.addLevels();
     switch(m_level)
     {
         case 1:
@@ -46,10 +45,10 @@ void ChemistryLogicModel::gameModel()
 
 void ChemistryLogicModel::levelOneSetUp()
 {
-    Chemical FeCl3("FeCl3", State::liquid, QColor());
-    Chemical Na2CO3("Na2CO3", State::liquid, QColor());
-    Chemical HCl("HCl", State::liquid, QColor());
-    Chemical NaCl("NaCl", State::liquid, QColor());
+    Chemical FeCl3("FeCl3", State::aqueous, QColor());
+    Chemical Na2CO3("Na2CO3", State::aqueous, QColor());
+    Chemical HCl("HCl", State::aqueous, QColor());
+    Chemical NaCl("NaCl", State::aqueous, QColor());
     Chemical FeO("FeO", State::solid, QColor(101, 67, 33));
     Chemical CO2("CO2", State::gas, QColor());
     Chemical H2O("H2O", State::liquid, QColor());
@@ -65,29 +64,34 @@ void ChemistryLogicModel::levelOneSetUp()
     m_reactants.push_back("FeCl3");
     m_reactants.push_back("Na2CO3");
     m_reactants.push_back("HCl");
+    m_reactions.addLevelOne();
 
     emit sendAllReactants(m_reactants);
     emit sendAllReactionsFormula(m_reactions.getAllReactions());
+    emit addReactants(3);
+
 }
 
 void ChemistryLogicModel::levelTwoSetUp()
 {
-    Chemical NaOH("NaOH", State::liquid, QColor());
+    Chemical NaOH("NaOH", State::aqueous, QColor());
     Chemical FeOH("FeOH", State::solid, QColor(101, 67, 33));
     m_chemicals.insert("NaOH", NaOH);
     m_chemicals.insert("FeOH", FeOH);
+    m_reactions.addLevelTwo();
 
     m_reactants.push_back("NaOH");
-    emit sendAllReactants(m_reactants);
     emit sendAllReactionsFormula(m_reactions.getAllReactions());
+    emit sendReactant("NaOH");
+    emit addReactants(1);
 }
 
 void ChemistryLogicModel::levelThreeSetUp()
 {
-    Chemical AgNO3("AgNO3", State::liquid, QColor());
+    Chemical AgNO3("AgNO3", State::aqueous, QColor());
     Chemical AgCl("AgCl", State::solid, QColor(255, 255, 255));
-    Chemical FeNO3("FeNO3", State::liquid, QColor());
-    Chemical NaNO3("NaNO3", State::liquid, QColor());
+    Chemical FeNO3("FeNO3", State::aqueous, QColor());
+    Chemical NaNO3("NaNO3", State::aqueous, QColor());
     Chemical AgOH("AgOH", State::solid, QColor(128, 128, 128));
     Chemical AgCO3("AgCO3", State::solid, QColor(255, 255, 255));
 
@@ -97,23 +101,27 @@ void ChemistryLogicModel::levelThreeSetUp()
     m_chemicals.insert("NaNO3", NaNO3);
     m_chemicals.insert("AgOH", AgOH);
     m_chemicals.insert("AgCO3", AgCO3);
+    m_reactions.addLevelThree();
 
     m_reactants.push_back("AgNO3");
-    emit sendAllReactants(m_reactants);
     emit sendAllReactionsFormula(m_reactions.getAllReactions());
+    emit sendReactant("AgNO3");
+    emit addReactants(1);
 }
 
 void ChemistryLogicModel::levelFourSetUp()
 {
-    Chemical Na3PO4("Na3PO4", State::liquid, QColor());
+    Chemical Na3PO4("Na3PO4", State::aqueous, QColor());
     Chemical FePO4("FePO4", State::solid, QColor(255, 255, 128));
 
     m_chemicals.insert("Na3PO4", Na3PO4);
     m_chemicals.insert("FePO4", FePO4);
+    m_reactions.addLevelFour();
 
     m_reactants.push_back("Na3PO4");
-    emit sendAllReactants(m_reactants);
     emit sendAllReactionsFormula(m_reactions.getAllReactions());
+    emit sendReactant("Na3PO4");
+    emit addReactants(1);
 }
 
 void ChemistryLogicModel::chemicalSelected(QString formula)

@@ -39,3 +39,39 @@ bool Mysteries::checkSubstances(QString substances[])
 
     return true;
 }
+
+void Mysteries::addChemical(QString chemical)
+{
+    m_substances[m_size++] = chemical;
+    shuffle();
+}
+
+bool Mysteries::checkChemicals(vector<QString> toCheck)
+{
+    if((int)toCheck.size() != m_size)
+    {
+        return false;
+    }
+
+    for(int i = 0; i < m_size; i++)
+    {
+        if(toCheck.at(i) != m_substances[i])
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+QString Mysteries::getChemical(QString mysteryName)
+{
+    QChar letter = mysteryName.at(mysteryName.size()-1);
+    int number = (int)letter.unicode();
+    number -= 'A';
+    return getChemical(number);
+}
+
+QString Mysteries::getChemical(int number)
+{
+    return m_substances[number];
+}

@@ -15,18 +15,19 @@ public:
     explicit MysterySubstances(QWidget *parent = nullptr);
     ~MysterySubstances();
     void addMysterySubstance(int number);
-    void addMysterySubstances(int number);
 
 private:
     Ui::MysterySubstances *ui;
     int m_numberSelected;
     void updateMixButton();
+    int m_numberOfSubstances;
 
 public slots:
     void buttonSelected();
     void buttonDeselected();
     void mixButtonClicked();
     void doneButtonClicked();
+    void addMysterySubstances(int number);
 
 signals:
     void mixChemicals();

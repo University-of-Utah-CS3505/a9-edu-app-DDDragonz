@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>926</width>
+    <width>946</width>
     <height>600</height>
    </rect>
   </property>
@@ -73,7 +73,7 @@
        <item>
         <widget class="QLabel" name="gameNameLabel">
          <property name="text">
-          <string>Identify Mystery Substances Lab</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;Identify Mystery Substances Lab&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -127,7 +127,7 @@
       </property>
       <property name="maximumSize">
        <size>
-        <width>200</width>
+        <width>220</width>
         <height>50</height>
        </size>
       </property>
@@ -169,6 +169,18 @@
        <enum>QFrame::Raised</enum>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_4">
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>12</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
        <item>
         <widget class="ReactionIdentifiers" name="reactionIdentifiersWidget" native="true"/>
        </item>
@@ -213,7 +225,7 @@ Table</string>
       <property name="maximumSize">
        <size>
         <width>230</width>
-        <height>200</height>
+        <height>250</height>
        </size>
       </property>
       <property name="frameShape">
@@ -234,7 +246,7 @@ Table</string>
       <property name="maximumSize">
        <size>
         <width>16777215</width>
-        <height>200</height>
+        <height>250</height>
        </size>
       </property>
       <property name="frameShape">
@@ -290,8 +302,8 @@ Table</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>926</width>
-     <height>22</height>
+     <width>946</width>
+     <height>24</height>
     </rect>
    </property>
   </widget>

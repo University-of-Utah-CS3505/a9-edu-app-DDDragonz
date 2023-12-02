@@ -11,6 +11,10 @@ class Mysteries
 public:
     Mysteries(vector<QString> chemicals);
     bool checkSubstances(QString substances[]);
+    void addChemical(QString chemical);
+    bool checkChemicals(vector<QString> toCheck);
+    QString getChemical(QString mysteryName);
+    QString getChemical(int number);
 
 private:
     QString m_substances[6];
