@@ -28,6 +28,7 @@ MainWindow::MainWindow(ChemistryLogicModel& logicModel, QWidget *parent)
     connect(ui->viewTableButton, &QPushButton::clicked, this, &MainWindow::showObservationTable);
     connect(&logicModel, &ChemistryLogicModel::sendLevel, observationTable, &ObservationTable::levelUp);
     connect(&logicModel, &ChemistryLogicModel::levelKeep, this, &MainWindow::wrongAnswerReminder);
+    connect(ui->vialButtonsWidget, &MysterySubstances::mixingChemicals, &logicModel, &ChemistryLogicModel::chemicalsMixed);
 
     logicModel.levelUp(vector<QString>());
 }
