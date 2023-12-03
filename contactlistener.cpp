@@ -1,5 +1,5 @@
 #include "contactlistener.h"
-#include "mainwindow.h"
+#include "mw.h"
 #include "Box2D/Dynamics/Contacts/b2Contact.h"
 
 void myContactListener::BeginContact(b2Contact* contact)
@@ -18,5 +18,4 @@ void myContactListener::BeginContact(b2Contact* contact)
             a->s_color = Qt::black;
         }
     }
-
 }

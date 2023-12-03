@@ -90,7 +90,6 @@ void MixingLogic::spawnCircle(b2Body* vial /*Chemical* chemial*/)
     b2Vec2 vialPosition = vial->GetWorldCenter();
     bodyDef.position.Set(vialPosition.x, vialPosition.y);
     b2Body* particle = world->CreateBody(&bodyDef);
-    particle->SetUserData((void*)"ball");
     //particle->SetUserData((void*)chemical);
 
     b2CircleShape dynamicCircle;
@@ -132,6 +131,9 @@ void MixingLogic::createNewWorld()
         world = nullptr;
     }
     world = new b2World(gravity);
+//    chemA->s_color = Qt::yellow;
+//    chemB->s_color = Qt::green;
+    world->SetContactListener(&contact);
 }
 
 b2Body* MixingLogic::getVial() const

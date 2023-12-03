@@ -21,18 +21,8 @@ MixingModel::MixingModel(QWidget *parent) :
             this,
             &MixingModel::eraseScene);
 
-    //after pressing mix recieve everything all at once and connect to createScene
-   //mixinglogic deals with creating the liquid
-//    for(int i = 0; i < 100; i++)
-//    {
-//        chemA[i] = Chemical(0, Qt::yellow);
-//    }
-
-//    for(int i = 0; i < 100; i++)
-//    {
-//        chemB[i] = Chemical(1, Qt::green);
-//    }
-    createScene();
+    //connect(chemical, &Chemical::chemicalSignal, this, &MixingModel::createScene);
+    createScene(); //delete when connected
 }
 
 MixingModel::~MixingModel()
@@ -41,6 +31,7 @@ MixingModel::~MixingModel()
     delete timer;
     delete worldPtr;
 }
+
 
 void MixingModel::paintEvent(QPaintEvent*)
 {
@@ -57,6 +48,7 @@ void MixingModel::paintEvent(QPaintEvent*)
             else if (shape->GetType() == b2Shape::e_circle)
             {
                 //Chemical c = *static_cast<Chemical*>(body->GetUserData());
+                //drawCircle(painter, body, (b2CircleShape*)shape, c.s_color);
                 drawCircle(painter, body, (b2CircleShape*)shape, Qt::black);
             }
             else if (shape->GetType() == b2Shape::e_polygon)
@@ -69,12 +61,15 @@ void MixingModel::paintEvent(QPaintEvent*)
 
 void MixingModel::mouseMoveEvent(QMouseEvent *event)
 {
-    b2Vec2 pos(event->pos().x() / SCALE, (windowHeight - event->pos().y()) / SCALE);
-    b2Vec2 velocity = pos - worldPtr->getVial()->GetPosition();
-    float velocityScale = 3.0f; //Changeable
-    velocity *= velocityScale;
-    worldPtr->getVial()->SetLinearVelocity(velocity);
-    update();
+    if (event->buttons() & Qt::LeftButton)
+    {
+        b2Vec2 pos(event->pos().x() / SCALE, (windowHeight - event->pos().y()) / SCALE);
+        b2Vec2 velocity = pos -  worldPtr->getVial()->GetPosition();
+        float velocityScale = 3.0f; //Changeable
+        velocity *= velocityScale;
+        worldPtr->getVial()->SetLinearVelocity(velocity);
+        update();
+    }
 }
 
 void MixingModel::keyPressEvent(QKeyEvent *event)
@@ -103,12 +98,14 @@ void MixingModel::keyPressEvent(QKeyEvent *event)
     update();
 }
 
+//void MixingModel::(Chemical* chemical1, Chemical* chemical2, QVector<Reaction> reactions)
 void MixingModel::createScene()
 {
     worldPtr->createBorder();
     worldPtr->createVial();
     worldPtr->createStaticVial();
 
+    //change these to fit with chemicals
     for (int i = 0; i < 99; i++)
     {
         worldPtr->spawnCircle(worldPtr->getVial());
@@ -119,20 +116,16 @@ void MixingModel::createScene()
         worldPtr->spawnCircle(worldPtr->getStaticVial());
     }
 
-    //    Chemical c(0, Qt::red);
-    //    for (int i = 0; i < 99; i++)
-    //    {
-    //        SpawnCircle(&chemA[i], worldPtr->getVial());
-    //    }
+//    for (int i = 0; i < 99; i++)
+//    {
+//        SpawnCircle(chemA, vial, i/50);
+//    }
 
-    //    for (int i = 0; i < 99; i++)
-    //    {
-    //        SpawnCircle(&chemB[i], orldPtr->getStaticVial());
-    //    }
+//    for (int i = 0; i < 99; i++)
+//    {
+//        SpawnCircle(chemB, staticVial, i/50);
+//    }
 
-
-    //    SpawnCircle(&chemicals[0]);
-    //    SpawnCircle(&chemicals[1]);
     update();
     timer->start(1000 / 60);
 }
@@ -146,8 +139,7 @@ void MixingModel::eraseScene()
     }
     worldPtr->getWorld()->Step(1/60.f, 8, 3); // make sure everything is deleted
     worldPtr->createNewWorld();
-    //    chh = 0;
-    createScene();
+    createScene(); //delete when done because you wouldn't need to create it
 }
 
 void MixingModel::updateWorld()
@@ -157,11 +149,6 @@ void MixingModel::updateWorld()
     int32 positionIterations = 2;
     worldPtr->getVial()->ApplyForceToCenter(b2Vec2(0.0f, 14.0f), true);
     worldPtr->getWorld()->Step(timeStep, velocityIterations, positionIterations);
-    //    if(chh < 100) {
-    //        SpawnCircle(&chemA[chh], vial);
-    //        SpawnCircle(&chemB[chh], staticVial);
-    //        chh++;
-    //    }
     update();
     worldPtr->getVial()->SetLinearVelocity(b2Vec2(0,0));
 }

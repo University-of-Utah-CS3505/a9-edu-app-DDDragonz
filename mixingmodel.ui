@@ -16,8 +16,8 @@
   <widget class="QPushButton" name="reset">
    <property name="geometry">
     <rect>
-     <x>60</x>
-     <y>40</y>
+     <x>20</x>
+     <y>10</y>
      <width>101</width>
      <height>61</height>
     </rect>
@@ -29,6 +29,24 @@
    </property>
    <property name="text">
     <string>Reset</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="questionMark">
+   <property name="geometry">
+    <rect>
+     <x>750</x>
+     <y>0</y>
+     <width>31</width>
+     <height>71</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>50</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>?</string>
    </property>
   </widget>
  </widget>

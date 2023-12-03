@@ -1,5 +1,5 @@
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#ifndef MW_H
+#define MW_H
 
 #include "contactlistener.h"
 
@@ -15,7 +15,7 @@
 #include <QKeyEvent>
 
 QT_BEGIN_NAMESPACE
-namespace Ui { class MainWindow; }
+namespace Ui { class MW; }
 QT_END_NAMESPACE
 
 struct Chemical{
@@ -26,13 +26,13 @@ struct Chemical{
     Chemical() {s_id = 0; s_color = Qt::green;}
 };
 
-class MainWindow : public QMainWindow
+class MW : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
-    ~MainWindow();
+    MW(QWidget *parent = nullptr);
+    ~MW();
 
     void paintEvent(QPaintEvent*) override;
     void mouseMoveEvent(QMouseEvent *event) override;
@@ -47,7 +47,7 @@ public:
     void drawCircle(QPainter& painter, b2Body* body, b2CircleShape* circle, QColor color);
     void drawPolygon(QPainter& painter, b2Body* body, b2PolygonShape* polygon);
     void resetScene();
-    void SpawnCircle(Chemical* chemical, b2Body* vial);
+    void SpawnCircle(Chemical* chemical, b2Body* vial, float32 offset);
     void createScene();
 
 
@@ -58,7 +58,7 @@ public slots:
     void Update();
 
 private:
-    Ui::MainWindow *ui;
+    Ui::MW *ui;
     b2World *world;
     QTimer *timer;
     b2Body* vial;
@@ -70,14 +70,11 @@ private:
     float windowWidth;
     float windowHeight;
 
-    std::vector<Chemical> chemicals;
-    Chemical chemA[100];
-    Chemical chemB[100];
-
-    int chh = 0;
+    Chemical *chemA;
+    Chemical *chemB;
 
     /// Box2D to Qt (meters to pixels), you multiply by SCALE.
     /// Qt to Box2D (pixels to meters), you divide by SCALE.
     QPointF convertCoordsBox2DToQt(b2Vec2 vec);
 };
-#endif // MAINWINDOW_H
+#endif // MW_H

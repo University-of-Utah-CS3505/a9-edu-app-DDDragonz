@@ -1,6 +1,7 @@
 #ifndef MIXINGMODEL_H
 #define MIXINGMODEL_H
 
+#include "mainwindow.h"
 #include "mixinglogic.h"
 #include <QWidget>
 #include <Box2D/Box2D.h>
@@ -26,7 +27,6 @@ public:
     void mouseMoveEvent(QMouseEvent *event) override;
     void keyPressEvent(QKeyEvent *event) override;
 
-    void createScene();
     void eraseScene();
 
     void drawEdge(QPainter& painter, b2Body* body, b2EdgeShape* edge);
@@ -39,6 +39,9 @@ public:
 
 public slots:
     void updateWorld();
+    //void createScene(Chemical* chemical1, Chemical* chemical2, QVector<Reaction> reactions);
+    void createScene();
+
 
 private:
     Ui::MixingModel *ui;
@@ -48,9 +51,10 @@ private:
     float windowHeight;
     MixingLogic *worldPtr;
 
-//    std::vector<Chemical> chemicals;
-//    Chemical chemA[100];
-//    Chemical chemB[100];
+    //Chemical* chemical1;
+    //Chemical* chemical2;
+    int chh = 0;
+
 
     void setPaintColor(QPainter& painter, QColor color, QBrush brush);
 
