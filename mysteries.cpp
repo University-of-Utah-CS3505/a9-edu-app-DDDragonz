@@ -18,7 +18,7 @@ void Mysteries::shuffle()
 {
     for(int i = 0; i < m_size; i++)
     {
-        int random = rand()*m_size;
+        int random = rand()%m_size;
         QString temp = m_substances[i];
         m_substances[i] = m_substances[random];
         m_substances[random] = temp;
