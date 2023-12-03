@@ -20,6 +20,7 @@ void IdentifyChemicals::addElements(vector<QString> chemicals)
     for(int i = 0; i < (int)chemicals.size(); i++)
     {
        addElement(chemicals.at(i));
+        m_choices[i] = chemicals.at(i);
     }
 }
 
@@ -46,7 +47,6 @@ void IdentifyChemicals::addElement(QString chemical)
     for(int i = 0; i < (int)m_comboPairs.size(); i++)
     {
        m_comboPairs.at(i)->addComboItem(chemical, i);
-       m_choices[i] = chemical;
        connect(m_comboPairs.at(i), &MysteryComboPair::choiceChange, this, &IdentifyChemicals::choiceChange);
     }
     m_comboPairs.push_back(toAdd);
