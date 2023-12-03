@@ -159,7 +159,6 @@ void MainWindow::createStaticVial()
     createWall(staticVial, vertices[0], vertices[3]); // Bottom wall
 }
 
-void MainWindow::SpawnBox()
 void MainWindow::createBeaker()
 {
     b2BodyDef bodyDef;
@@ -188,13 +187,12 @@ void MainWindow::CreateStirRod()
     // Define a body
     b2BodyDef bodyDef;
     bodyDef.type = b2_kinematicBody; // Set the body to be dynamic
-    bodyDef.position.Set(windowWidth  / 2 / SCALE, windowHeight / 2 / SCALE);
     bodyDef.position.Set(windowWidth  / 2 / SCALE, windowHeight / 10.25 / SCALE);
     b2Body *body = world->CreateBody(&bodyDef);
 
     // Assign a rectangular shape to the body
     b2PolygonShape boxShape;
-    boxShape.SetAsBox(0.5f, 1.0f);
+    boxShape.SetAsBox(0.05f, 1.75f);
 
     // Define fixture
     b2FixtureDef fixture;
