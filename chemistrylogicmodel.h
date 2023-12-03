@@ -42,6 +42,7 @@ signals:
     void sendReactant(QString reactant);
     void addReactants(int number);
     void levelKeep();
+    void sendChemicalMixResult(QString chemical1, QString chemical2, Reaction reactionResult);
 
 public slots:
     void chemicalSelected(QString formula);

@@ -20,7 +20,7 @@ public:
     /// @param state Chemical's state at STP, should be a solid, liquid, or gas
     explicit Chemical(QString formula, State state, QColor color);
 
-    explicit Chemical(const Chemical& other);
+    Chemical(const Chemical& other);
 
     Chemical& operator=(const Chemical& other);
 
