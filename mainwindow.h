@@ -21,9 +21,10 @@ QT_END_NAMESPACE
 struct Chemical{
     int s_id;
     QColor s_color;
+    bool s_touch;
 
-    Chemical(int id, QColor color) : s_id(id), s_color(color) {};
-    Chemical() {s_id = 0; s_color = Qt::green;}
+    Chemical(int id, QColor color, bool touch) : s_id(id), s_color(color), s_touch(touch) {};
+    Chemical() {s_id = 0; s_color = Qt::green; s_touch = false;}
 };
 
 class MainWindow : public QMainWindow
@@ -48,6 +49,7 @@ public:
     void drawPolygon(QPainter& painter, b2Body* body, b2PolygonShape* polygon);
     void resetScene();
     void SpawnCircle(Chemical* chemical, b2Body* vial);
+    void SpawnGas(b2Body* circle);
     void createScene();
 
 
@@ -71,10 +73,10 @@ private:
     float windowHeight;
 
     std::vector<Chemical> chemicals;
-    Chemical chemA[100];
-    Chemical chemB[100];
+    Chemical chemA[200];
+    Chemical chemB[200];
 
-    int chh = 0;
+    int chemCount = 0;
 
     /// Box2D to Qt (meters to pixels), you multiply by SCALE.
     /// Qt to Box2D (pixels to meters), you divide by SCALE.
