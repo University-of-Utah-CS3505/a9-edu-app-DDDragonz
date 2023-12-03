@@ -160,11 +160,36 @@ void MainWindow::createStaticVial()
 }
 
 void MainWindow::SpawnBox()
+void MainWindow::createBeaker()
+{
+    b2BodyDef bodyDef;
+    bodyDef.type = b2_kinematicBody;
+    bodyDef.fixedRotation = true;
+    bodyDef.bullet = true;
+    bodyDef.position.Set(windowWidth  / 2 / SCALE, windowHeight / 6.75 / SCALE);
+    staticVial = world->CreateBody(&bodyDef);
+
+    staticVial->SetLinearDamping(3.0f);
+    staticVial->SetAngularDamping(3.0f);
+
+    b2Vec2 vertices[4];
+    vertices[0].Set(-2.0f, -2.75f); //bottom-left
+    vertices[1].Set(-2.0f, 2.75f); //top-left
+    vertices[2].Set(2.0f, 2.75f); //top-right
+    vertices[3].Set(2.0f, -2.75f); //bottom-right
+
+    createWall(staticVial, vertices[0], vertices[1]); // Left wall
+    createWall(staticVial, vertices[2], vertices[3]); // Right wall
+    createWall(staticVial, vertices[0], vertices[3]); // Bottom wall
+}
+
+void MainWindow::CreateStirRod()
 {
     // Define a body
     b2BodyDef bodyDef;
     bodyDef.type = b2_kinematicBody; // Set the body to be dynamic
     bodyDef.position.Set(windowWidth  / 2 / SCALE, windowHeight / 2 / SCALE);
+    bodyDef.position.Set(windowWidth  / 2 / SCALE, windowHeight / 10.25 / SCALE);
     b2Body *body = world->CreateBody(&bodyDef);
 
     // Assign a rectangular shape to the body
@@ -180,6 +205,8 @@ void MainWindow::SpawnBox()
 
     // Attach the fixture to the body
     body->CreateFixture(&fixture);
+
+    body->SetAngularVelocity(2.0f);
 }
 
 
@@ -286,7 +313,8 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 
 void MainWindow::createScene()
 {
-    SpawnBox();
+    CreateStirRod();
+    createBeaker();
     createVial();
     createStaticVial();
 

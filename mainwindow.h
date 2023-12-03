@@ -40,6 +40,7 @@ public:
     void keyPressEvent(QKeyEvent *event) override;
     void createVial();
     void createStaticVial();
+    void createBeaker();
     void createVialLiquid(int numParticles);
     void createBorder();
     void createGround();
@@ -54,7 +55,7 @@ public:
 
 
 
-    void SpawnBox();
+    void CreateStirRod();
 
 public slots:
     void Update();
