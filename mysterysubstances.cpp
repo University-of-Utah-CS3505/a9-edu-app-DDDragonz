@@ -2,6 +2,8 @@
 #include "mysterysubstancebuttoncombo.h"
 #include "ui_mysterysubstances.h"
 
+using std::string;
+
 MysterySubstances::MysterySubstances(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::MysterySubstances)
@@ -10,6 +12,7 @@ MysterySubstances::MysterySubstances(QWidget *parent) :
     m_numberSelected = 0;
     updateMixButton();
     ui->doneButton->setEnabled(false);
+    m_chemicalSize = 3;
 
     connect(ui->mixButton,
             &QPushButton::clicked,
@@ -55,6 +58,16 @@ void MysterySubstances::addMysterySubstance(int number)
             this,
             &MysterySubstances::buttonDeselected);
 
+    connect(toAdd,
+            &MysterySubstanceButtonCombo::substanceSelected,
+            this,
+            &MysterySubstances::chemicalSelected);
+
+    connect(toAdd,
+            &MysterySubstanceButtonCombo::substanceDeselected,
+            this,
+            &MysterySubstances::chemicalDeselected);
+
     connect(this,
             &MysterySubstances::mixChemicals,
             toAdd,
@@ -96,10 +109,57 @@ void MysterySubstances::mixButtonClicked()
     ui->mixButton->setEnabled(false);
     emit mixChemicals();
     ui->doneButton->setEnabled(true);
+
+    QString chemicalA = "Substance ";
+    QString chemicalB = "Substance ";
+    for(int i = 0; i < m_chemicalSize; i++)
+    {
+        if(m_chemicalSelected[i] && chemicalA == "Substance ")
+        {
+            char letter = 'A' + i;
+            chemicalA += letter;
+        }
+        else if(m_chemicalSelected[i] && chemicalB == "Substance ")
+        {
+            char letter = 'A' + i;
+            chemicalB += letter;
+            emit mixingChemicals(chemicalA, chemicalB);
+            break;
+        }
+        else if(m_chemicalSelected[i])
+        {
+            printf("Something is very, very wrong.\n");
+        }
+    }
 }
 
 void MysterySubstances::doneButtonClicked()
 {
     emit doneMixing();
     ui->doneButton->setEnabled(false);
+
+    for(int i = 0; i < m_chemicalSize; i++)
+    {
+        m_chemicalSelected[i] = false;
+    }
+}
+
+void MysterySubstances::chemicalSelected(QString chemical)
+{
+    string name = chemical.toStdString();
+    char letter = name.at(chemical.size() - 1);
+    int number = letter - 'A';
+    m_chemicalSelected[number] = true;
+}
+void MysterySubstances::chemicalDeselected(QString chemical)
+{
+    string name = chemical.toStdString();
+    char letter = name.at(chemical.size() - 1);
+    int number = letter - 'A';
+    m_chemicalSelected[number] = false;
+}
+
+void MysterySubstances::levelUp()
+{
+    m_chemicalSize++;
 }
