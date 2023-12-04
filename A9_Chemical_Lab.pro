@@ -60,6 +60,21 @@ SOURCES += \
     main.cpp \
     mixinglogic.cpp \
     mixingmodel.cpp
+    chemical.cpp \
+    chemicalequations.cpp \
+    chemistrylogicmodel.cpp \
+    helpwindow.cpp \
+    identifychemicals.cpp \
+    main.cpp \
+    mainwindow.cpp \
+    mysteries.cpp \
+    mysterycombopair.cpp \
+    mysterysubstancebuttoncombo.cpp \
+    mysterysubstances.cpp \
+    observationtable.cpp \
+    reaction.cpp \
+    reactionidentifiers.cpp \
+    reactions.cpp
 
 HEADERS += \
     Box2D/Box2D.h \
@@ -112,9 +127,32 @@ HEADERS += \
     chemicalbox2d.h \
     contactlistener.h \
     mixinglogic.h \
-    mixingmodel.h
+    mixingmodel.h \
+    chemicalequations.h \
+    chemistrylogicmodel.h \
+    helpwindow.h \
+    identifychemicals.h \
+    mainwindow.h \
+    mysteries.h \
+    mysterycombopair.h \
+    mysterysubstancebuttoncombo.h \
+    mysterysubstances.h \
+    observationtable.h \
+    reaction.h \
+    reactionidentifiers.h \
+    reactions.h \
+    chemical.h 
 
 FORMS += \
+    chemicalequations.ui \
+    helpwindow.ui \
+    identifychemicals.ui \
+    mainwindow.ui \
+    mysterycombopair.ui \
+    mysterysubstancebuttoncombo.ui \
+    mysterysubstances.ui \
+    observationtable.ui \
+    reactionidentifiers.ui \
     mixingmodel.ui
 
 # Default rules for deployment.
