@@ -41,7 +41,6 @@ void ReactionIdentifiers::doneMixingSelected()
 
 void ReactionIdentifiers::submitSelected()
 {
-    ui->submitButton->setEnabled(false);
     QString identifiers;
     if (ui->bubblesBox->isChecked())
     {

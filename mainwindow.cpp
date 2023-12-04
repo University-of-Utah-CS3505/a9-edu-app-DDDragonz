@@ -33,6 +33,7 @@ MainWindow::MainWindow(ChemistryLogicModel& logicModel, QWidget *parent)
     connect(ui->vialButtonsWidget, &MysterySubstances::doneMixing, ui->reactionIdentifiersWidget, &ReactionIdentifiers::doneMixingSelected);
     connect(ui->reactionIdentifiersWidget, &ReactionIdentifiers::sendIdentifiers, &logicModel, &ChemistryLogicModel::receiveIdentifiers);
     connect(&logicModel, &ChemistryLogicModel::sendReactionIdentifiers, observationTable, &ObservationTable::receiveIdentifiers);
+    connect(&logicModel, &ChemistryLogicModel::sendLevel, ui->vialButtonsWidget, &MysterySubstances::levelUp);
 
     logicModel.levelUp(vector<QString>());
 }

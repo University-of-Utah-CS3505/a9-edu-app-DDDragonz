@@ -32,7 +32,7 @@ public slots:
     void addMysterySubstances(int number);
     void chemicalSelected(QString chemical);
     void chemicalDeselected(QString chemical);
-    void levelUp();
+    void levelUp(int level);
 
 signals:
     void mixChemicals();

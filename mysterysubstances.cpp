@@ -159,7 +159,7 @@ void MysterySubstances::chemicalDeselected(QString chemical)
     m_chemicalSelected[number] = false;
 }
 
-void MysterySubstances::levelUp()
+void MysterySubstances::levelUp(int level)
 {
-    m_chemicalSize++;
+    m_chemicalSize = level + 2;
 }
