@@ -1,5 +1,5 @@
 #include "contactlistener.h"
-#include "chemical.h"
+#include "chemicalBox2D.h"
 #include "Box2D/Dynamics/Contacts/b2Contact.h"
 
 void myContactListener::BeginContact(b2Contact* contact)
@@ -10,8 +10,8 @@ void myContactListener::BeginContact(b2Contact* contact)
     // int i = *static_cast<int*>(dataA);
     if(dataA && dataB)
     {
-        Chemical* a = static_cast<Chemical*>(dataA);
-        Chemical* b = static_cast<Chemical*>(dataB);
+        chemicalBox2D* a = static_cast<chemicalBox2D*>(dataA);
+        chemicalBox2D* b = static_cast<chemicalBox2D*>(dataB);
         if(a->s_id != b->s_id)
         {
             // qDebug() << "contact";

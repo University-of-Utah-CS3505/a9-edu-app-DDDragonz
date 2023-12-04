@@ -55,7 +55,7 @@ SOURCES += \
     Box2D/Dynamics/b2World.cpp \
     Box2D/Dynamics/b2WorldCallbacks.cpp \
     Box2D/Rope/b2Rope.cpp \
-    chemical.cpp \
+    chemicalbox2d.cpp \
     contactlistener.cpp \
     main.cpp \
     mixinglogic.cpp \
@@ -109,7 +109,7 @@ HEADERS += \
     Box2D/Dynamics/b2World.h \
     Box2D/Dynamics/b2WorldCallbacks.h \
     Box2D/Rope/b2Rope.h \
-    chemical.h \
+    chemicalbox2d.h \
     contactlistener.h \
     mixinglogic.h \
     mixingmodel.h

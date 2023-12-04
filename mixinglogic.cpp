@@ -1,6 +1,6 @@
 #include "mixinglogic.h"
 #include "contactlistener.h"
-#include "chemical.h"
+#include "chemicalBox2D.h"
 
 MixingLogic::MixingLogic(float width, float height, const float scale) :
     world(new b2World(b2Vec2(0.0f, -10.0f))),
@@ -134,7 +134,7 @@ void MixingLogic::createNewWorld()
     world->SetContactListener(&contact);
 }
 
-void MixingLogic::spawnCircle(Chemical* chemical, b2Body* vial)
+void MixingLogic::spawnCircle(chemicalBox2D* chemicalBox2D, b2Body* vial)
 {
     b2BodyDef bodyDef;
     bodyDef.type = b2_dynamicBody;
@@ -144,7 +144,7 @@ void MixingLogic::spawnCircle(Chemical* chemical, b2Body* vial)
     b2Vec2 vialPosition = vial->GetWorldCenter();
     bodyDef.position.Set(vialPosition.x, vialPosition.y);
     b2Body* particle = world->CreateBody(&bodyDef);
-    particle->SetUserData((void*)chemical);
+    particle->SetUserData((void*)chemicalBox2D);
 
     b2CircleShape dynamicCircle;
     dynamicCircle.m_radius = 0.1f;

@@ -9,7 +9,7 @@
 #include <QMouseEvent>
 #include <QKeyEvent>
 #include <QTimer>
-#include "chemical.h"
+#include "chemicalBox2D.h"
 
 namespace Ui {
 class MixingModel;
@@ -39,7 +39,7 @@ public:
 
 public slots:
     void updateWorld();
-    //void createScene(Chemical* chemical1, Chemical* chemical2, QVector<Reaction> reactions);
+    //void createScene(chemicalBox2D* chemicalBox2D1, chemicalBox2D* chemicalBox2D2, QVector<Reaction> reactions);
     void createScene();
 
 private:
@@ -50,12 +50,12 @@ private:
     float windowHeight;
     MixingLogic *world;
 
-    //Chemical* chemical1;
-    //Chemical* chemical2;
+    //chemicalBox2D* chemicalBox2D1;
+    //chemicalBox2D* chemicalBox2D2;
 
-    std::vector<Chemical> chemicals;
-    Chemical chemA[200];
-    Chemical chemB[200];
+    std::vector<chemicalBox2D> chemicalBox2Ds;
+    chemicalBox2D chemA[200];
+    chemicalBox2D chemB[200];
 
     int chemCount = 0;
 

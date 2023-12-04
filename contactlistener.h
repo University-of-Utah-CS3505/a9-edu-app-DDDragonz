@@ -1,7 +1,6 @@
 #ifndef CONTACTLISTENER_H
 #define CONTACTLISTENER_H
 
-#include "qdebug.h"
 #include <Box2D/Dynamics/b2WorldCallbacks.h>
 
 class myContactListener : public b2ContactListener

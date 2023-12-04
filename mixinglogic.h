@@ -4,7 +4,7 @@
 #include <QObject>
 #include <Box2D/Box2D.h>
 #include "contactlistener.h"
-#include "chemical.h"
+#include "chemicalBox2D.h"
 
 class MixingLogic
 {
@@ -22,7 +22,7 @@ public:
     void createNewWorld();
 
     //void spawnCircle(b2Body* vial);
-    void spawnCircle(Chemical* chemical, b2Body* vial);
+    void spawnCircle(chemicalBox2D* chemical, b2Body* vial);
     void spawnGas(b2Body* circle);
 
     b2Body* getVial() const;
