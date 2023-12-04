@@ -1,15 +1,18 @@
 #include "mixingmodel.h"
 #include "ui_mixingmodel.h"
+#include "chemical.h"
 
 MixingModel::MixingModel(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::MixingModel),
-    timer(new QTimer(this))
+    timer(new QTimer(this)),
+    chemA(),
+    chemB()
 {
     ui->setupUi(this);
     windowWidth = this->width();
     windowHeight = this->height() - 50;
-    worldPtr = new MixingLogic(windowWidth, windowHeight, SCALE);
+    world = new MixingLogic(windowWidth, windowHeight, SCALE);
 
     connect(timer,
             &QTimer::timeout,
@@ -21,6 +24,19 @@ MixingModel::MixingModel(QWidget *parent) :
             this,
             &MixingModel::eraseScene);
 
+
+
+    for(int i = 0; i < 100; i++)
+    {
+        chemA[i] = Chemical(0, Qt::yellow, false);
+    }
+
+    for(int i = 0; i < 100; i++)
+    {
+        chemB[i] = Chemical(1, Qt::green, false);
+    }
+
+
     //connect(chemical, &Chemical::chemicalSignal, this, &MixingModel::createScene);
     createScene(); //delete when connected
 }
@@ -29,14 +45,13 @@ MixingModel::~MixingModel()
 {
     delete ui;
     delete timer;
-    delete worldPtr;
+    delete world;
 }
-
 
 void MixingModel::paintEvent(QPaintEvent*)
 {
     QPainter painter(this);
-    for (b2Body* body = worldPtr->getWorld()->GetBodyList(); body != 0; body = body->GetNext())
+    for (b2Body* body = world->getWorld()->GetBodyList(); body != 0; body = body->GetNext())
     {
         for (b2Fixture* fixture = body->GetFixtureList(); fixture; fixture = fixture->GetNext())
         {
@@ -47,9 +62,18 @@ void MixingModel::paintEvent(QPaintEvent*)
             }
             else if (shape->GetType() == b2Shape::e_circle)
             {
-                //Chemical c = *static_cast<Chemical*>(body->GetUserData());
-                //drawCircle(painter, body, (b2CircleShape*)shape, c.s_color);
-                drawCircle(painter, body, (b2CircleShape*)shape, Qt::black);
+                void* e = body->GetUserData();
+                if(e)
+                {
+                    Chemical c = *static_cast<Chemical*>(body->GetUserData());
+                    drawCircle(painter, body, (b2CircleShape*)shape, c.s_color);
+                    //drawCircle(painter, body, (b2CircleShape*)shape, Qt::black);
+
+                }
+                else
+                {
+                    drawCircle(painter, body, (b2CircleShape*)shape, Qt::white);
+                }
             }
             else if (shape->GetType() == b2Shape::e_polygon)
             {
@@ -64,10 +88,10 @@ void MixingModel::mouseMoveEvent(QMouseEvent *event)
     if (event->buttons() & Qt::LeftButton)
     {
         b2Vec2 pos(event->pos().x() / SCALE, (windowHeight - event->pos().y()) / SCALE);
-        b2Vec2 velocity = pos -  worldPtr->getVial()->GetPosition();
+        b2Vec2 velocity = pos - world->getVial()->GetPosition();
         float velocityScale = 3.0f; //Changeable
         velocity *= velocityScale;
-        worldPtr->getVial()->SetLinearVelocity(velocity);
+        world->getVial()->SetLinearVelocity(velocity);
         update();
     }
 }
@@ -77,22 +101,22 @@ void MixingModel::keyPressEvent(QKeyEvent *event)
     switch(event->key())
     {
     case Qt::Key_Q:
-        worldPtr->getVial()->SetAngularVelocity(-1);
+        world->getVial()->SetAngularVelocity(1);
         break;
     case Qt::Key_E:
-        worldPtr->getVial()->SetAngularVelocity(1);
+        world->getVial()->SetAngularVelocity(-1);
         break;
     case Qt::Key_W:
-        worldPtr->getVial()->ApplyLinearImpulse(b2Vec2(0.0f, 10.0f), worldPtr->getVial()->GetWorldCenter(), true);
+        world->getVial()->ApplyLinearImpulse(b2Vec2(0.0f, 10.0f), world->getVial()->GetWorldCenter(), true);
         break;
     case Qt::Key_A:
-        worldPtr->getVial()->ApplyLinearImpulse(b2Vec2(-10.0f, 0.0f), worldPtr->getVial()->GetWorldCenter(), true);
+        world->getVial()->ApplyLinearImpulse(b2Vec2(-10.0f, 0.0f), world->getVial()->GetWorldCenter(), true);
         break;
     case Qt::Key_S:
-        worldPtr->getVial()->ApplyLinearImpulse(b2Vec2(0.0f, -10.0f), worldPtr->getVial()->GetWorldCenter(), true);
+        world->getVial()->ApplyLinearImpulse(b2Vec2(0.0f, -10.0f), world->getVial()->GetWorldCenter(), true);
         break;
     case Qt::Key_D:
-        worldPtr->getVial()->ApplyLinearImpulse(b2Vec2(10.0f, 0.0f), worldPtr->getVial()->GetWorldCenter(), true);
+        world->getVial()->ApplyLinearImpulse(b2Vec2(10.0f, 0.0f), world->getVial()->GetWorldCenter(), true);
         break;
     }
     update();
@@ -101,31 +125,11 @@ void MixingModel::keyPressEvent(QKeyEvent *event)
 //void MixingModel::(Chemical* chemical1, Chemical* chemical2, QVector<Reaction> reactions)
 void MixingModel::createScene()
 {
-    worldPtr->createBorder();
-    worldPtr->createVial();
-    worldPtr->createStaticVial();
-
-    //change these to fit with chemicals
-    for (int i = 0; i < 99; i++)
-    {
-        worldPtr->spawnCircle(worldPtr->getVial());
-    }
-
-    for (int i = 0; i < 99; i++)
-    {
-        worldPtr->spawnCircle(worldPtr->getStaticVial());
-    }
-
-//    for (int i = 0; i < 99; i++)
-//    {
-//        SpawnCircle(chemA, vial, i/50);
-//    }
-
-//    for (int i = 0; i < 99; i++)
-//    {
-//        SpawnCircle(chemB, staticVial, i/50);
-//    }
-
+    world->createBorder();
+    world->createVial();
+    world->createBeaker();
+    world->createStirRod();
+    //set chemicals?
     update();
     timer->start(1000 / 60);
 }
@@ -133,12 +137,22 @@ void MixingModel::createScene()
 void MixingModel::eraseScene()
 {
     timer->stop();
-    for (b2Body* body = worldPtr->getWorld()->GetBodyList(); body != 0; body = body->GetNext())
+    for (b2Body* body = world->getWorld()->GetBodyList(); body != 0; body = body->GetNext())
     {
-        worldPtr->getWorld()->DestroyBody(body);
+        world->getWorld()->DestroyBody(body);
     }
-    worldPtr->getWorld()->Step(1/60.f, 8, 3); // make sure everything is deleted
-    worldPtr->createNewWorld();
+    world->getWorld()->Step(1/60.f, 6, 2); // make sure everything is deleted
+    world->createNewWorld();
+    for(int i = 0; i < 100; i++)
+    {
+        chemA[i] = Chemical(0, Qt::yellow, false);
+    }
+
+    for(int i = 0; i < 100; i++)
+    {
+        chemB[i] = Chemical(1, Qt::green, false);
+    }
+     chemCount = 0;
     createScene(); //delete when done because you wouldn't need to create it
 }
 
@@ -147,10 +161,47 @@ void MixingModel::updateWorld()
     float32 timeStep = 1.0f / 60.0f;
     int32 velocityIterations = 6;
     int32 positionIterations = 2;
-    worldPtr->getVial()->ApplyForceToCenter(b2Vec2(0.0f, 14.0f), true);
-    worldPtr->getWorld()->Step(timeStep, velocityIterations, positionIterations);
+    world->getVial()->ApplyForceToCenter(b2Vec2(0.0f, 14.0f), true);
+    world->getStaticVial()->ApplyForceToCenter(b2Vec2(0.0f, 14.0f), true);
+    world->getWorld()->Step(timeStep, velocityIterations, positionIterations);
+
+    if(chemCount < 100)
+    {
+        world->spawnCircle(&chemA[chemCount], world->getVial());
+        world->spawnCircle(&chemB[chemCount], world->getStaticVial());
+        chemCount++;
+
+        // Apply a small force to the vials so the liquids don't stack
+        world->getVial()->ApplyForceToCenter(b2Vec2(.01, 0), true);
+        world->getStaticVial()->ApplyForceToCenter(b2Vec2(-.01, 0), true);
+    }
+    b2Body* b = world->getWorld()->GetBodyList();
+    while(b)
+    {
+        void* a = b->GetUserData();
+        if(a)
+        {
+            Chemical* c = static_cast<Chemical*>(a);
+            if(c->s_touch)
+            {
+                b2Body* d = b;
+                b = b->GetNext();
+                world->spawnGas(d);
+                world->getWorld()->DestroyBody(d);
+            }
+            else
+            {
+                b = b->GetNext();
+            }
+        }
+        else
+        {
+            b = b->GetNext();
+        }
+    }
     update();
-    worldPtr->getVial()->SetLinearVelocity(b2Vec2(0,0));
+    world->getVial()->SetLinearVelocity(b2Vec2(0,0));
+    world->getStaticVial()->SetLinearVelocity(b2Vec2(0,0));
 }
 
 void MixingModel::drawEdge(QPainter& painter, b2Body* body, b2EdgeShape* edge)

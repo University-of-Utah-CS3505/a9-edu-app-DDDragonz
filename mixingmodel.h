@@ -1,7 +1,6 @@
 #ifndef MIXINGMODEL_H
 #define MIXINGMODEL_H
 
-#include "mainwindow.h"
 #include "mixinglogic.h"
 #include <QWidget>
 #include <Box2D/Box2D.h>
@@ -10,6 +9,7 @@
 #include <QMouseEvent>
 #include <QKeyEvent>
 #include <QTimer>
+#include "chemical.h"
 
 namespace Ui {
 class MixingModel;
@@ -42,19 +42,22 @@ public slots:
     //void createScene(Chemical* chemical1, Chemical* chemical2, QVector<Reaction> reactions);
     void createScene();
 
-
 private:
     Ui::MixingModel *ui;
     QTimer *timer;
     const float SCALE = 32.0f;
     float windowWidth;
     float windowHeight;
-    MixingLogic *worldPtr;
+    MixingLogic *world;
 
     //Chemical* chemical1;
     //Chemical* chemical2;
-    int chh = 0;
 
+    std::vector<Chemical> chemicals;
+    Chemical chemA[200];
+    Chemical chemB[200];
+
+    int chemCount = 0;
 
     void setPaintColor(QPainter& painter, QColor color, QBrush brush);
 

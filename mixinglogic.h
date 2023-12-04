@@ -4,6 +4,7 @@
 #include <QObject>
 #include <Box2D/Box2D.h>
 #include "contactlistener.h"
+#include "chemical.h"
 
 class MixingLogic
 {
@@ -14,16 +15,20 @@ public:
 
     void createBorder();
     void createVial();
-    void createStaticVial();
-
-    void spawnCircle(b2Body* vial);
-    //void spawnCircle(Chemical* chemical, b2Body* vial);
-
+    void createBeaker();
+    void createStirRod();
     void createWall(b2Body* body, b2Vec2 vertex1, b2Vec2 vertex2);
+    void createWalls(int numberOfVerts, float32 xPos, float32 yPos, b2Body* body);
     void createNewWorld();
+
+    //void spawnCircle(b2Body* vial);
+    void spawnCircle(Chemical* chemical, b2Body* vial);
+    void spawnGas(b2Body* circle);
 
     b2Body* getVial() const;
     b2Body* getStaticVial() const;
+    void setVial(b2Body* otherVial);
+    void setStaticVial(b2Body* otherVial);
     b2World* getWorld() const;
 
 private:

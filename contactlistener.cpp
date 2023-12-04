@@ -1,5 +1,5 @@
 #include "contactlistener.h"
-#include "mw.h"
+#include "chemical.h"
 #include "Box2D/Dynamics/Contacts/b2Contact.h"
 
 void myContactListener::BeginContact(b2Contact* contact)
@@ -20,4 +20,5 @@ void myContactListener::BeginContact(b2Contact* contact)
             b->s_touch = true;
         }
     }
+
 }
