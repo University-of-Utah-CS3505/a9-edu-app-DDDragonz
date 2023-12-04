@@ -27,6 +27,8 @@ private:
     Reactions m_reactions;
     std::vector<QString> m_reactants;
     Mysteries m_mysteries;
+    QString m_currentSubstance1;
+    QString m_currentSubstance2;
 
     void levelOneSetUp();
     void levelTwoSetUp();
@@ -43,11 +45,13 @@ signals:
     void addReactants(int number);
     void levelKeep();
     void sendChemicalMixResult(QString chemical1, QString chemical2, Reaction reactionResult);
+    void sendReactionIdentifiers(QString substance1, QString substance2, QString identifiers);
 
 public slots:
     void chemicalSelected(QString formula);
     void chemicalsMixed(QString formula1, QString formula2);
     void levelUp(vector<QString> choices);
+    void receiveIdentifiers(QString identifiers);
 };
 
 #endif // CHEMISTRYLOGICMODEL_H

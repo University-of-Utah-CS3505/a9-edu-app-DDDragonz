@@ -29,6 +29,10 @@ MainWindow::MainWindow(ChemistryLogicModel& logicModel, QWidget *parent)
     connect(&logicModel, &ChemistryLogicModel::sendLevel, observationTable, &ObservationTable::levelUp);
     connect(&logicModel, &ChemistryLogicModel::levelKeep, this, &MainWindow::wrongAnswerReminder);
     connect(ui->vialButtonsWidget, &MysterySubstances::mixingChemicals, &logicModel, &ChemistryLogicModel::chemicalsMixed);
+    connect(ui->vialButtonsWidget, &MysterySubstances::mixChemicals, ui->reactionIdentifiersWidget, &ReactionIdentifiers::mixSelected);
+    connect(ui->vialButtonsWidget, &MysterySubstances::doneMixing, ui->reactionIdentifiersWidget, &ReactionIdentifiers::doneMixingSelected);
+    connect(ui->reactionIdentifiersWidget, &ReactionIdentifiers::sendIdentifiers, &logicModel, &ChemistryLogicModel::receiveIdentifiers);
+    connect(&logicModel, &ChemistryLogicModel::sendReactionIdentifiers, observationTable, &ObservationTable::receiveIdentifiers);
 
     logicModel.levelUp(vector<QString>());
 }

@@ -23,6 +23,7 @@ private:
 
 public slots:
     void levelUp(int level);
+    void receiveIdentifiers(QString substance1, QString substance2, QString identifiers);
 };
 
 #endif // OBSERVATIONTABLE_H

@@ -17,6 +17,14 @@ public:
 
 private:
     Ui::ReactionIdentifiers *ui;
+
+public slots:
+    void mixSelected();
+    void doneMixingSelected();
+    void submitSelected();
+
+signals:
+    void sendIdentifiers(QString identifiers);
 };
 
 #endif // REACTIONIDENTIFIERS_H

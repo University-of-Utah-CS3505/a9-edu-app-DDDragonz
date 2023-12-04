@@ -163,10 +163,17 @@ vector<QString> ChemistryLogicModel::getAllReactants()
 
 void ChemistryLogicModel::chemicalsMixed(QString formula1, QString formula2)
 {
+    m_currentSubstance1 = formula1;
+    m_currentSubstance2 = formula2;
     QString chemical1 = m_mysteries.getChemical(formula1);
     QString chemical2 = m_mysteries.getChemical(formula2);
 
     Reaction reaction = m_reactions.getReaction(m_chemicals.find(chemical1).value(), m_chemicals.find(chemical2).value());
 
     emit sendChemicalMixResult(chemical1, chemical2, reaction);
+}
+
+void ChemistryLogicModel::receiveIdentifiers(QString identifiers)
+{
+    emit sendReactionIdentifiers(m_currentSubstance1, m_currentSubstance2, identifiers);
 }
