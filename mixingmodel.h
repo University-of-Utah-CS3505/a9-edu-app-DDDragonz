@@ -10,6 +10,7 @@
 #include <QKeyEvent>
 #include <QTimer>
 #include "chemicalBox2D.h"
+#include "reaction.h"
 
 namespace Ui {
 class MixingModel;
@@ -27,8 +28,6 @@ public:
     void mouseMoveEvent(QMouseEvent *event) override;
     void keyPressEvent(QKeyEvent *event) override;
 
-    void eraseScene();
-
     void drawEdge(QPainter& painter, b2Body* body, b2EdgeShape* edge);
     void drawPolygon(QPainter& painter, b2Body* body, b2PolygonShape* polygon);
     void drawCircle(QPainter& painter, b2Body* body, b2CircleShape* circle, QColor color);
@@ -39,13 +38,14 @@ public:
 
 public slots:
     void updateWorld();
-    //void createScene(chemicalBox2D* chemicalBox2D1, chemicalBox2D* chemicalBox2D2, QVector<Reaction> reactions);
+    void eraseScene();
     void createScene();
+    void createScene2(QString chemical1, QString chemical2, Reaction reactionResult);
 
 private:
     Ui::MixingModel *ui;
     QTimer *timer;
-    const float SCALE = 32.0f;
+    const float SCALE = 20.0f;
     float windowWidth;
     float windowHeight;
     MixingLogic *world;
@@ -58,6 +58,8 @@ private:
     chemicalBox2D chemB[200];
 
     int chemCount = 0;
+
+    int count = 0;
 
     void setPaintColor(QPainter& painter, QColor color, QBrush brush);
 

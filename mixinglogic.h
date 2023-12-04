@@ -32,7 +32,7 @@ public:
     b2World* getWorld() const;
 
 private:
-    b2World *world;
+    b2World *logicWorld;
     b2Body* vial;
     b2Body* staticVial;
 

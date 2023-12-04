@@ -4,12 +4,15 @@
 #include "identifychemicals.h"
 #include "helpwindow.h"
 #include "observationtable.h"
+#include "mixingmodel.h"
 #include <QString>
 #include <QMessageBox>
 
+#include <QDebug>
+
 using std::vector;
 
-MainWindow::MainWindow(ChemistryLogicModel& logicModel, QWidget *parent)
+MainWindow::MainWindow(ChemistryLogicModel& logicModel, MixingModel& mixingModel, QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
@@ -34,6 +37,9 @@ MainWindow::MainWindow(ChemistryLogicModel& logicModel, QWidget *parent)
     connect(ui->reactionIdentifiersWidget, &ReactionIdentifiers::sendIdentifiers, &logicModel, &ChemistryLogicModel::receiveIdentifiers);
     connect(&logicModel, &ChemistryLogicModel::sendReactionIdentifiers, observationTable, &ObservationTable::receiveIdentifiers);
     connect(&logicModel, &ChemistryLogicModel::sendLevel, ui->vialButtonsWidget, &MysterySubstances::levelUp);
+    connect(ui->vialButtonsWidget, &MysterySubstances::doneMixing, &mixingModel, &MixingModel::eraseScene);
+    connect(ui->vialButtonsWidget, &MysterySubstances::mixChemicals, &mixingModel, &MixingModel::createScene);
+    connect(&logicModel, &ChemistryLogicModel::sendChemicalMixResult, &mixingModel, &MixingModel::createScene2);
 
     logicModel.levelUp(vector<QString>());
 }

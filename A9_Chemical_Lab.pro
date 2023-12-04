@@ -55,11 +55,6 @@ SOURCES += \
     Box2D/Dynamics/b2World.cpp \
     Box2D/Dynamics/b2WorldCallbacks.cpp \
     Box2D/Rope/b2Rope.cpp \
-    chemicalbox2d.cpp \
-    contactlistener.cpp \
-    main.cpp \
-    mixinglogic.cpp \
-    mixingmodel.cpp
     chemical.cpp \
     chemicalequations.cpp \
     chemistrylogicmodel.cpp \
@@ -74,7 +69,11 @@ SOURCES += \
     observationtable.cpp \
     reaction.cpp \
     reactionidentifiers.cpp \
-    reactions.cpp
+    reactions.cpp \
+    chemicalbox2d.cpp \
+    contactlistener.cpp \
+    mixinglogic.cpp \
+    mixingmodel.cpp
 
 HEADERS += \
     Box2D/Box2D.h \
@@ -124,10 +123,7 @@ HEADERS += \
     Box2D/Dynamics/b2World.h \
     Box2D/Dynamics/b2WorldCallbacks.h \
     Box2D/Rope/b2Rope.h \
-    chemicalbox2d.h \
-    contactlistener.h \
-    mixinglogic.h \
-    mixingmodel.h \
+    chemical.h \
     chemicalequations.h \
     chemistrylogicmodel.h \
     helpwindow.h \
@@ -141,7 +137,10 @@ HEADERS += \
     reaction.h \
     reactionidentifiers.h \
     reactions.h \
-    chemical.h 
+    chemicalbox2d.h \
+    contactlistener.h \
+    mixinglogic.h \
+    mixingmodel.h
 
 FORMS += \
     chemicalequations.ui \

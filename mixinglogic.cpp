@@ -2,13 +2,15 @@
 #include "contactlistener.h"
 #include "chemicalBox2D.h"
 
+#include <QDebug>
+
 MixingLogic::MixingLogic(float width, float height, const float scale) :
-    world(new b2World(b2Vec2(0.0f, -10.0f))),
+    logicWorld(new b2World(b2Vec2(0.0f, -10.0f))),
     SCALE(scale),
     windowWidth(width),
     windowHeight(height)
 {
-    world->SetContactListener(&contact);
+    logicWorld->SetContactListener(&contact);
 }
 
 void MixingLogic::createBorder()
@@ -17,7 +19,7 @@ void MixingLogic::createBorder()
     b2BodyDef bodyDef;
     bodyDef.type = b2_kinematicBody;
     bodyDef.position.Set(0, 0);
-    b2Body* body = world->CreateBody(&bodyDef);
+    b2Body* body = logicWorld->CreateBody(&bodyDef);
     b2EdgeShape edge;
 
     // Bottom border
@@ -39,12 +41,13 @@ void MixingLogic::createBorder()
 
 void MixingLogic::createVial()
 {
+    qDebug() << "Drawing Vial";
     b2BodyDef bodyDef;
     bodyDef.type = b2_dynamicBody;
     bodyDef.fixedRotation = true;
     bodyDef.bullet = true;
     bodyDef.position.Set(windowWidth  / 4 / SCALE, windowHeight / 3 / SCALE);
-    vial = world->CreateBody(&bodyDef);
+    vial = logicWorld->CreateBody(&bodyDef);
 
     vial->SetLinearDamping(3.0f);
     vial->SetAngularDamping(3.0f);
@@ -67,7 +70,7 @@ void MixingLogic::createBeaker()
     bodyDef.fixedRotation = true;
     bodyDef.bullet = true;
     bodyDef.position.Set(windowWidth  / 2 / SCALE, windowHeight / 6.75 / SCALE);
-    staticVial = world->CreateBody(&bodyDef);
+    staticVial = logicWorld->CreateBody(&bodyDef);
 
     staticVial->SetLinearDamping(3.0f);
     staticVial->SetAngularDamping(3.0f);
@@ -89,7 +92,7 @@ void MixingLogic::createStirRod()
     b2BodyDef bodyDef;
     bodyDef.type = b2_kinematicBody; // Set the body to be dynamic
     bodyDef.position.Set(windowWidth  / 2 / SCALE, windowHeight / 10.25 / SCALE);
-    b2Body *body = world->CreateBody(&bodyDef);
+    b2Body *body = logicWorld->CreateBody(&bodyDef);
 
     // Assign a rectangular shape to the body
     b2PolygonShape boxShape;
@@ -125,13 +128,13 @@ void MixingLogic::createWall(b2Body* body, b2Vec2 vertex1, b2Vec2 vertex2)
 void MixingLogic::createNewWorld()
 {
     b2Vec2 gravity(0.0f, -10.0f);
-    if(world != nullptr)
+    if(logicWorld != nullptr)
     {
-        delete world;
-        world = nullptr;
+        delete logicWorld;
+        logicWorld = nullptr;
     }
-    world = new b2World(gravity);
-    world->SetContactListener(&contact);
+    logicWorld = new b2World(gravity);
+    logicWorld->SetContactListener(&contact);
 }
 
 void MixingLogic::spawnCircle(chemicalBox2D* chemicalBox2D, b2Body* vial)
@@ -143,7 +146,7 @@ void MixingLogic::spawnCircle(chemicalBox2D* chemicalBox2D, b2Body* vial)
 
     b2Vec2 vialPosition = vial->GetWorldCenter();
     bodyDef.position.Set(vialPosition.x, vialPosition.y);
-    b2Body* particle = world->CreateBody(&bodyDef);
+    b2Body* particle = logicWorld->CreateBody(&bodyDef);
     particle->SetUserData((void*)chemicalBox2D);
 
     b2CircleShape dynamicCircle;
@@ -161,7 +164,7 @@ void MixingLogic::spawnGas(b2Body* circle)
 
     b2Vec2 circlePos = circle->GetWorldCenter();
     bodyDef.position.Set(circlePos.x, circlePos.y);
-    b2Body* particle = world->CreateBody(&bodyDef);
+    b2Body* particle = logicWorld->CreateBody(&bodyDef);
     particle->SetGravityScale(-1);
 
     b2CircleShape dynamicCircle;
@@ -195,7 +198,7 @@ void MixingLogic::setStaticVial(b2Body* otherVial)
 
 b2World* MixingLogic::getWorld() const
 {
-    return world;
+    return logicWorld;
 }
 
 void MixingLogic::createFixutre(b2Body* body, b2Shape* shape, float32 density, float32 friction, float restitution)
@@ -210,5 +213,5 @@ void MixingLogic::createFixutre(b2Body* body, b2Shape* shape, float32 density, f
 
 MixingLogic::~MixingLogic()
 {
-    delete world;
+    delete logicWorld;
 }

@@ -11,34 +11,21 @@ MixingModel::MixingModel(QWidget *parent) :
 {
     ui->setupUi(this);
     windowWidth = this->width();
-    windowHeight = this->height() - 50;
+    windowHeight = this->height() - 25;
     world = new MixingLogic(windowWidth, windowHeight, SCALE);
     //input image
     connect(timer,
             &QTimer::timeout,
             this,
             &MixingModel::updateWorld);
-
     connect(ui->reset,
             &QPushButton::clicked,
             this,
             &MixingModel::eraseScene);
-
-
-
-    for(int i = 0; i < 100; i++)
-    {
-        chemA[i] = chemicalBox2D(0, Qt::yellow, false);
-    }
-
-    for(int i = 0; i < 100; i++)
-    {
-        chemB[i] = chemicalBox2D(1, Qt::green, false);
-    }
-
-
-    //connect(chemicalBox2D, &chemicalBox2D::chemicalBox2DSignal, this, &MixingModel::createScene);
-    createScene(); //delete when connected
+    connect(ui->create,
+            &QPushButton::clicked,
+            this,
+            &MixingModel::createScene);
 }
 
 MixingModel::~MixingModel()
@@ -50,6 +37,8 @@ MixingModel::~MixingModel()
 
 void MixingModel::paintEvent(QPaintEvent*)
 {
+    qDebug() << "World address in paintEvent: " << world->getWorld();
+    qDebug() << world->getWorld()->GetBodyList();
     QPainter painter(this);
     for (b2Body* body = world->getWorld()->GetBodyList(); body != 0; body = body->GetNext())
     {
@@ -67,8 +56,6 @@ void MixingModel::paintEvent(QPaintEvent*)
                 {
                     chemicalBox2D c = *static_cast<chemicalBox2D*>(body->GetUserData());
                     drawCircle(painter, body, (b2CircleShape*)shape, c.s_color);
-                    //drawCircle(painter, body, (b2CircleShape*)shape, Qt::black);
-
                 }
                 else
                 {
@@ -122,25 +109,49 @@ void MixingModel::keyPressEvent(QKeyEvent *event)
     update();
 }
 
-//void MixingModel::(chemicalBox2D* chemicalBox2D1, chemicalBox2D* chemicalBox2D2, QVector<Reaction> reactions)
+void MixingModel::createScene2(QString chemical1, QString chemical2, Reaction reactionResult)
+{
+    Reaction r = reactionResult;
+    qDebug() << chemical1 << chemical2;
+}
 void MixingModel::createScene()
 {
+    qDebug() << "creating scene";
+    qDebug() << "World address in createScene: " << world->getWorld();
     world->createBorder();
     world->createVial();
     world->createBeaker();
     world->createStirRod();
-    //set chemicalBox2Ds?
+    for(int i = 0; i < 100; i++)
+    {
+        chemA[i] = chemicalBox2D(0, Qt::yellow, false);
+    }
+
+    for(int i = 0; i < 100; i++)
+    {
+        chemB[i] = chemicalBox2D(1, Qt::green, false);
+    }
     update();
     timer->start(1000 / 60);
 }
 
 void MixingModel::eraseScene()
 {
+    qDebug() << "erasing scene";
     timer->stop();
+
+    std::vector<b2Body*> bodiesToDestroy;
+
     for (b2Body* body = world->getWorld()->GetBodyList(); body != 0; body = body->GetNext())
+    {
+        bodiesToDestroy.push_back(body);
+    }
+
+    for (b2Body* body : bodiesToDestroy)
     {
         world->getWorld()->DestroyBody(body);
     }
+
     world->getWorld()->Step(1/60.f, 6, 2); // make sure everything is deleted
     world->createNewWorld();
     for(int i = 0; i < 100; i++)
@@ -153,7 +164,8 @@ void MixingModel::eraseScene()
         chemB[i] = chemicalBox2D(1, Qt::green, false);
     }
     chemCount = 0;
-    createScene(); //delete when done because you wouldn't need to create it
+    update(this->rect());
+    //createScene(); //delete when done because you wouldn't need to create it
 }
 
 void MixingModel::updateWorld()

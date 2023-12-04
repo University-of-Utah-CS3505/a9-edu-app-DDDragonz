@@ -290,7 +290,7 @@ Table</string>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_5">
        <item>
-        <widget class="QWidget" name="mixingWidget" native="true"/>
+        <widget class="MixingModel" name="mixingWidget" native="true"/>
        </item>
       </layout>
      </widget>
@@ -303,7 +303,7 @@ Table</string>
      <x>0</x>
      <y>0</y>
      <width>946</width>
-     <height>24</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>
@@ -332,6 +332,12 @@ Table</string>
    <class>MysterySubstances</class>
    <extends>QWidget</extends>
    <header>mysterysubstances.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>MixingModel</class>
+   <extends>QWidget</extends>
+   <header>mixingmodel.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

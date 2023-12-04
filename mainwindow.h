@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include "chemistrylogicmodel.h"
 #include "observationtable.h"
+#include "mixingmodel.h"
 
 using std::vector;
 
@@ -16,7 +17,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow(ChemistryLogicModel& logicModel, QWidget *parent = nullptr);
+    MainWindow(ChemistryLogicModel& logicModel, MixingModel& mixingModel, QWidget *parent = nullptr);
     ~MainWindow();
 
 private:
@@ -28,5 +29,6 @@ private slots:
     void showHelp();
     void showObservationTable();
     void wrongAnswerReminder();
+
 };
 #endif // MAINWINDOW_H
