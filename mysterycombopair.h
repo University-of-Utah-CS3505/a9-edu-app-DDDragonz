@@ -16,13 +16,13 @@ class MysteryComboPair : public QWidget
 
 public:
     explicit MysteryComboPair(QWidget *parent = nullptr);
-    MysteryComboPair(QString mystery, vector<QString> chemicals, QWidget *parent = nullptr);
+    MysteryComboPair(int index, QString mystery, vector<QString> chemicals, QWidget *parent = nullptr);
     void addComboItem(QString name, int index);
     ~MysteryComboPair();
 
 private:
     Ui::MysteryComboPair *ui;
-    int index;
+    int m_index;
 
 signals:
     void choiceChange(QString chemical, int index);

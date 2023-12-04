@@ -1,10 +1,10 @@
 #include "mysterycombopair.h"
 #include "ui_mysterycombopair.h"
 
-MysteryComboPair::MysteryComboPair(QString mystery, vector<QString> chemicals, QWidget *parent) :
+MysteryComboPair::MysteryComboPair(int index, QString mystery, vector<QString> chemicals, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::MysteryComboPair),
-    index(0)
+    m_index(index)
 {
     ui->setupUi(this);
     ui->label->setText(mystery);
@@ -26,12 +26,12 @@ MysteryComboPair::MysteryComboPair(QWidget *parent) :
 void MysteryComboPair::addComboItem(QString name, int index)
 {
     ui->comboBox->addItem(name);
-    this->index = index;
+    this->m_index = index;
 }
 
 void MysteryComboPair::comboChange(QString chemical)
 {
-    emit choiceChange(chemical, index);
+    emit choiceChange(chemical, m_index);
 }
 
 MysteryComboPair::~MysteryComboPair()

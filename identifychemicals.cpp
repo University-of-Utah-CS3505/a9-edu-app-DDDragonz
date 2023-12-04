@@ -41,13 +41,13 @@ void IdentifyChemicals::addElement(QString chemical)
     string name = "Substance ";
     name += numberCharacter;
     m_prevChemicals.push_back(chemical);
-    MysteryComboPair* toAdd = new MysteryComboPair(QString::fromStdString(name), m_prevChemicals);
+    MysteryComboPair* toAdd = new MysteryComboPair(m_numberOfSubstances, QString::fromStdString(name), m_prevChemicals);
+    connect(toAdd, &MysteryComboPair::choiceChange, this, &IdentifyChemicals::choiceChange);
     ui->layout->addWidget(toAdd);
 
     for(int i = 0; i < (int)m_comboPairs.size(); i++)
     {
        m_comboPairs.at(i)->addComboItem(chemical, i);
-       connect(m_comboPairs.at(i), &MysteryComboPair::choiceChange, this, &IdentifyChemicals::choiceChange);
     }
     m_comboPairs.push_back(toAdd);
     m_numberOfSubstances++;
