@@ -8,9 +8,12 @@ MW::MW(QWidget *parent)
     , ui(new Ui::MW)
     , world(new b2World(b2Vec2(0.0f, -10.0f)))
     , timer(new QTimer(this))
+    , chemA()
+    , chemB()
 {
     ui->setupUi(this);
     windowWidth = this->width();
+    // qDebug() << windowWidth;
     windowHeight = this->height() - 50;
 
     chemA = new Chemical(0, Qt::yellow);
@@ -25,7 +28,17 @@ MW::MW(QWidget *parent)
     connect(ui->reset,
             &QPushButton::clicked,
             this,
-            &MW::resetScene);
+            &MainWindow::resetScene);
+
+    for(int i = 0; i < 100; i++)
+    {
+        chemA[i] = Chemical(0, Qt::yellow, false);
+    }
+
+    for(int i = 0; i < 100; i++)
+    {
+        chemB[i] = Chemical(1, Qt::green, false);
+    }
 
     world->SetContactListener(&contact);
     createScene();
@@ -71,8 +84,16 @@ void MW::paintEvent(QPaintEvent*)
             }
             else if (shape->GetType() == b2Shape::e_circle)
             {
-                Chemical c = *static_cast<Chemical*>(body->GetUserData());
-                drawCircle(painter, body, (b2CircleShape*)shape, c.s_color);
+                void* e = body->GetUserData();
+                if(e)
+                {
+                    Chemical c = *static_cast<Chemical*>(body->GetUserData());
+                    drawCircle(painter, body, (b2CircleShape*)shape, c.s_color);
+                }
+                else
+                {
+                    drawCircle(painter, body, (b2CircleShape*)shape, Qt::white);
+                }
             }
             else if (shape->GetType() == b2Shape::e_polygon)
             {
@@ -98,7 +119,7 @@ void MW::createVial()
 {
     b2BodyDef bodyDef;
     bodyDef.type = b2_dynamicBody;
-    //bodyDef.fixedRotation = true;
+    bodyDef.fixedRotation = true;
     bodyDef.bullet = true;
     bodyDef.position.Set(windowWidth  / 4 / SCALE, windowHeight / 3 / SCALE);
     vial = world->CreateBody(&bodyDef);
@@ -120,7 +141,7 @@ void MW::createVial()
 void MW::createStaticVial()
 {
     b2BodyDef bodyDef;
-    bodyDef.type = b2_kinematicBody;
+    bodyDef.type = b2_dynamicBody;
     bodyDef.fixedRotation = true;
     bodyDef.bullet = true;
     bodyDef.position.Set(3*windowWidth  / 4 / SCALE, windowHeight / 3 / SCALE);
@@ -140,17 +161,40 @@ void MW::createStaticVial()
     createWall(staticVial, vertices[0], vertices[3]); // Bottom wall
 }
 
-void MW::SpawnBox()
+void MainWindow::createBeaker()
+{
+    b2BodyDef bodyDef;
+    bodyDef.type = b2_kinematicBody;
+    bodyDef.fixedRotation = true;
+    bodyDef.bullet = true;
+    bodyDef.position.Set(windowWidth  / 2 / SCALE, windowHeight / 6.75 / SCALE);
+    staticVial = world->CreateBody(&bodyDef);
+
+    staticVial->SetLinearDamping(3.0f);
+    staticVial->SetAngularDamping(3.0f);
+
+    b2Vec2 vertices[4];
+    vertices[0].Set(-2.0f, -2.75f); //bottom-left
+    vertices[1].Set(-2.0f, 2.75f); //top-left
+    vertices[2].Set(2.0f, 2.75f); //top-right
+    vertices[3].Set(2.0f, -2.75f); //bottom-right
+
+    createWall(staticVial, vertices[0], vertices[1]); // Left wall
+    createWall(staticVial, vertices[2], vertices[3]); // Right wall
+    createWall(staticVial, vertices[0], vertices[3]); // Bottom wall
+}
+
+void MainWindow::CreateStirRod()
 {
     // Define a body
     b2BodyDef bodyDef;
     bodyDef.type = b2_kinematicBody; // Set the body to be dynamic
-    bodyDef.position.Set(windowWidth  / 2 / SCALE, windowHeight / 2 / SCALE);
+    bodyDef.position.Set(windowWidth  / 2 / SCALE, windowHeight / 10.25 / SCALE);
     b2Body *body = world->CreateBody(&bodyDef);
 
     // Assign a rectangular shape to the body
     b2PolygonShape boxShape;
-    boxShape.SetAsBox(0.5f, 1.0f);
+    boxShape.SetAsBox(0.05f, 1.75f);
 
     // Define fixture
     b2FixtureDef fixture;
@@ -161,6 +205,8 @@ void MW::SpawnBox()
 
     // Attach the fixture to the body
     body->CreateFixture(&fixture);
+
+    body->SetAngularVelocity(2.0f);
 }
 
 void MW::SpawnCircle(Chemical* chemical, b2Body* vial, float offset)
@@ -186,7 +232,31 @@ void MW::SpawnCircle(Chemical* chemical, b2Body* vial, float offset)
     particle->CreateFixture(&fixtureDef);
 }
 
-void MW::createWall(b2Body* body, b2Vec2 vertex1, b2Vec2 vertex2)
+void MainWindow::SpawnGas(b2Body* circle)
+{
+    b2BodyDef bodyDef;
+    bodyDef.type = b2_dynamicBody;
+    bodyDef.linearDamping = 2.0f;
+    bodyDef.angularDamping = 1.0f;
+
+    b2Vec2 circlePos = circle->GetWorldCenter();
+    bodyDef.position.Set(circlePos.x, circlePos.y);
+    b2Body* particle = world->CreateBody(&bodyDef);
+    particle->SetGravityScale(-1);
+
+    b2CircleShape dynamicCircle;
+    dynamicCircle.m_radius = 0.1f;
+
+    b2FixtureDef fixtureDef;
+    fixtureDef.shape = &dynamicCircle;
+    fixtureDef.density = 1.0f;
+    fixtureDef.friction = 0.1f;
+    fixtureDef.restitution = 0.01f;
+    fixtureDef.filter.categoryBits = 0;
+    particle->CreateFixture(&fixtureDef);
+}
+
+void MainWindow::createWall(b2Body* body, b2Vec2 vertex1, b2Vec2 vertex2)
 {
     b2PolygonShape wall;
     float thickness = 0.1f;
@@ -210,10 +280,10 @@ void MW::keyPressEvent(QKeyEvent *event)
     switch(event->key())
     {
     case Qt::Key_Q:
-        vial->SetAngularVelocity(-1);
+        vial->SetAngularVelocity(1);
         break;
     case Qt::Key_E:
-        vial->SetAngularVelocity(1);
+        vial->SetAngularVelocity(-1);
         break;
     case Qt::Key_W:
         vial->ApplyLinearImpulse(b2Vec2(0.0f, 10.0f), vial->GetWorldCenter(), true);
@@ -227,29 +297,25 @@ void MW::keyPressEvent(QKeyEvent *event)
     case Qt::Key_D:
         vial->ApplyLinearImpulse(b2Vec2(10.0f, 0.0f), vial->GetWorldCenter(), true);
         break;
+    case Qt::Key_Z:
+        b2Body* temp = vial;
+        vial = staticVial;
+        staticVial = temp;
     }
 
+
     update();
-    b2Vec2 vialPosition = vial->GetPosition();
-    float32 vialAngle = vial->GetAngle();
-    qDebug() << "Vial Position: (" << vialPosition.x << ", " << vialPosition.y << ")" << "Vial Angle: " << vialAngle;
+    // b2Vec2 vialPosition = vial->GetPosition();
+    // float32 vialAngle = vial->GetAngle();
+    // qDebug() << "Vial Position: (" << vialPosition.x << ", " << vialPosition.y << ")" << "Vial Angle: " << vialAngle;
 }
 
 void MW::createScene()
 {
-    SpawnBox();
+    CreateStirRod();
+    createBeaker();
     createVial();
     createStaticVial();
-
-    for (int i = 0; i < 99; i++)
-    {
-        SpawnCircle(chemA, vial, i/50);
-    }
-
-    for (int i = 0; i < 99; i++)
-    {
-        SpawnCircle(chemB, staticVial, i/50);
-    }
 
     createBorder();
     update();
@@ -270,10 +336,20 @@ void MW::resetScene()
         delete world;
         world = nullptr;
     }
+
+    for(int i = 0; i < 100; i++)
+    {
+        chemA[i] = Chemical(0, Qt::yellow, false);
+    }
+
+    for(int i = 0; i < 100; i++)
+    {
+        chemB[i] = Chemical(1, Qt::green, false);
+    }
+
     world = new b2World(gravity);
-    chemA->s_color = Qt::yellow;
-    chemB->s_color = Qt::green;
     world->SetContactListener(&contact);
+    chemCount = 0;
     createScene();
 }
 
@@ -325,10 +401,51 @@ void MW::Update()
     float32 timeStep = 1.0f / 60.0f;
     int32 velocityIterations = 6;
     int32 positionIterations = 2;
+
     vial->ApplyForceToCenter(b2Vec2(0.0f, 14.0f), true);
+    staticVial->ApplyForceToCenter(b2Vec2(0.0f, 14.0f), true);
     world->Step(timeStep, velocityIterations, positionIterations);
+
+    if(chemCount < 100) {
+        SpawnCircle(&chemA[chemCount], vial);
+        SpawnCircle(&chemB[chemCount], staticVial);
+        chemCount++;
+
+        // Apply a small force to the vials so the liquids don't stack
+        vial->ApplyForceToCenter(b2Vec2(.01, 0), true);
+        staticVial->ApplyForceToCenter(b2Vec2(-.01, 0), true);
+    }
+
+    b2Body* b = world->GetBodyList();
+
+    while(b)
+    {
+        void* a = b->GetUserData();
+        if(a)
+        {
+            Chemical* c = static_cast<Chemical*>(a);
+            if(c->s_touch)
+            {
+                b2Body* d = b;
+                b = b->GetNext();
+                SpawnGas(d);
+                world->DestroyBody(d);
+
+            }
+            else
+            {
+                b = b->GetNext();
+            }
+        }
+        else
+        {
+            b = b->GetNext();
+        }
+    }
+
     update();
     vial->SetLinearVelocity(b2Vec2(0,0));
+    staticVial->SetLinearVelocity(b2Vec2(0,0));
 }
 
 MW::~MW()

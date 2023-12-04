@@ -14,8 +14,10 @@ void myContactListener::BeginContact(b2Contact* contact)
         Chemical* b = static_cast<Chemical*>(dataB);
         if(a->s_id != b->s_id)
         {
-            qDebug() << "contact";
-            a->s_color = Qt::black;
+            // qDebug() << "contact";
+            // a->s_color = Qt::black;
+            a->s_touch = true;
+            b->s_touch = true;
         }
     }
 }
