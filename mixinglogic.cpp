@@ -41,7 +41,6 @@ void MixingLogic::createBorder()
 
 void MixingLogic::createVial()
 {
-    qDebug() << "Drawing Vial";
     b2BodyDef bodyDef;
     bodyDef.type = b2_dynamicBody;
     bodyDef.fixedRotation = true;

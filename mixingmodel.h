@@ -36,6 +36,8 @@ public:
     /// @param vect The x,y coordinates to scale
     QPointF convertCoordsBox2DToQt(b2Vec2 vec);
 
+    MixingLogic *world;
+
 public slots:
     void updateWorld();
     void eraseScene();
@@ -48,7 +50,7 @@ private:
     const float SCALE = 20.0f;
     float windowWidth;
     float windowHeight;
-    MixingLogic *world;
+
 
     //chemicalBox2D* chemicalBox2D1;
     //chemicalBox2D* chemicalBox2D2;

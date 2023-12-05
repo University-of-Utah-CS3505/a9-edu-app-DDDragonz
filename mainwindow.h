@@ -17,7 +17,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow(ChemistryLogicModel& logicModel, MixingModel& mixingModel, QWidget *parent = nullptr);
+    MainWindow(ChemistryLogicModel& logicModel, QWidget *parent = nullptr);
     ~MainWindow();
 
 private:

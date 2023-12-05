@@ -18,14 +18,6 @@ MixingModel::MixingModel(QWidget *parent) :
             &QTimer::timeout,
             this,
             &MixingModel::updateWorld);
-    connect(ui->reset,
-            &QPushButton::clicked,
-            this,
-            &MixingModel::eraseScene);
-    connect(ui->create,
-            &QPushButton::clicked,
-            this,
-            &MixingModel::createScene);
 }
 
 MixingModel::~MixingModel()
@@ -37,8 +29,6 @@ MixingModel::~MixingModel()
 
 void MixingModel::paintEvent(QPaintEvent*)
 {
-    qDebug() << "World address in paintEvent: " << world->getWorld();
-    qDebug() << world->getWorld()->GetBodyList();
     QPainter painter(this);
     for (b2Body* body = world->getWorld()->GetBodyList(); body != 0; body = body->GetNext())
     {
@@ -112,12 +102,11 @@ void MixingModel::keyPressEvent(QKeyEvent *event)
 void MixingModel::createScene2(QString chemical1, QString chemical2, Reaction reactionResult)
 {
     Reaction r = reactionResult;
+    qDebug() << r.colorOfSolid() << r.hasSolid() << r.hasGas();
     qDebug() << chemical1 << chemical2;
 }
 void MixingModel::createScene()
 {
-    qDebug() << "creating scene";
-    qDebug() << "World address in createScene: " << world->getWorld();
     world->createBorder();
     world->createVial();
     world->createBeaker();
@@ -137,7 +126,6 @@ void MixingModel::createScene()
 
 void MixingModel::eraseScene()
 {
-    qDebug() << "erasing scene";
     timer->stop();
 
     std::vector<b2Body*> bodiesToDestroy;

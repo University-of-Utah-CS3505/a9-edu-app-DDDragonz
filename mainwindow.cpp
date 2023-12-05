@@ -8,11 +8,9 @@
 #include <QString>
 #include <QMessageBox>
 
-#include <QDebug>
-
 using std::vector;
 
-MainWindow::MainWindow(ChemistryLogicModel& logicModel, MixingModel& mixingModel, QWidget *parent)
+MainWindow::MainWindow(ChemistryLogicModel& logicModel, QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
@@ -37,10 +35,11 @@ MainWindow::MainWindow(ChemistryLogicModel& logicModel, MixingModel& mixingModel
     connect(ui->reactionIdentifiersWidget, &ReactionIdentifiers::sendIdentifiers, &logicModel, &ChemistryLogicModel::receiveIdentifiers);
     connect(&logicModel, &ChemistryLogicModel::sendReactionIdentifiers, observationTable, &ObservationTable::receiveIdentifiers);
     connect(&logicModel, &ChemistryLogicModel::sendLevel, ui->vialButtonsWidget, &MysterySubstances::levelUp);
-    connect(ui->vialButtonsWidget, &MysterySubstances::doneMixing, &mixingModel, &MixingModel::eraseScene);
-    connect(ui->vialButtonsWidget, &MysterySubstances::mixChemicals, &mixingModel, &MixingModel::createScene);
-    connect(&logicModel, &ChemistryLogicModel::sendChemicalMixResult, &mixingModel, &MixingModel::createScene2);
 
+    connect(ui->vialButtonsWidget, &MysterySubstances::doneMixing, ui->mixingWidget, &MixingModel::eraseScene);
+    connect(ui->vialButtonsWidget, &MysterySubstances::mixChemicals, ui->mixingWidget, &MixingModel::createScene);
+    connect(&logicModel, &ChemistryLogicModel::sendChemicalMixResult, ui->mixingWidget, &MixingModel::createScene2);
+    ui->mixingWidget->setFocusPolicy(Qt::StrongFocus);
     logicModel.levelUp(vector<QString>());
 }
 
