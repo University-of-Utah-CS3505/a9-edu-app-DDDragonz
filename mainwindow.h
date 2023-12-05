@@ -19,6 +19,9 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(ChemistryLogicModel& logicModel, QWidget *parent = nullptr);
     ~MainWindow();
+    void resizeEvent(QResizeEvent* event) override;
+
+    //send updated window size
 
 private:
     Ui::MainWindow *ui;

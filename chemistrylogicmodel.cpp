@@ -1,5 +1,6 @@
 #include "chemistrylogicmodel.h"
 #include "reaction.h"
+#include <QDebug>
 using std::vector;
 
 ChemistryLogicModel::ChemistryLogicModel(QObject *parent)
@@ -35,16 +36,16 @@ void ChemistryLogicModel::gameModel()
 {
     switch(m_level)
     {
-        case 1:
+    case 1:
         levelOneSetUp();
         break;
-        case 2:
+    case 2:
         levelTwoSetUp();
         break;
-        case 3:
+    case 3:
         levelThreeSetUp();
         break;
-        case 4:
+    case 4:
         levelFourSetUp();
         break;
     }
@@ -165,10 +166,11 @@ void ChemistryLogicModel::chemicalsMixed(QString formula1, QString formula2)
 {
     m_currentSubstance1 = formula1;
     m_currentSubstance2 = formula2;
-    QString chemical1 = m_mysteries.getChemical(formula1);
-    QString chemical2 = m_mysteries.getChemical(formula2);
+    Chemical chemical1 = m_chemicals.find(m_mysteries.getChemical(formula1)).value();
+    Chemical chemical2 = m_chemicals.find(m_mysteries.getChemical(formula2)).value();
 
-    Reaction reaction = m_reactions.getReaction(m_chemicals.find(chemical1).value(), m_chemicals.find(chemical2).value());
+    Reaction reaction = m_reactions.getReaction(chemical1, chemical2);
+    qDebug() << reaction.colorOfSolid() << reaction.hasSolid() << reaction.hasGas() << "chemical model";
 
     emit sendChemicalMixResult(chemical1, chemical2, reaction);
 }

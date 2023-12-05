@@ -44,6 +44,12 @@ MainWindow::MainWindow(ChemistryLogicModel& logicModel, QWidget *parent)
 
 }
 
+
+void MainWindow::resizeEvent(QResizeEvent* event)
+{
+    qDebug() << "resized";
+}
+
 void MainWindow::updateLevelLabel(int level)
 {
     QString levelText = "Level " + QString::number(level);

@@ -42,8 +42,9 @@ public slots:
     void updateWorld();
     void eraseScene();
     void createScene();
-    void createScene2(QString chemical1, QString chemical2, Reaction reactionResult);
+    void createScene2(Chemical chemical1, Chemical chemical2, Reaction reactionResult);
     void showHelp();
+//    void updateView(int width, int height);
 
 signals:
     void setFocus(bool isMixing);
@@ -54,10 +55,6 @@ private:
     const float SCALE = 20.0f;
     float windowWidth;
     float windowHeight;
-
-
-    //chemicalBox2D* chemicalBox2D1;
-    //chemicalBox2D* chemicalBox2D2;
 
     std::vector<chemicalBox2D> chemicalBox2Ds;
     chemicalBox2D chemA[200];

@@ -2,8 +2,6 @@
 #include "contactlistener.h"
 #include "chemicalBox2D.h"
 
-#include <QDebug>
-
 MixingLogic::MixingLogic(float width, float height, const float scale) :
     logicWorld(new b2World(b2Vec2(0.0f, -10.0f))),
     SCALE(scale),

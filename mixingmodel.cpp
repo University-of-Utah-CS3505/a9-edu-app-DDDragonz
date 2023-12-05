@@ -17,6 +17,7 @@ MixingModel::MixingModel(QWidget *parent) :
     ui->setupUi(this);
     windowWidth = this->width();
     windowHeight = this->height() - 25;
+    qDebug() << windowWidth << " " << windowHeight;
     world = new MixingLogic(windowWidth, windowHeight, SCALE);
     connect(timer,
             &QTimer::timeout,
@@ -91,7 +92,7 @@ void MixingModel::mouseMoveEvent(QMouseEvent *event)
     {
         b2Vec2 pos(event->pos().x() / SCALE, (windowHeight - event->pos().y()) / SCALE);
         b2Vec2 velocity = pos - world->getVial()->GetPosition();
-        float velocityScale = 3.0f; //Changeable
+        float velocityScale = 3.0f;
         velocity *= velocityScale;
         world->getVial()->SetLinearVelocity(velocity);
         update();
@@ -124,11 +125,12 @@ void MixingModel::keyPressEvent(QKeyEvent *event)
     update();
 }
 
-void MixingModel::createScene2(QString chemical1, QString chemical2, Reaction reactionResult)
+void MixingModel::createScene2(Chemical chemical1, Chemical chemical2, Reaction reactionResult)
 {
     Reaction r = reactionResult;
-    qDebug() << r.colorOfSolid() << r.hasSolid() << r.hasGas();
-    qDebug() << chemical1 << chemical2;
+    qDebug() << r.colorOfSolid() << r.hasSolid() << r.hasGas() << "mixing model";
+    qDebug() << chemical1.getFormula() << " " << chemical1.getColorOfSolid();
+    qDebug() << chemical2.getFormula() << " " << chemical2.getColorOfSolid();
 }
 void MixingModel::createScene()
 {
