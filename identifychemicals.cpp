@@ -2,12 +2,14 @@
 #include "ui_identifychemicals.h"
 #include "mysterycombopair.h"
 #include <QLabel>
+#include <QDebug>
 
 using std::string;
 
 IdentifyChemicals::IdentifyChemicals(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::IdentifyChemicals)
+    ui(new Ui::IdentifyChemicals),
+    m_choicesSize(0)
 {
     ui->setupUi(this);
     connect(ui->pushButton, &QPushButton::clicked, this, &IdentifyChemicals::submitClick);
@@ -16,22 +18,27 @@ IdentifyChemicals::IdentifyChemicals(QWidget *parent) :
 
 void IdentifyChemicals::addElements(vector<QString> chemicals)
 {
-    m_choices.resize(chemicals.size());
     for(int i = 0; i < (int)chemicals.size(); i++)
     {
        addElement(chemicals.at(i));
-        m_choices[i] = chemicals.at(i);
+       m_choices[i] = chemicals.at(0);
     }
 }
 
 
 void IdentifyChemicals::submitClick()
 {
-    emit submitToNextLevel(m_choices);
+    vector<QString> choices;
+    for(int i = 0; i < m_choicesSize; i++)
+    {
+       choices.push_back(m_choices[i]);
+    }
+    emit submitToNextLevel(choices);
 }
 
 void IdentifyChemicals::addElement(QString chemical)
 {
+    m_choicesSize++;
     if(m_numberOfSubstances >= 6)
     {
        return;
@@ -55,7 +62,9 @@ void IdentifyChemicals::addElement(QString chemical)
 
 void IdentifyChemicals::choiceChange(QString chemical, int index)
 {
+    qDebug() << "Index:" << index ;
     m_choices[index] = chemical;
+
 }
 
 IdentifyChemicals::~IdentifyChemicals()

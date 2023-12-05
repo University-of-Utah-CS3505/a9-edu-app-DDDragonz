@@ -25,7 +25,8 @@ private:
     vector<MysteryComboPair*> m_comboPairs;
     vector<QString> m_prevChemicals;
     int m_numberOfSubstances;
-    vector<QString> m_choices;
+    QString m_choices[6];
+    int m_choicesSize;
 
 signals:
     void submitToNextLevel(vector<QString> choices);

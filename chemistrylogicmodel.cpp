@@ -16,9 +16,9 @@ int ChemistryLogicModel::getLevel()
 
 void ChemistryLogicModel::levelUp(vector<QString> choices)
 {
-    if(m_level < 4)
+    if(m_mysteries.checkChemicals(choices))
     {
-        if(m_mysteries.checkChemicals(choices))
+        if(m_level < 4)
         {
             m_level++;
             gameModel();
@@ -26,8 +26,12 @@ void ChemistryLogicModel::levelUp(vector<QString> choices)
         }
         else
         {
-            emit levelKeep();
+            emit gameComplete();
         }
+    }
+    else
+    {
+        emit levelKeep();
     }
 }
 

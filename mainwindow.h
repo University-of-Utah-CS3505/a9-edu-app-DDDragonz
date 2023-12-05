@@ -28,5 +28,6 @@ private slots:
     void showHelp();
     void showObservationTable();
     void wrongAnswerReminder();
+    void gameComplete();
 };
 #endif // MAINWINDOW_H
