@@ -35,6 +35,7 @@ MainWindow::MainWindow(ChemistryLogicModel& logicModel, QWidget *parent)
     connect(ui->reactionIdentifiersWidget, &ReactionIdentifiers::sendIdentifiers, &logicModel, &ChemistryLogicModel::receiveIdentifiers);
     connect(&logicModel, &ChemistryLogicModel::sendReactionIdentifiers, observationTable, &ObservationTable::receiveIdentifiers);
     connect(&logicModel, &ChemistryLogicModel::sendLevel, ui->vialButtonsWidget, &MysterySubstances::levelUp);
+    connect(&logicModel, &ChemistryLogicModel::gameComplete, this, &MainWindow::gameComplete);
 
     connect(ui->vialButtonsWidget, &MysterySubstances::doneMixing, ui->mixingWidget, &MixingModel::eraseScene);
     connect(ui->vialButtonsWidget, &MysterySubstances::mixChemicals, ui->mixingWidget, &MixingModel::createScene);
@@ -75,4 +76,10 @@ void MainWindow::wrongAnswerReminder()
 void MainWindow::showObservationTable()
 {
     observationTable->show();
+}
+
+void MainWindow::gameComplete()
+{
+    QMessageBox::information(this, "Game Complete", "Congratulation! You have completed all the tasks!", "OK");
+    this->close();
 }

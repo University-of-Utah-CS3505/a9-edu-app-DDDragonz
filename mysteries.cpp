@@ -1,6 +1,7 @@
 #include "mysteries.h"
 #include <vector>
 #include <QString>
+#include <QDebug>
 
 using std::vector;
 
@@ -16,12 +17,18 @@ Mysteries::Mysteries(vector<QString> chemicals)
 
 void Mysteries::shuffle()
 {
+    srand(time(0));
     for(int i = 0; i < m_size; i++)
     {
         int random = rand()%m_size;
         QString temp = m_substances[i];
         m_substances[i] = m_substances[random];
         m_substances[random] = temp;
+    }
+
+    for(int i = 0; i < m_size; i++)
+    {
+        qDebug() << "Correct Answer " << i << ": " << m_substances[i];
     }
 }
 
