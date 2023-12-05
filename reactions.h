@@ -19,7 +19,7 @@ public:
     void addLevelFour();
 
 private:
-    map<vector<QString>, vector<Chemical>> m_reactions;
+    map<vector<QString>, vector<Chemical>> m_reactantsAndProducts;
     void addReaction(Chemical reactantA, Chemical reactantB, vector<Chemical> products);
     QString getStateString(State state) const;
     QString getColorString(QColor color) const;

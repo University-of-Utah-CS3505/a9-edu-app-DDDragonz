@@ -10,6 +10,8 @@ class Reaction
 {
 public:
     Reaction(vector<Chemical> products);
+    Reaction(const Reaction& other);
+    Reaction& operator=(const Reaction& other);
     bool hasGas();
     bool hasSolid();
     QColor colorOfSolid();

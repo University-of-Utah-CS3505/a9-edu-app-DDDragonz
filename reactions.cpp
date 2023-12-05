@@ -1,4 +1,5 @@
 #include "reactions.h"
+#include "reaction.h"
 #include "chemical.h"
 
 using std::vector;
@@ -11,7 +12,7 @@ Reaction Reactions::getReaction(Chemical reactantA, Chemical reactantB)
     vector<QString> reactants;
     reactants.push_back(reactantA.getFormula());
     reactants.push_back(reactantB.getFormula());
-    return m_reactions[reactants];
+    return Reaction(m_reactantsAndProducts[reactants]);
 }
 
 void Reactions::addReaction(Chemical reactantA, Chemical reactantB, vector<Chemical> products)
@@ -19,13 +20,13 @@ void Reactions::addReaction(Chemical reactantA, Chemical reactantB, vector<Chemi
     vector<QString> reactants;
     reactants.push_back(reactantA.getFormula());
     reactants.push_back(reactantB.getFormula());
-    m_reactions[reactants] = products;
+    m_reactantsAndProducts[reactants] = products;
 }
 
 QString Reactions::getAllReactions() const
 {
     QString allReactions;
-    for (const auto& pair : m_reactions)
+    for (const auto& pair : m_reactantsAndProducts)
     {
         vector<QString> reactant = pair.first;
         QString reactionStr = reactant[0] + getStateString(State::aqueous) + " + " + reactant[1] + getStateString(State::aqueous) + " -> ";
