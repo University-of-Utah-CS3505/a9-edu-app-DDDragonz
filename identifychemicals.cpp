@@ -18,10 +18,10 @@ IdentifyChemicals::IdentifyChemicals(QWidget *parent) :
 
 void IdentifyChemicals::addElements(vector<QString> chemicals)
 {
+    m_firstChoice = chemicals.at(0);
     for(int i = 0; i < (int)chemicals.size(); i++)
     {
        addElement(chemicals.at(i));
-       m_choices[i] = chemicals.at(0);
     }
 }
 
@@ -46,6 +46,7 @@ void IdentifyChemicals::addElement(QString chemical)
 
     char numberCharacter = 'A' + m_numberOfSubstances;
     string name = "Substance ";
+    m_choices[m_choicesSize - 1] = m_firstChoice;
     name += numberCharacter;
     m_prevChemicals.push_back(chemical);
     MysteryComboPair* toAdd = new MysteryComboPair(m_numberOfSubstances, QString::fromStdString(name), m_prevChemicals);
