@@ -35,7 +35,8 @@ void MixingLogic::createBorder()
     body->CreateFixture(&edge, 0);
 
     // Right border
-    edge.Set(b2Vec2(windowWidth / SCALE, 0), b2Vec2(windowWidth / SCALE, windowHeight / SCALE));
+    float offset = 9.0f;
+    edge.Set(b2Vec2((windowWidth - offset) / SCALE, 0), b2Vec2((windowWidth - offset) / SCALE, windowHeight / SCALE));
     body->CreateFixture(&edge, 0);
 }
 
@@ -68,7 +69,7 @@ void MixingLogic::createBeaker()
     bodyDef.type = b2_kinematicBody;
     bodyDef.fixedRotation = true;
     bodyDef.bullet = true;
-    bodyDef.position.Set(windowWidth  / 2 / SCALE, windowHeight / 6.75 / SCALE);
+    bodyDef.position.Set(windowWidth  / 2 / SCALE, windowHeight / 6.75 / SCALE + 0.8);
     staticVial = logicWorld->CreateBody(&bodyDef);
 
     staticVial->SetLinearDamping(3.0f);
@@ -90,7 +91,7 @@ void MixingLogic::createStirRod()
     // Define a body
     b2BodyDef bodyDef;
     bodyDef.type = b2_kinematicBody; // Set the body to be dynamic
-    bodyDef.position.Set(windowWidth  / 2 / SCALE, windowHeight / 10.25 / SCALE);
+    bodyDef.position.Set(windowWidth  / 2 / SCALE, windowHeight / 10.25 / SCALE + 0.8);
     b2Body *body = logicWorld->CreateBody(&bodyDef);
 
     // Assign a rectangular shape to the body

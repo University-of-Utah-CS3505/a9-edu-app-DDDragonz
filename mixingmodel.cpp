@@ -1,6 +1,11 @@
 #include "mixingmodel.h"
 #include "ui_mixingmodel.h"
 #include "chemicalBox2D.h"
+#include <QPixmap>
+#include <QImage>
+#include <QDialog>
+#include <QVBoxLayout>
+#include <QLabel>
 
 MixingModel::MixingModel(QWidget *parent) :
     QWidget(parent),
@@ -13,11 +18,28 @@ MixingModel::MixingModel(QWidget *parent) :
     windowWidth = this->width();
     windowHeight = this->height() - 25;
     world = new MixingLogic(windowWidth, windowHeight, SCALE);
-    //input image
     connect(timer,
             &QTimer::timeout,
             this,
             &MixingModel::updateWorld);
+    connect(ui->pushButton, &QPushButton::clicked, this, &MixingModel::showHelp);
+}
+
+
+void MixingModel::showHelp()
+{
+    QDialog *dialog = new QDialog;
+    QVBoxLayout *layout = new QVBoxLayout;
+    QLabel *label = new QLabel("W-Move Up\nS-Move Down\n"
+                               "A-Move Left\nD-Move Right\n"
+                               "Q-Tilt Left\nE-Tilt Right\n"
+                               "Trackpad-Drag vial");
+
+    layout->addWidget(label);
+    dialog->setLayout(layout);
+
+    dialog->setWindowTitle("Mixing Help");
+    dialog->exec();
 }
 
 MixingModel::~MixingModel()
@@ -30,6 +52,9 @@ MixingModel::~MixingModel()
 void MixingModel::paintEvent(QPaintEvent*)
 {
     QPainter painter(this);
+    QImage bgImage(":/images/image.jpg");
+    painter.drawImage(this->rect(), bgImage);
+
     for (b2Body* body = world->getWorld()->GetBodyList(); body != 0; body = body->GetNext())
     {
         for (b2Fixture* fixture = body->GetFixtureList(); fixture; fixture = fixture->GetNext())
@@ -62,7 +87,7 @@ void MixingModel::paintEvent(QPaintEvent*)
 
 void MixingModel::mouseMoveEvent(QMouseEvent *event)
 {
-    if (event->buttons() & Qt::LeftButton)
+    if (event->buttons() & Qt::LeftButton && world->getVial() != nullptr)
     {
         b2Vec2 pos(event->pos().x() / SCALE, (windowHeight - event->pos().y()) / SCALE);
         b2Vec2 velocity = pos - world->getVial()->GetPosition();
@@ -122,6 +147,7 @@ void MixingModel::createScene()
     }
     update();
     timer->start(1000 / 60);
+    emit setFocus(true);
 }
 
 void MixingModel::eraseScene()
@@ -152,8 +178,8 @@ void MixingModel::eraseScene()
         chemB[i] = chemicalBox2D(1, Qt::green, false);
     }
     chemCount = 0;
+    emit setFocus(false);
     update(this->rect());
-    //createScene(); //delete when done because you wouldn't need to create it
 }
 
 void MixingModel::updateWorld()

@@ -41,6 +41,7 @@ MainWindow::MainWindow(ChemistryLogicModel& logicModel, QWidget *parent)
     connect(&logicModel, &ChemistryLogicModel::sendChemicalMixResult, ui->mixingWidget, &MixingModel::createScene2);
     ui->mixingWidget->setFocusPolicy(Qt::StrongFocus);
     logicModel.levelUp(vector<QString>());
+
 }
 
 void MainWindow::updateLevelLabel(int level)

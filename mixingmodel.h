@@ -43,6 +43,10 @@ public slots:
     void eraseScene();
     void createScene();
     void createScene2(QString chemical1, QString chemical2, Reaction reactionResult);
+    void showHelp();
+
+signals:
+    void setFocus(bool isMixing);
 
 private:
     Ui::MixingModel *ui;
