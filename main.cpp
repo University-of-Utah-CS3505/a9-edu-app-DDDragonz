@@ -1,5 +1,4 @@
 #include "mainwindow.h"
-#include "reactions.h"
 
 #include <QApplication>
 #include "chemistrylogicmodel.h"

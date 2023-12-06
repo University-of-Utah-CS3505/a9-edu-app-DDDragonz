@@ -67,6 +67,9 @@ public:
     /// @brief Displays a help menu on how to move the vials around
     void showControls();
 
+signals:
+    void resetScene();
+
 public slots:
     /// @brief Updates the state world based on a timer
     void updateWorld();
@@ -87,7 +90,7 @@ private:
     Ui::MixingModel *ui;
     MixingLogic *world;
     float m_windowWidth;
-    float SCALE = 20.0f;
+    float m_scale = 20.0f;
     float m_windowHeight;
     QPushButton *m_helpButton;
 

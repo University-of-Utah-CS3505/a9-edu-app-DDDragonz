@@ -21,7 +21,7 @@ void IdentifyChemicals::addElements(vector<QString> chemicals)
     m_firstChoice = chemicals.at(0);
     for(int i = 0; i < (int)chemicals.size(); i++)
     {
-       addElement(chemicals.at(i));
+        addElement(chemicals.at(i));
     }
 }
 
@@ -31,7 +31,7 @@ void IdentifyChemicals::submitClick()
     vector<QString> choices;
     for(int i = 0; i < m_choicesSize; i++)
     {
-       choices.push_back(m_choices[i]);
+        choices.push_back(m_choices[i]);
     }
     emit submitToNextLevel(choices);
     emit clearWorld();
@@ -42,7 +42,7 @@ void IdentifyChemicals::addElement(QString chemical)
     m_choicesSize++;
     if(m_numberOfSubstances >= 6)
     {
-       return;
+        return;
     }
 
     char numberCharacter = 'A' + m_numberOfSubstances;
@@ -56,7 +56,7 @@ void IdentifyChemicals::addElement(QString chemical)
 
     for(int i = 0; i < (int)m_comboPairs.size(); i++)
     {
-       m_comboPairs.at(i)->addComboItem(chemical, i);
+        m_comboPairs.at(i)->addComboItem(chemical, i);
     }
     m_comboPairs.push_back(toAdd);
     m_numberOfSubstances++;
@@ -64,7 +64,7 @@ void IdentifyChemicals::addElement(QString chemical)
 
 void IdentifyChemicals::choiceChange(QString chemical, int index)
 {
-   // qDebug() << "Index:" << index ;
+    qDebug() << "Index:" << index ;
     m_choices[index] = chemical;
 
 }

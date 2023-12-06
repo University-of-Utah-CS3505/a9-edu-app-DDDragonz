@@ -31,7 +31,7 @@ QString Reactions::getAllReactions() const
         vector<QString> reactant = pair.first;
         QString reactionStr = reactant[0] + getStateString(State::aqueous) + " + " + reactant[1] + getStateString(State::aqueous) + " -> ";
         vector<Chemical> product = pair.second;
-        for(int i = 0; i < product.size() - 1; i++)
+        for(unsigned int i = 0; i < product.size() - 1; i++)
         {
             reactionStr.push_back(product[i].getFormula() + getStateString(product[i].getState()) + " + ");
         }

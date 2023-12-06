@@ -35,17 +35,3 @@ QColor Reaction::colorOfSolid()
 {
     return m_colorOfSolid;
 }
-
-Reaction::Reaction(const Reaction& other)
-{
-    m_hasGas = other.m_hasGas;
-    m_hasSolid = other.m_hasSolid;
-    m_colorOfSolid = other.m_colorOfSolid;
-}
-
-Reaction& Reaction::operator=(const Reaction& other)
-{
-    m_hasGas = other.m_hasGas;
-    m_hasSolid = other.m_hasSolid;
-    m_colorOfSolid = other.m_colorOfSolid;
-}

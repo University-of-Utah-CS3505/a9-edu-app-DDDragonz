@@ -17,8 +17,8 @@ MixingModel::MixingModel(QWidget *parent) :
 {
     ui->setupUi(this);
     m_windowWidth = this->width();
-    m_windowHeight = this->height() - 25;
-    world = new MixingLogic(m_windowWidth, m_windowHeight, SCALE);
+    m_windowHeight = this->height() - this->height();
+    world = new MixingLogic(m_windowWidth, m_windowHeight, m_scale);
     connect(m_timer,
             &QTimer::timeout,
             this,
@@ -73,10 +73,10 @@ void MixingModel::mouseMoveEvent(QMouseEvent *event)
 {
     if (event->buttons() & Qt::LeftButton && world->getIsVialDrawn())
     {
-        b2Vec2 pos(event->pos().x() / SCALE, (m_windowHeight - event->pos().y()) / SCALE);
+        b2Vec2 pos(event->pos().x() / m_scale, (m_windowHeight - event->pos().y()) / m_scale);
         b2Vec2 velocity = pos - world->getVial()->GetPosition();
-        float velocityScale = 3.0f;
-        velocity *= velocityScale;
+        float velocitym_scale = 3.0f;
+        velocity *= velocitym_scale;
         world->getVial()->SetLinearVelocity(velocity);
         update();
     }
@@ -115,14 +115,14 @@ void MixingModel::resizeEvent(QResizeEvent *event)
 {
     QSize newSize = event->size();
     float newScale = newSize.width() / m_windowWidth;
-    SCALE *= newScale;
+    m_scale *= newScale;
     m_windowWidth = newSize.width();
-    m_windowHeight = newSize.height() - 25;
-
+    m_windowHeight = newSize.height();
     world->setWindowWidth(m_windowWidth);
     world->setWindowHeight(m_windowHeight);
-    world->setWorldScale(SCALE);
-    update();
+    world->setWorldScale(m_scale);
+    emit resetScene();
+    eraseScene();
 }
 
 void MixingModel::drawEdge(QPainter& painter, b2Body* body, b2EdgeShape* edge)
@@ -149,7 +149,7 @@ void MixingModel::drawCircle(QPainter& painter, b2Body* body, b2CircleShape* cir
 {
     setPaintColor(painter, color, color);
     QPointF position = convertCoordsBox2DToQt(body->GetPosition());
-    painter.drawEllipse(position, circle->m_radius * SCALE, circle->m_radius * SCALE);
+    painter.drawEllipse(position, circle->m_radius * m_scale, circle->m_radius * m_scale);
 }
 
 void MixingModel::showControls()
@@ -159,8 +159,9 @@ void MixingModel::showControls()
     QLabel *label = new QLabel("W-Move Up\nS-Move Down\n"
                                "A-Move Left\nD-Move Right\n"
                                "Q-Tilt Left\nE-Tilt Right\n"
-                               "Trackpad-Drag vial");
-
+                               "Trackpad-Drag vial\n"
+                               "Resizing the window resets your mixing space\n"
+                               "Giving an incorrect response also resets your mixing space");
     layout->addWidget(label);
     dialog->setLayout(layout);
     dialog->setWindowTitle("Mixing Help");
@@ -252,6 +253,60 @@ void MixingModel::createScene2(Chemical chemical1, Chemical chemical2, Reaction 
     Reaction r = reactionResult;
     qDebug() << "Recieved " << chemical1.getFormula() << " and " << chemical2.getFormula();
     qDebug() << "Color " << r.colorOfSolid() << " Gas? " << r.hasGas() << "Solid? " << r.hasSolid() << "mixing model";
+
+    //TODO
+    /*
+     * from reactionResult
+     * if(reactionResult.hasSolid())
+     * {
+     *      collision: create rectangles and set it to a color reactionResult.colorOfSolid()
+     * }
+     *
+     * if(r.hasGas())
+     * {
+     *      collision: create white non-colliding spheres that have -1 gravity.
+     * }
+     * */
+
+//    world->createBorder();
+//    world->createVial();
+//    world->createBeaker();
+//    world->createStirRod();
+
+//    //Set chemical A
+//    if(chemical1.getColorOfSolid() != nullptr)
+//    {
+//        for(int i = 0; i < 100; i++)
+//        {
+//            chemA[i] = chemicalBox2D(0, chemical1.getColorOfSolid(), false);
+//        }
+//    }
+//    else
+//    {
+//        for(int i = 0; i < 100; i++)
+//        {
+//            chemA[i] = chemicalBox2D(0, Qt::blue, false);
+//        }
+//    }
+
+//    //Set chemical B
+//    if(chemical2.getColorOfSolid() != nullptr)
+//    {
+//        for(int i = 0; i < 100; i++)
+//        {
+//            chemB[i] = chemicalBox2D(0, chemical2.getColorOfSolid(), false);
+//        }
+//    }
+//    else
+//    {
+//        for(int i = 0; i < 100; i++)
+//        {
+//            chemB[i] = chemicalBox2D(0, Qt::blue, false);
+//        }
+//    }
+//    update();
+//    world->setIsVialDrawn(true);
+//    m_timer->start(1000 / 60);
 }
 
 void MixingModel::createScene()
@@ -260,6 +315,7 @@ void MixingModel::createScene()
     world->createVial();
     world->createBeaker();
     world->createStirRod();
+
     for(int i = 0; i < 100; i++)
     {
         chemA[i] = chemicalBox2D(0, Qt::blue, false);
@@ -284,7 +340,7 @@ void MixingModel:: setPaintColor(QPainter& painter, QColor color, QBrush brush)
 
 QPointF MixingModel::convertCoordsBox2DToQt(b2Vec2 vec)
 {
-    vec.x *= SCALE;
-    vec.y = m_windowHeight - vec.y * SCALE;
+    vec.x *= m_scale;
+    vec.y = m_windowHeight - vec.y * m_scale;
     return QPointF(vec.x, vec.y);
 }

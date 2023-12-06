@@ -137,7 +137,6 @@ void MysterySubstances::doneButtonClicked()
 {
     emit doneMixing();
     ui->doneButton->setEnabled(false);
-
     for(int i = 0; i < m_chemicalSize; i++)
     {
         m_chemicalSelected[i] = false;

@@ -20,11 +20,10 @@ void MixingLogic::createBorder()
     b2Body* body = m_logicWorld->CreateBody(&bodyDef);
     b2EdgeShape edge;
 
-    float bottomOffSet = 5.0f;
     float generalOffSet = 3.0f;
 
     // Bottom border
-    edge.Set(b2Vec2(0, -bottomOffSet / m_worldScale), b2Vec2((m_windowWidth + generalOffSet) / m_worldScale, -bottomOffSet / m_worldScale));
+    edge.Set(b2Vec2(0, 0), b2Vec2((m_windowWidth + generalOffSet) / m_worldScale, 0));
     body->CreateFixture(&edge, 0);
 
     // Top border
@@ -67,7 +66,7 @@ void MixingLogic::createBeaker()
     bodyDef.type = b2_kinematicBody;
     bodyDef.fixedRotation = true;
     bodyDef.bullet = true;
-    bodyDef.position.Set(m_windowWidth  / 2 / m_worldScale, m_windowHeight / 6.75 / m_worldScale + 0.7);
+    bodyDef.position.Set(m_windowWidth  / 2 / m_worldScale, m_windowHeight / 5 / m_worldScale - 0.2);
     m_beaker = m_logicWorld->CreateBody(&bodyDef);
 
     m_beaker->SetLinearDamping(3.0f);
@@ -89,7 +88,7 @@ void MixingLogic::createStirRod()
     // Define a body
     b2BodyDef bodyDef;
     bodyDef.type = b2_kinematicBody;
-    bodyDef.position.Set(m_windowWidth  / 2 / m_worldScale, m_windowHeight / 10.25 / m_worldScale + 0.7);
+    bodyDef.position.Set(m_windowWidth  / 2 / m_worldScale, m_windowHeight / 10.25 / m_worldScale);
     b2Body *body = m_logicWorld->CreateBody(&bodyDef);
 
     // Assign a rectangular shape to the body
