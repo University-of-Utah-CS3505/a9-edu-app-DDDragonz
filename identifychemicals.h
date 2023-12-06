@@ -26,6 +26,7 @@ private:
     vector<QString> m_prevChemicals;
     int m_numberOfSubstances;
     QString m_choices[6];
+    QString m_firstChoice;
     int m_choicesSize;
 
 signals:
