@@ -35,7 +35,6 @@ QString Reactions::getAllReactions() const
         {
             reactionStr.push_back(product[i].getFormula() + getStateString(product[i].getState()) + " + ");
         }
-
         reactionStr.push_back(product[product.size() - 1].getFormula() + getStateString(product[product.size() - 1].getState()) + '\n' + '\n');
         allReactions.push_back(reactionStr);
     }

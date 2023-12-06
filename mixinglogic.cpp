@@ -1,14 +1,14 @@
 #include "mixinglogic.h"
 #include "contactlistener.h"
 #include "chemicalBox2D.h"
-
-MixingLogic::MixingLogic(float width, float height, const float scale) :
-    logicWorld(new b2World(b2Vec2(0.0f, -10.0f))),
-    SCALE(scale),
-    windowWidth(width),
-    windowHeight(height)
+MixingLogic::MixingLogic(float width, float height, float scale) :
+    m_worldScale(scale),
+    m_windowWidth(width),
+    m_windowHeight(height),
+    m_logicWorld(new b2World(b2Vec2(0.0f, -10.0f)))
 {
-    logicWorld->SetContactListener(&contact);
+    m_logicWorld->SetContactListener(&m_contact);
+    m_isVialDrawn = false;
 }
 
 void MixingLogic::createBorder()
@@ -17,24 +17,26 @@ void MixingLogic::createBorder()
     b2BodyDef bodyDef;
     bodyDef.type = b2_kinematicBody;
     bodyDef.position.Set(0, 0);
-    b2Body* body = logicWorld->CreateBody(&bodyDef);
+    b2Body* body = m_logicWorld->CreateBody(&bodyDef);
     b2EdgeShape edge;
 
-    // Bottom border
-    edge.Set(b2Vec2(0, 0), b2Vec2(windowWidth / SCALE, 0));
-    body->CreateFixture(&edge, 0);
+    float bottomOffSet = 5.0f;
+    float generalOffSet = 3.0f;
 
-    // Left border
-    edge.Set(b2Vec2(0, 0), b2Vec2(0, windowHeight / SCALE));
+    // Bottom border
+    edge.Set(b2Vec2(0, -bottomOffSet / m_worldScale), b2Vec2((m_windowWidth + generalOffSet) / m_worldScale, -bottomOffSet / m_worldScale));
     body->CreateFixture(&edge, 0);
 
     // Top border
-    edge.Set(b2Vec2(0, windowHeight / SCALE), b2Vec2(windowWidth / SCALE, windowHeight / SCALE));
+    edge.Set(b2Vec2(0, (m_windowHeight) / m_worldScale), b2Vec2((m_windowWidth + generalOffSet) / m_worldScale, (m_windowHeight) / m_worldScale));
+    body->CreateFixture(&edge, 0);
+
+    // Left border
+    edge.Set(b2Vec2(0, -generalOffSet / m_worldScale), b2Vec2(0, (m_windowHeight + generalOffSet) / m_worldScale));
     body->CreateFixture(&edge, 0);
 
     // Right border
-    float offset = 9.0f;
-    edge.Set(b2Vec2((windowWidth - offset) / SCALE, 0), b2Vec2((windowWidth - offset) / SCALE, windowHeight / SCALE));
+    edge.Set(b2Vec2((m_windowWidth + generalOffSet) / m_worldScale, -generalOffSet / m_worldScale), b2Vec2((m_windowWidth + generalOffSet) / m_worldScale, (m_windowHeight + generalOffSet) / m_worldScale));
     body->CreateFixture(&edge, 0);
 }
 
@@ -44,21 +46,19 @@ void MixingLogic::createVial()
     bodyDef.type = b2_dynamicBody;
     bodyDef.fixedRotation = true;
     bodyDef.bullet = true;
-    bodyDef.position.Set(windowWidth  / 4 / SCALE, windowHeight / 3 / SCALE);
-    vial = logicWorld->CreateBody(&bodyDef);
 
-    vial->SetLinearDamping(3.0f);
-    vial->SetAngularDamping(3.0f);
-
+    bodyDef.position.Set(m_windowWidth  / 4 / m_worldScale, m_windowHeight / 3 / m_worldScale);
+    m_vial = m_logicWorld->CreateBody(&bodyDef);
+    m_vial->SetLinearDamping(3.0f);
+    m_vial->SetAngularDamping(3.0f);
     b2Vec2 vertices[4];
     vertices[0].Set(-1.0f, -3.0f); //bottom-left
     vertices[1].Set(-1.0f, 3.0f); //top-left
     vertices[2].Set(1.0f, 3.0f); //top-right
     vertices[3].Set(1.0f, -3.0f); //bottom-right
-
-    createWall(vial, vertices[0], vertices[1]); // Left wall
-    createWall(vial, vertices[2], vertices[3]); // Right wall
-    createWall(vial, vertices[0], vertices[3]); // Bottom wall
+    createWall(m_vial, vertices[0], vertices[1]); // Left wall
+    createWall(m_vial, vertices[2], vertices[3]); // Right wall
+    createWall(m_vial, vertices[0], vertices[3]); // Bottom wall
 }
 
 void MixingLogic::createBeaker()
@@ -67,11 +67,11 @@ void MixingLogic::createBeaker()
     bodyDef.type = b2_kinematicBody;
     bodyDef.fixedRotation = true;
     bodyDef.bullet = true;
-    bodyDef.position.Set(windowWidth  / 2 / SCALE, windowHeight / 6.75 / SCALE + 0.8);
-    staticVial = logicWorld->CreateBody(&bodyDef);
+    bodyDef.position.Set(m_windowWidth  / 2 / m_worldScale, m_windowHeight / 6.75 / m_worldScale + 0.7);
+    m_beaker = m_logicWorld->CreateBody(&bodyDef);
 
-    staticVial->SetLinearDamping(3.0f);
-    staticVial->SetAngularDamping(3.0f);
+    m_beaker->SetLinearDamping(3.0f);
+    m_beaker->SetAngularDamping(3.0f);
 
     b2Vec2 vertices[4];
     vertices[0].Set(-2.0f, -2.75f); //bottom-left
@@ -79,18 +79,18 @@ void MixingLogic::createBeaker()
     vertices[2].Set(2.0f, 2.75f); //top-right
     vertices[3].Set(2.0f, -2.75f); //bottom-right
 
-    createWall(staticVial, vertices[0], vertices[1]); // Left wall
-    createWall(staticVial, vertices[2], vertices[3]); // Right wall
-    createWall(staticVial, vertices[0], vertices[3]); // Bottom wall
+    createWall(m_beaker, vertices[0], vertices[1]); // Left wall
+    createWall(m_beaker, vertices[2], vertices[3]); // Right wall
+    createWall(m_beaker, vertices[0], vertices[3]); // Bottom wall
 }
 
 void MixingLogic::createStirRod()
 {
     // Define a body
     b2BodyDef bodyDef;
-    bodyDef.type = b2_kinematicBody; // Set the body to be dynamic
-    bodyDef.position.Set(windowWidth  / 2 / SCALE, windowHeight / 10.25 / SCALE + 0.8);
-    b2Body *body = logicWorld->CreateBody(&bodyDef);
+    bodyDef.type = b2_kinematicBody;
+    bodyDef.position.Set(m_windowWidth  / 2 / m_worldScale, m_windowHeight / 10.25 / m_worldScale + 0.7);
+    b2Body *body = m_logicWorld->CreateBody(&bodyDef);
 
     // Assign a rectangular shape to the body
     b2PolygonShape boxShape;
@@ -98,14 +98,13 @@ void MixingLogic::createStirRod()
 
     // Define fixture
     b2FixtureDef fixture;
-    fixture.shape = &boxShape; // Assign shape to fixture
+    fixture.shape = &boxShape;
     fixture.density = 1.0f;
     fixture.friction = 0.3f;
     fixture.restitution = 0.3f;
 
     // Attach the fixture to the body
     body->CreateFixture(&fixture);
-
     body->SetAngularVelocity(2.0f);
 }
 
@@ -119,20 +118,19 @@ void MixingLogic::createWall(b2Body* body, b2Vec2 vertex1, b2Vec2 vertex2)
     offset *= thickness / 2;
     b2Vec2 vertices[4] = {vertex1 - offset, vertex2 - offset, vertex2 + offset, vertex1 + offset};
     wall.Set(vertices, 4);
-
     createFixutre(body, &wall, 1.0f, 0.3f, 0.3f);
 }
 
 void MixingLogic::createNewWorld()
 {
     b2Vec2 gravity(0.0f, -10.0f);
-    if(logicWorld != nullptr)
+    if(m_logicWorld != nullptr)
     {
-        delete logicWorld;
-        logicWorld = nullptr;
+        delete m_logicWorld;
+        m_logicWorld = nullptr;
     }
-    logicWorld = new b2World(gravity);
-    logicWorld->SetContactListener(&contact);
+    m_logicWorld = new b2World(gravity);
+    m_logicWorld->SetContactListener(&m_contact);
 }
 
 void MixingLogic::spawnCircle(chemicalBox2D* chemicalBox2D, b2Body* vial)
@@ -144,7 +142,7 @@ void MixingLogic::spawnCircle(chemicalBox2D* chemicalBox2D, b2Body* vial)
 
     b2Vec2 vialPosition = vial->GetWorldCenter();
     bodyDef.position.Set(vialPosition.x, vialPosition.y);
-    b2Body* particle = logicWorld->CreateBody(&bodyDef);
+    b2Body* particle = m_logicWorld->CreateBody(&bodyDef);
     particle->SetUserData((void*)chemicalBox2D);
 
     b2CircleShape dynamicCircle;
@@ -162,7 +160,7 @@ void MixingLogic::spawnGas(b2Body* circle)
 
     b2Vec2 circlePos = circle->GetWorldCenter();
     bodyDef.position.Set(circlePos.x, circlePos.y);
-    b2Body* particle = logicWorld->CreateBody(&bodyDef);
+    b2Body* particle = m_logicWorld->CreateBody(&bodyDef);
     particle->SetGravityScale(-1);
 
     b2CircleShape dynamicCircle;
@@ -174,32 +172,57 @@ void MixingLogic::spawnGas(b2Body* circle)
     createFixutre(particle, &dynamicCircle, 1.0f, 0.1f, 0.01f);
 }
 
-b2Body* MixingLogic::getVial() const
+void MixingLogic::setWindowWidth(int newWidth)
 {
-    return vial;
+    m_windowWidth = newWidth;
 }
 
-b2Body* MixingLogic::getStaticVial() const
+void MixingLogic::setWindowHeight(int newHeight)
 {
-    return staticVial;
+    m_windowHeight = newHeight;
+}
+
+void MixingLogic::setWorldScale(float newScale)
+{
+    m_worldScale = newScale;
+}
+
+b2Body* MixingLogic::getVial() const
+{
+    return m_vial;
+}
+
+b2Body* MixingLogic::getBeaker() const
+{
+    return m_beaker;
 }
 
 void MixingLogic::setVial(b2Body* otherVial)
 {
-    vial = otherVial;
+    m_vial = otherVial;
 }
 
-void MixingLogic::setStaticVial(b2Body* otherVial)
+void MixingLogic::setBeaker(b2Body* otherVial)
 {
-    staticVial = otherVial;
+    m_beaker = otherVial;
 }
 
 b2World* MixingLogic::getWorld() const
 {
-    return logicWorld;
+    return m_logicWorld;
 }
 
-void MixingLogic::createFixutre(b2Body* body, b2Shape* shape, float32 density, float32 friction, float restitution)
+bool MixingLogic::getIsVialDrawn()
+{
+    return m_isVialDrawn;
+}
+
+void MixingLogic::setIsVialDrawn(bool state)
+{
+    m_isVialDrawn = state;
+}
+
+void MixingLogic::createFixutre(b2Body* body, b2Shape* shape, float density, float friction, float restitution)
 {
     b2FixtureDef fixtureDef;
     fixtureDef.shape = shape;
@@ -211,5 +234,5 @@ void MixingLogic::createFixutre(b2Body* body, b2Shape* shape, float32 density, f
 
 MixingLogic::~MixingLogic()
 {
-    delete logicWorld;
+    delete m_logicWorld;
 }

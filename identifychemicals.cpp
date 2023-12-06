@@ -34,6 +34,7 @@ void IdentifyChemicals::submitClick()
        choices.push_back(m_choices[i]);
     }
     emit submitToNextLevel(choices);
+    emit clearWorld();
 }
 
 void IdentifyChemicals::addElement(QString chemical)
@@ -63,7 +64,7 @@ void IdentifyChemicals::addElement(QString chemical)
 
 void IdentifyChemicals::choiceChange(QString chemical, int index)
 {
-    qDebug() << "Index:" << index ;
+   // qDebug() << "Index:" << index ;
     m_choices[index] = chemical;
 
 }

@@ -16,9 +16,7 @@ MainWindow::MainWindow(ChemistryLogicModel& logicModel, QWidget *parent)
 {
     ui->setupUi(this);
     ui->vialButtonsWidget->addMysterySubstances(logicModel.getAllReactants().size());
-
     observationTable = new ObservationTable();
-
     connect(ui->possibleElementsWidget, &IdentifyChemicals::submitToNextLevel, &logicModel, &ChemistryLogicModel::levelUp);
     connect(&logicModel, &ChemistryLogicModel::sendLevel, this, &MainWindow::updateLevelLabel);
     connect(&logicModel, &ChemistryLogicModel::sendAllReactionsFormula, ui->significantReactionsWidget, &ChemicalEquations::receiveFormula);
@@ -40,17 +38,11 @@ MainWindow::MainWindow(ChemistryLogicModel& logicModel, QWidget *parent)
     connect(ui->vialButtonsWidget, &MysterySubstances::doneMixing, ui->mixingWidget, &MixingModel::eraseScene);
     connect(ui->vialButtonsWidget, &MysterySubstances::mixChemicals, ui->mixingWidget, &MixingModel::createScene);
     connect(&logicModel, &ChemistryLogicModel::sendChemicalMixResult, ui->mixingWidget, &MixingModel::createScene2);
+    connect(ui->possibleElementsWidget, &IdentifyChemicals::clearWorld, ui->mixingWidget, &MixingModel::eraseScene);
+
     ui->mixingWidget->setFocusPolicy(Qt::StrongFocus);
     logicModel.levelUp(vector<QString>());
-
 }
-
-
-void MainWindow::resizeEvent(QResizeEvent* event)
-{
-    qDebug() << "resized";
-}
-
 void MainWindow::updateLevelLabel(int level)
 {
     QString levelText = "Level " + QString::number(level);

@@ -31,6 +31,7 @@ private:
 
 signals:
     void submitToNextLevel(vector<QString> choices);
+    void clearWorld();
 
 public slots:
     void submitClick();
