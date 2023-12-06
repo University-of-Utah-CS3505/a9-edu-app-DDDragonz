@@ -47,13 +47,13 @@ void Reactions::addLevelOne()
     products.push_back(Chemical("FeO", State::solid, QColor(92, 64, 51)));
     products.push_back(Chemical("CO2", State::gas, QColor()));
     products.push_back(Chemical("NaCl", State::aqueous, QColor()));
-    addReaction(Chemical("FeCl3", State::aqueous, QColor()), Chemical("NaCO3", State::aqueous, QColor()), products);
+    addReaction(Chemical("FeCl3", State::aqueous, QColor()), Chemical("Na2CO3", State::aqueous, QColor()), products);
 
     products.clear();
     products.push_back(Chemical("H2O", State::liquid, QColor(92, 64, 51)));
     products.push_back(Chemical("CO2", State::gas, QColor()));
     products.push_back(Chemical("NaCl", State::aqueous, QColor()));
-    addReaction(Chemical("HCl", State::aqueous, QColor()), Chemical("NaCO3", State::aqueous, QColor()), products);
+    addReaction(Chemical("HCl", State::aqueous, QColor()), Chemical("Na2CO3", State::aqueous, QColor()), products);
 
     products.clear();
     products.push_back(Chemical("FeCl3", State::aqueous, QColor(92, 64, 51)));

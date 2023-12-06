@@ -176,6 +176,7 @@ void ChemistryLogicModel::chemicalsMixed(QString formula1, QString formula2)
     Reaction reaction = m_reactions.getReaction(chemical1, chemical2);
     qDebug() << "Sent " << reaction.colorOfSolid() << "Gas? " << reaction.hasGas() << " Solide? " << reaction.hasSolid() << "chemical model";
     emit sendChemicalMixResult(chemical1, chemical2, reaction);
+    emit sendReaction(reaction);
 }
 
 void ChemistryLogicModel::receiveIdentifiers(QString identifiers)
