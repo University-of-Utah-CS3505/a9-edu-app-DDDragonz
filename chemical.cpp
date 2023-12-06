@@ -1,56 +1,38 @@
 #include "chemical.h"
 
-Chemical::Chemical(QString cName, QString formula, QString sName, double pH, QString note, QString state, QObject *parent) : QObject{parent}
+Chemical::Chemical(QString formula, State state, QColor color)
 {
-    m_commonName = cName;
     m_formula = formula;
-    m_systematicName = sName;
-    m_pH = pH;
-    m_note = note;
     m_state = state;
+    m_colorOfSolid = color;
 }
 
-QString Chemical::getCommonName()
+Chemical::Chemical(const Chemical& other)
 {
-    return m_commonName;
+    m_formula = other.m_formula;
+    m_state = other.m_state;
+    m_colorOfSolid = other.m_colorOfSolid;
 }
 
-QString Chemical::getFormula()
+Chemical& Chemical::operator=(const Chemical& other)
+{
+    m_formula = other.m_formula;
+    m_state = other.m_state;
+    m_colorOfSolid = other.m_colorOfSolid;
+    return *this;
+}
+
+QString Chemical::getFormula() const
 {
     return m_formula;
 }
 
-QString Chemical::getSystematicName()
-{
-    return m_systematicName;
-}
-
-double Chemical::getPH()
-{
-    return m_pH;
-}
-
-QString Chemical::getNote()
-{
-    return m_note;
-}
-
-QString Chemical::getState()
+State Chemical::getState() const
 {
     return m_state;
 }
 
-void Chemical::addReaction(QString chemical, QList<Chemical> products)
+QColor Chemical::getColorOfSolid() const
 {
-    m_reactions[chemical] = products;
-}
-
-QList<Chemical> Chemical::getReactions(QString chemical)
-{
-    QList<Chemical> products;
-    if (m_reactions.contains(chemical))
-    {
-        products = m_reactions[chemical];
-    }
-    return products;
+    return m_colorOfSolid;
 }

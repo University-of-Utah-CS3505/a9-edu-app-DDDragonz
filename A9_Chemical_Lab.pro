@@ -56,9 +56,24 @@ SOURCES += \
     Box2D/Dynamics/b2WorldCallbacks.cpp \
     Box2D/Rope/b2Rope.cpp \
     chemical.cpp \
+    chemicalequations.cpp \
     chemistrylogicmodel.cpp \
+    helpwindow.cpp \
+    identifychemicals.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    mysteries.cpp \
+    mysterycombopair.cpp \
+    mysterysubstancebuttoncombo.cpp \
+    mysterysubstances.cpp \
+    observationtable.cpp \
+    reaction.cpp \
+    reactionidentifiers.cpp \
+    reactions.cpp \
+    chemicalbox2d.cpp \
+    contactlistener.cpp \
+    mixinglogic.cpp \
+    mixingmodel.cpp
 
 HEADERS += \
     Box2D/Box2D.h \
@@ -109,11 +124,35 @@ HEADERS += \
     Box2D/Dynamics/b2WorldCallbacks.h \
     Box2D/Rope/b2Rope.h \
     chemical.h \
+    chemicalequations.h \
     chemistrylogicmodel.h \
-    mainwindow.h
+    helpwindow.h \
+    identifychemicals.h \
+    mainwindow.h \
+    mysteries.h \
+    mysterycombopair.h \
+    mysterysubstancebuttoncombo.h \
+    mysterysubstances.h \
+    observationtable.h \
+    reaction.h \
+    reactionidentifiers.h \
+    reactions.h \
+    chemicalbox2d.h \
+    contactlistener.h \
+    mixinglogic.h \
+    mixingmodel.h
 
 FORMS += \
-    mainwindow.ui
+    chemicalequations.ui \
+    helpwindow.ui \
+    identifychemicals.ui \
+    mainwindow.ui \
+    mysterycombopair.ui \
+    mysterysubstancebuttoncombo.ui \
+    mysterysubstances.ui \
+    observationtable.ui \
+    reactionidentifiers.ui \
+    mixingmodel.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -123,3 +162,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 DISTFILES += \
     Box2D/Box2DConfig.cmake \
     Box2D/CMakeLists.txt
+
+RESOURCES += \
+    Resources.qrc

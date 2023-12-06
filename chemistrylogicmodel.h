@@ -2,32 +2,57 @@
 #define CHEMISTRYLOGICMODEL_H
 
 #include "chemical.h"
+#include "reactions.h"
+#include "mysteries.h"
 #include <QMap>
 #include <QVector>
 #include <QPair>
-#include <memory>
+#include <QObject>
+#include <QColor>
 
 class ChemistryLogicModel : public QObject
 {
     Q_OBJECT
 public:
     explicit ChemistryLogicModel(QObject *parent = nullptr);
-
-    void addReactionRule(QList<QString> reactants, QList<QString> products);
     int getLevel();
-    QString getCommonName(QString formula);
-    QString getSystematicName(QString formula);
-    int getPH(QString formula);
-    QString getNote(QString formula);
-    void levelUp();
     void gameModel();
-    QVector<QString> simulateReaction(QString reactant1, QString reactant2);
+    Reactions getAllReaction();
+    QVector<QString> getAllChemicals();
+    std::vector<QString> getAllReactants();
 
 private:
     QMap<QString, Chemical> m_chemicals;
     int m_level;
+    Reactions m_reactions;
+    std::vector<QString> m_reactants;
+    Mysteries m_mysteries;
+    QString m_currentSubstance1;
+    QString m_currentSubstance2;
+
     void levelOneSetUp();
-    void addAllReactionRule(QVector<QPair<QVector<QString>,QVector<QString>>> reactions);
+    void levelTwoSetUp();
+    void levelThreeSetUp();
+    void levelFourSetUp();
+
+signals:
+    void sendChemical(Chemical& chemical);
+    void sendProducts(QVector<Chemical> products);
+    void sendAllReactionsFormula(QString reactions);
+    void sendLevel(int level);
+    void sendAllReactants(std::vector<QString> reactants);
+    void sendReactant(QString reactant);
+    void addReactants(int number);
+    void levelKeep();
+    void gameComplete();
+    void sendChemicalMixResult(Chemical chemical1, Chemical chemical2, Reaction reactionResult);
+    void sendReactionIdentifiers(QString substance1, QString substance2, QString identifiers);
+
+public slots:
+    void chemicalSelected(QString formula);
+    void chemicalsMixed(QString formula1, QString formula2);
+    void levelUp(vector<QString> choices);
+    void receiveIdentifiers(QString identifiers);
 };
 
 #endif // CHEMISTRYLOGICMODEL_H
