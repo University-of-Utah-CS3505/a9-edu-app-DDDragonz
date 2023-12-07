@@ -1,7 +1,6 @@
 #include "mixinglogic.h"
 #include "contactlistener.h"
 #include "chemicalBox2D.h"
-#include "qdebug.h"
 MixingLogic::MixingLogic(float width, float height, float scale) :
     m_worldScale(scale),
     m_windowWidth(width),
@@ -153,24 +152,6 @@ void MixingLogic::spawnCircle(chemicalBox2D* chemicalBox2D, b2Body* vial)
 
 void MixingLogic::spawnGas(b2Body* circle)
 {
-//    b2BodyDef bodyDef;
-//    bodyDef.type = b2_dynamicBody;
-//    bodyDef.linearDamping = 2.0f;
-//    bodyDef.angularDamping = 1.0f;
-
-//    b2Vec2 circlePos = circle->GetWorldCenter();
-//    bodyDef.position.Set(circlePos.x, circlePos.y);
-//    b2Body* particle = m_logicWorld->CreateBody(&bodyDef);
-//    particle->SetGravityScale(-1);
-
-//    b2CircleShape dynamicCircle;
-//    dynamicCircle.m_radius = 0.1f;
-
-//    b2FixtureDef fixtureDef;
-//    fixtureDef.shape = &dynamicCircle;
-//    fixtureDef.filter.categoryBits = 0;
-//    createFixutre(particle, &dynamicCircle, 1.0f, 0.1f, 0.01f);
-
     b2BodyDef bodyDef;
     bodyDef.type = b2_dynamicBody;
     bodyDef.linearDamping = 2.0f;
@@ -186,37 +167,8 @@ void MixingLogic::spawnGas(b2Body* circle)
 
     b2FixtureDef fixtureDef;
     fixtureDef.shape = &dynamicCircle;
-    fixtureDef.density = 1.0f;
-    fixtureDef.friction = 0.1f;
-    fixtureDef.restitution = 0.01f;
     fixtureDef.filter.categoryBits = 0;
-    particle->CreateFixture(&fixtureDef);
-}
-
-void MixingLogic::spawnSolid(b2Body* circle)
-{
-    b2BodyDef bodyDef;
-    bodyDef.type = b2_dynamicBody;
-    bodyDef.linearDamping = 2.0f;
-    bodyDef.angularDamping = 1.0f;
-
-    b2Vec2 circlePos = circle->GetWorldCenter();
-    bodyDef.position.Set(circlePos.x, circlePos.y);
-    b2Body* particle = m_logicWorld->CreateBody(&bodyDef);
-
-    // Assign a rectangular shape to the body
-    b2PolygonShape boxShape;
-    boxShape.SetAsBox(0.05f, 0.05f);
-
-    // Define fixture
-    b2FixtureDef fixture;
-    fixture.shape = &boxShape; // Assign shape to fixture
-    fixture.density = 6.0f;
-    fixture.friction = 0.9f;
-    fixture.restitution = 0.0f;
-
-    // Attach the fixture to the body
-    particle->CreateFixture(&fixture);
+    createFixutre(particle, &dynamicCircle, 1.0f, 0.1f, 0.01f);
 }
 
 void MixingLogic::setWindowWidth(int newWidth)

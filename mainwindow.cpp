@@ -35,8 +35,9 @@ MainWindow::MainWindow(ChemistryLogicModel& logicModel, QWidget *parent)
     connect(&logicModel, &ChemistryLogicModel::sendLevel, ui->vialButtonsWidget, &MysterySubstances::levelUp);
     connect(&logicModel, &ChemistryLogicModel::gameComplete, this, &MainWindow::gameComplete);
 
+    connect(ui->vialButtonsWidget, &MysterySubstances::mixChemicals, ui->mixingWidget, &MixingModel::createScene);
     connect(ui->vialButtonsWidget, &MysterySubstances::doneMixing, ui->mixingWidget, &MixingModel::eraseScene);
-    connect(&logicModel, &ChemistryLogicModel::sendChemicalMixResult, ui->mixingWidget, &MixingModel::createScene);
+    connect(&logicModel, &ChemistryLogicModel::sendChemicalMixResult, ui->mixingWidget, &MixingModel::createScene2);
     connect(ui->possibleElementsWidget, &IdentifyChemicals::clearWorld, ui->mixingWidget, &MixingModel::eraseScene);
     connect(ui->mixingWidget, &MixingModel::resetScene, ui->vialButtonsWidget, &MysterySubstances::doneButtonClicked);
     ui->mixingWidget->setFocusPolicy(Qt::StrongFocus);

@@ -4,8 +4,6 @@
 
 Reaction::Reaction(vector<Chemical> products)
 {
-    m_hasSolid = false;
-    m_hasGas = false;
     for(int i = 0; i < (int)products.size(); i++)
     {
         switch(products.at(i).getState())
