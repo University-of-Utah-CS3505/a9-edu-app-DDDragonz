@@ -63,7 +63,25 @@ void MixingModel::paintEvent(QPaintEvent*)
             }
             else if (shape->GetType() == b2Shape::e_polygon)
             {
-                drawPolygon(painter, body, (b2PolygonShape*)shape);
+//                void* e = body->GetUserData();
+//                if(e)
+//                {
+//                    drawPolygon(painter, body, (b2PolygonShape*)shape, Qt::blue);
+//                }
+//                else
+//                {
+//                    drawPolygon(painter, body, (b2PolygonShape*)shape, Qt::transparent);
+//                }
+                // qDebug() << body->GetMass()
+//                b2PolygonShape* polygon = (b2PolygonShape*)shape;
+                if(body->GetFixtureList()->GetDensity() == 6.0f)
+                {
+                    drawPolygon(painter, body, (b2PolygonShape*)shape, Qt::red, false);
+                }
+                else
+                {
+                    drawPolygon(painter, body, (b2PolygonShape*)shape, Qt::black, true);
+                }
             }
         }
     }
@@ -133,9 +151,17 @@ void MixingModel::drawEdge(QPainter& painter, b2Body* body, b2EdgeShape* edge)
     painter.drawLine(v1, v2);
 }
 
-void MixingModel::drawPolygon(QPainter& painter, b2Body* body, b2PolygonShape* polygon)
+void MixingModel::drawPolygon(QPainter& painter, b2Body* body, b2PolygonShape* polygon, QColor color, bool notSolid)
 {
-    setPaintColor(painter, Qt::black, Qt::NoBrush);
+    if(notSolid)
+    {
+        setPaintColor(painter, Qt::black, Qt::NoBrush);
+    }
+    else
+    {
+        setPaintColor(painter, color, color);
+    }
+
     QPolygonF qpolygon;
     for (int32 i = 0; i < polygon->m_count; ++i)
     {
@@ -199,6 +225,7 @@ void MixingModel::updateWorld()
                 b2Body* d = b;
                 b = b->GetNext();
                 world->spawnGas(d);
+                world->spawnSolid(d);
                 world->getWorld()->DestroyBody(d);
             }
             else

@@ -55,7 +55,9 @@ public:
     /// @param painter what to draw with
     /// @param body the object to get details from
     /// @param polygon the polygon to draw
-    void drawPolygon(QPainter& painter, b2Body* body, b2PolygonShape* polygon);
+    /// @param color the color to draw the polygon with
+    /// @param notSolid a bool determining whether or not the polygon is a chemical solid
+    void drawPolygon(QPainter& painter, b2Body* body, b2PolygonShape* polygon, QColor color, bool notSolid);
 
     /// @brief Paints a circle
     /// @param painter what to draw with
