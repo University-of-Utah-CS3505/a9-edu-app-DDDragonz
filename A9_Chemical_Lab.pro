@@ -73,7 +73,8 @@ SOURCES += \
     chemicalbox2d.cpp \
     contactlistener.cpp \
     mixinglogic.cpp \
-    mixingmodel.cpp
+    mixingmodel.cpp \
+    welcomeinstructionswindow.cpp
 
 HEADERS += \
     Box2D/Box2D.h \
@@ -140,7 +141,8 @@ HEADERS += \
     chemicalbox2d.h \
     contactlistener.h \
     mixinglogic.h \
-    mixingmodel.h
+    mixingmodel.h \
+    welcomeinstructionswindow.h
 
 FORMS += \
     chemicalequations.ui \
@@ -152,7 +154,8 @@ FORMS += \
     mysterysubstances.ui \
     observationtable.ui \
     reactionidentifiers.ui \
-    mixingmodel.ui
+    mixingmodel.ui \
+    welcomeinstructionswindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
