@@ -12,8 +12,9 @@ MixingModel::MixingModel(QWidget *parent) :
     QWidget(parent),
     m_timer(new QTimer(this)),
     ui(new Ui::MixingModel),
-    chemA(),
-    chemB()
+    m_reactionResult(*new vector<Chemical>),
+    m_chemA(),
+    m_chemB()
 {
     ui->setupUi(this);
     m_windowWidth = this->width();
@@ -36,7 +37,7 @@ MixingModel::~MixingModel()
 void MixingModel::paintEvent(QPaintEvent*)
 {
     QPainter painter(this);
-    QImage bgImage(":/images/image.jpg");
+    QImage bgImage(":/images/gray.jpg");
     painter.drawImage(this->rect(), bgImage);
 
     for (b2Body* body = world->getWorld()->GetBodyList(); body != 0; body = body->GetNext())
@@ -63,7 +64,25 @@ void MixingModel::paintEvent(QPaintEvent*)
             }
             else if (shape->GetType() == b2Shape::e_polygon)
             {
-                drawPolygon(painter, body, (b2PolygonShape*)shape);
+                //                void* e = body->GetUserData();
+                //                if(e)
+                //                {
+                //                    drawPolygon(painter, body, (b2PolygonShape*)shape, Qt::blue);
+                //                }
+                //                else
+                //                {
+                //                    drawPolygon(painter, body, (b2PolygonShape*)shape, Qt::transparent);
+                //                }
+                // qDebug() << body->GetMass()
+                //                b2PolygonShape* polygon = (b2PolygonShape*)shape;
+                if(body->GetFixtureList()->GetDensity() == 6.0f)
+                {
+                    drawPolygon(painter, body, (b2PolygonShape*)shape, m_reactionResult.colorOfSolid(), false);
+                }
+                else
+                {
+                    drawPolygon(painter, body, (b2PolygonShape*)shape, Qt::black, true);
+                }
             }
         }
     }
@@ -133,9 +152,17 @@ void MixingModel::drawEdge(QPainter& painter, b2Body* body, b2EdgeShape* edge)
     painter.drawLine(v1, v2);
 }
 
-void MixingModel::drawPolygon(QPainter& painter, b2Body* body, b2PolygonShape* polygon)
+void MixingModel::drawPolygon(QPainter& painter, b2Body* body, b2PolygonShape* polygon, QColor color, bool notSolid)
 {
-    setPaintColor(painter, Qt::black, Qt::NoBrush);
+    if(notSolid)
+    {
+        setPaintColor(painter, Qt::black, Qt::NoBrush);
+    }
+    else
+    {
+        setPaintColor(painter, color, color);
+    }
+
     QPolygonF qpolygon;
     for (int32 i = 0; i < polygon->m_count; ++i)
     {
@@ -179,8 +206,8 @@ void MixingModel::updateWorld()
 
     if(chemCount < 100)
     {
-        world->spawnCircle(&chemA[chemCount], world->getVial());
-        world->spawnCircle(&chemB[chemCount], world->getBeaker());
+        world->spawnCircle(&m_chemA[chemCount], world->getVial());
+        world->spawnCircle(&m_chemB[chemCount], world->getBeaker());
         chemCount++;
 
         // Apply a small force to the vials so the liquids don't stack
@@ -198,7 +225,14 @@ void MixingModel::updateWorld()
             {
                 b2Body* d = b;
                 b = b->GetNext();
-                world->spawnGas(d);
+                if(m_reactionResult.hasGas())
+                {
+                    world->spawnGas(d);
+                }
+                if(m_reactionResult.hasSolid())
+                {
+                    world->spawnSolid(d);
+                }
                 world->getWorld()->DestroyBody(d);
             }
             else
@@ -236,95 +270,74 @@ void MixingModel::eraseScene()
     world->createNewWorld();
     for(int i = 0; i < 100; i++)
     {
-        chemA[i] = chemicalBox2D(0, Qt::blue, false);
+        m_chemA[i] = chemicalBox2D(0, Qt::blue, false);
     }
 
     for(int i = 0; i < 100; i++)
     {
-        chemB[i] = chemicalBox2D(1, Qt::blue, false);
+        m_chemB[i] = chemicalBox2D(1, Qt::blue, false);
     }
     chemCount = 0;
     update();
     world->setIsVialDrawn(false);
 }
 
-void MixingModel::createScene2(Chemical chemical1, Chemical chemical2, Reaction reactionResult)
+void MixingModel::createScene(Chemical chemical1, Chemical chemical2, Reaction reaction)
 {
-    Reaction r = reactionResult;
+    m_reactionResult = reaction;
     qDebug() << "Recieved " << chemical1.getFormula() << " and " << chemical2.getFormula();
-    qDebug() << "Color " << r.colorOfSolid() << " Gas? " << r.hasGas() << "Solid? " << r.hasSolid() << "mixing model";
+    qDebug() << "Color " << m_reactionResult.colorOfSolid() << " Gas:" << m_reactionResult.hasGas() << "Solid:" << m_reactionResult.hasSolid() << "mixing model";
 
-    //TODO
-    /*
-     * from reactionResult
-     * if(reactionResult.hasSolid())
-     * {
-     *      collision: create rectangles and set it to a color reactionResult.colorOfSolid()
-     * }
-     *
-     * if(r.hasGas())
-     * {
-     *      collision: create white non-colliding spheres that have -1 gravity.
-     * }
-     * */
+    world->createBorder();
+    world->createVial();
+    world->createBeaker();
+    world->createStirRod();
 
-//    world->createBorder();
-//    world->createVial();
-//    world->createBeaker();
-//    world->createStirRod();
 
+    for(int i = 0; i < 100; i++)
+    {
+        m_chemA[i] = chemicalBox2D(0, Qt::blue, false);
+    }
+
+    for(int i = 0; i < 100; i++)
+    {
+        m_chemB[i] = chemicalBox2D(1, Qt::blue, false);
+    }
 //    //Set chemical A
 //    if(chemical1.getColorOfSolid() != nullptr)
 //    {
+//        qDebug() << "chem1 has a color";
 //        for(int i = 0; i < 100; i++)
 //        {
-//            chemA[i] = chemicalBox2D(0, chemical1.getColorOfSolid(), false);
+//            m_chemA[i] = chemicalBox2D(0, chemical1.getColorOfSolid(), false);
 //        }
 //    }
 //    else
 //    {
+//        qDebug() << "chem1 has no color";
 //        for(int i = 0; i < 100; i++)
 //        {
-//            chemA[i] = chemicalBox2D(0, Qt::blue, false);
+//            m_chemA[i] = chemicalBox2D(0, Qt::blue, false);
 //        }
 //    }
 
 //    //Set chemical B
 //    if(chemical2.getColorOfSolid() != nullptr)
 //    {
+//        qDebug() << "chem2 has a color";
 //        for(int i = 0; i < 100; i++)
 //        {
-//            chemB[i] = chemicalBox2D(0, chemical2.getColorOfSolid(), false);
+//            m_chemB[i] = chemicalBox2D(1, chemical2.getColorOfSolid(), false);
 //        }
 //    }
 //    else
 //    {
+//        qDebug() << "chem1 has no color";
 //        for(int i = 0; i < 100; i++)
 //        {
-//            chemB[i] = chemicalBox2D(0, Qt::blue, false);
+//            m_chemB[i] = chemicalBox2D(1, Qt::blue, false);
 //        }
 //    }
-//    update();
-//    world->setIsVialDrawn(true);
-//    m_timer->start(1000 / 60);
-}
-
-void MixingModel::createScene()
-{
-    world->createBorder();
-    world->createVial();
-    world->createBeaker();
-    world->createStirRod();
-
-    for(int i = 0; i < 100; i++)
-    {
-        chemA[i] = chemicalBox2D(0, Qt::blue, false);
-    }
-
-    for(int i = 0; i < 100; i++)
-    {
-        chemB[i] = chemicalBox2D(1, Qt::blue, false);
-    }
     update();
     world->setIsVialDrawn(true);
     m_timer->start(1000 / 60);

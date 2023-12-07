@@ -55,7 +55,9 @@ public:
     /// @param painter what to draw with
     /// @param body the object to get details from
     /// @param polygon the polygon to draw
-    void drawPolygon(QPainter& painter, b2Body* body, b2PolygonShape* polygon);
+    /// @param color the color to draw the polygon with
+    /// @param notSolid a bool determining whether or not the polygon is a chemical solid
+    void drawPolygon(QPainter& painter, b2Body* body, b2PolygonShape* polygon, QColor color, bool notSolid);
 
     /// @brief Paints a circle
     /// @param painter what to draw with
@@ -77,13 +79,11 @@ public slots:
     /// @brief Removes all bodies from the world
     void eraseScene();
 
-    void createScene();
-
     /// @brief
     /// @param cheimcal1
     /// @param chemical2
     /// @param reactionResult
-    void createScene2(Chemical chemical1, Chemical chemical2, Reaction reactionResult);
+    void createScene(Chemical chemical1, Chemical chemical2, Reaction reaction);
 
 private:
     QTimer *m_timer;
@@ -92,11 +92,12 @@ private:
     float m_windowWidth;
     float m_scale = 20.0f;
     float m_windowHeight;
+    Reaction m_reactionResult;
     QPushButton *m_helpButton;
 
     std::vector<chemicalBox2D> chemicalBox2Ds;
-    chemicalBox2D chemA[200];
-    chemicalBox2D chemB[200];
+    chemicalBox2D m_chemA[200];
+    chemicalBox2D m_chemB[200];
 
     int chemCount = 0;
 
