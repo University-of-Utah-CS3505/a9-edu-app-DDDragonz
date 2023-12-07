@@ -48,17 +48,20 @@ void Reactions::addLevelOne()
     products.push_back(Chemical("CO2", State::gas, QColor()));
     products.push_back(Chemical("NaCl", State::aqueous, QColor()));
     addReaction(Chemical("FeCl3", State::aqueous, QColor()), Chemical("Na2CO3", State::aqueous, QColor()), products);
+    addReaction(Chemical("Na2CO3", State::aqueous, QColor()), Chemical("FeCl3", State::aqueous, QColor()), products);
 
     products.clear();
     products.push_back(Chemical("H2O", State::liquid, QColor(92, 64, 51)));
     products.push_back(Chemical("CO2", State::gas, QColor()));
     products.push_back(Chemical("NaCl", State::aqueous, QColor()));
     addReaction(Chemical("HCl", State::aqueous, QColor()), Chemical("Na2CO3", State::aqueous, QColor()), products);
+    addReaction(Chemical("Na2CO3", State::aqueous, QColor()), Chemical("HCl", State::aqueous, QColor()), products);
 
     products.clear();
     products.push_back(Chemical("FeCl3", State::aqueous, QColor(92, 64, 51)));
     products.push_back(Chemical("HCl", State::aqueous, QColor()));
     addReaction(Chemical("FeCl3", State::aqueous, QColor()), Chemical("HCl", State::aqueous, QColor()), products);
+    addReaction(Chemical("HCl", State::aqueous, QColor()), Chemical("FeCl3", State::aqueous, QColor()), products);
 }
 
 void Reactions::addLevelTwo()
@@ -67,16 +70,19 @@ void Reactions::addLevelTwo()
     products.push_back(Chemical("FeOH", State::solid, QColor(92, 64, 51)));
     products.push_back(Chemical("NaCl", State::aqueous, QColor()));
     addReaction(Chemical("FeCl3", State::aqueous, QColor()), Chemical("NaOH", State::aqueous, QColor()), products);
+    addReaction(Chemical("NaOH", State::aqueous, QColor()), Chemical("FeCl3", State::aqueous, QColor()), products);
 
     products.clear();
     products.push_back(Chemical("H2O", State::liquid, QColor()));
     products.push_back(Chemical("NaCl", State::aqueous, QColor()));
     addReaction(Chemical("HCl", State::aqueous, QColor()), Chemical("NaOH", State::aqueous, QColor()), products);
+    addReaction(Chemical("NaOH", State::aqueous, QColor()), Chemical("HCl", State::aqueous, QColor()), products);
 
     products.clear();
     products.push_back(Chemical("Na2CO3", State::aqueous, QColor()));
     products.push_back(Chemical("NaOH", State::aqueous, QColor()));
     addReaction(Chemical("Na2CO3", State::aqueous, QColor()), Chemical("NaOH", State::aqueous, QColor()), products);
+    addReaction(Chemical("NaOH", State::aqueous, QColor()), Chemical("Na2CO3", State::aqueous, QColor()), products);
 }
 
 void Reactions::addLevelThree()
@@ -85,21 +91,25 @@ void Reactions::addLevelThree()
     products.push_back(Chemical("AgCl", State::solid, Qt::white));
     products.push_back(Chemical("FeNO3", State::aqueous, QColor()));
     addReaction(Chemical("FeCl3", State::aqueous, QColor()), Chemical("AgNO3", State::aqueous, QColor()), products);
+    addReaction(Chemical("AgNO3", State::aqueous, QColor()), Chemical("FeCl3", State::aqueous, QColor()), products);
 
     products.clear();
     products.push_back(Chemical("Ag2CO3", State::solid, Qt::white));
     products.push_back(Chemical("NaNO3", State::aqueous, QColor()));
     addReaction(Chemical("Na2CO3", State::aqueous, QColor()), Chemical("AgNO3", State::aqueous, QColor()), products);
+    addReaction(Chemical("AgNO3", State::aqueous, QColor()), Chemical("Na2CO3", State::aqueous, QColor()), products);
 
     products.clear();
     products.push_back(Chemical("AgCl", State::solid, Qt::white));
     products.push_back(Chemical("HNO3", State::aqueous, QColor()));
     addReaction(Chemical("HCl", State::aqueous, QColor()), Chemical("AgNO3", State::aqueous, QColor()), products);
+    addReaction(Chemical("AgNO3", State::aqueous, QColor()), Chemical("HCl", State::aqueous, QColor()), products);
 
     products.clear();
     products.push_back(Chemical("AgOH", State::solid, Qt::gray));
     products.push_back(Chemical("NaOH", State::aqueous, QColor()));
     addReaction(Chemical("NaOH", State::aqueous, QColor()), Chemical("AgNO3", State::aqueous, QColor()), products);
+    addReaction(Chemical("AgNO3", State::aqueous, QColor()), Chemical("NaOH", State::aqueous, QColor()), products);
 }
 
 void Reactions::addLevelFour()
@@ -108,26 +118,31 @@ void Reactions::addLevelFour()
     products.push_back(Chemical("FePO4", State::solid, QColor(255, 255, 191)));
     products.push_back(Chemical("NaCl", State::aqueous, QColor()));
     addReaction(Chemical("FeCl3", State::aqueous, QColor()), Chemical("Na3PO4", State::aqueous, QColor()), products);
+    addReaction(Chemical("Na3PO4", State::aqueous, QColor()), Chemical("FeCl3", State::aqueous, QColor()), products);
 
     products.clear();
     products.push_back(Chemical("Na3PO4", State::aqueous, QColor()));
     products.push_back(Chemical("Na2CO3", State::aqueous, QColor()));
     addReaction(Chemical("Na2CO3", State::aqueous, QColor()), Chemical("Na3PO4", State::aqueous, QColor()), products);
+    addReaction(Chemical("Na3PO4", State::aqueous, QColor()), Chemical("Na2CO3", State::aqueous, QColor()), products);
 
     products.clear();
     products.push_back(Chemical("H3PO4", State::aqueous, QColor()));
     products.push_back(Chemical("NaCl", State::aqueous, QColor()));
     addReaction(Chemical("HCl", State::aqueous, QColor()), Chemical("Na3PO4", State::aqueous, QColor()), products);
+    addReaction(Chemical("Na3PO4", State::aqueous, QColor()), Chemical("HCl", State::aqueous, QColor()), products);
 
     products.clear();
     products.push_back(Chemical("Na3PO4", State::aqueous, QColor()));
     products.push_back(Chemical("NaOH", State::aqueous, QColor()));
     addReaction(Chemical("NaOH", State::aqueous, QColor()), Chemical("Na3PO4", State::aqueous, QColor()), products);
+    addReaction(Chemical("Na3PO4", State::aqueous, QColor()), Chemical("NaOH", State::aqueous, QColor()), products);
 
     products.clear();
     products.push_back(Chemical("Ag3PO4", State::solid, Qt::yellow));
     products.push_back(Chemical("NaNO3", State::aqueous, QColor()));
     addReaction(Chemical("AgNO3", State::aqueous, QColor()), Chemical("Na3PO4", State::aqueous, QColor()), products);
+    addReaction(Chemical("Na3PO4", State::aqueous, QColor()), Chemical("AgNO3", State::aqueous, QColor()), products);
 }
 
 QString Reactions::getStateString(State state) const
