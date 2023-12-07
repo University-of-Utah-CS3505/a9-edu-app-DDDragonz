@@ -49,6 +49,10 @@ public:
     /// @param circle the circle instance in the world
     void spawnGas(b2Body* circle);
 
+    /// @brief Creates a square that acts as a solid formed from chemicals.
+    /// @param circle the circle instance in the world
+    void spawnSolid(b2Body* circle);
+
     /// @brief Set the width of the window
     /// @param newWidth the new width
     void setWindowWidth(int newWidth);

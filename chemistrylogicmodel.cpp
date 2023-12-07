@@ -1,7 +1,6 @@
 #include "chemistrylogicmodel.h"
 #include "reaction.h"
 using std::vector;
-#include <QDebug>
 
 ChemistryLogicModel::ChemistryLogicModel(QObject *parent)
     : QObject{parent},
@@ -174,8 +173,8 @@ void ChemistryLogicModel::chemicalsMixed(QString formula1, QString formula2)
     Chemical chemical2 = m_chemicals.find(m_mysteries.getChemical(formula2)).value();
 
     Reaction reaction = m_reactions.getReaction(chemical1, chemical2);
-    qDebug() << "Sent " << reaction.colorOfSolid() << "Gas? " << reaction.hasGas() << " Solide? " << reaction.hasSolid() << "chemical model";
     emit sendChemicalMixResult(chemical1, chemical2, reaction);
+    emit sendReaction(reaction);
 }
 
 void ChemistryLogicModel::receiveIdentifiers(QString identifiers)
