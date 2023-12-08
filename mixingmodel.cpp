@@ -223,17 +223,23 @@ void MixingModel::updateWorld()
             chemicalBox2D* c = static_cast<chemicalBox2D*>(a);
             if(c->s_touch)
             {
+                bool destroy = false;
                 b2Body* d = b;
                 b = b->GetNext();
                 if(m_reactionResult.hasGas())
                 {
                     world->spawnGas(d);
+                    destroy = true;
                 }
                 if(m_reactionResult.hasSolid())
                 {
                     world->spawnSolid(d);
+                    destroy = true;
                 }
-                world->getWorld()->DestroyBody(d);
+                if(destroy)
+                {
+                    world->getWorld()->DestroyBody(d);
+                }
             }
             else
             {
