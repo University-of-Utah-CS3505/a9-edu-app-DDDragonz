@@ -59,8 +59,8 @@ void Reactions::addLevelOne()
     addReaction(Chemical("HCl", State::aqueous, QColor()), Chemical("FeCl3", State::aqueous, QColor()), products);
 
     m_equations.push_back("HCl(aq) + FeCl<sub>3</sub>(aq) -> HCl(aq) + FeCl<sub>3</sub>(aq)");
-    m_equations.push_back("FeCl<sub>3</sub>(aq) + Na<sub>2</sub>CO<sub>3</sub>(aq) -> FeO(s) + CO<sub>2</sub>(g) + NaCl(aq)<br/>Note: FeO is a dark brown solid.");
     m_equations.push_back("HCl(aq) + Na<sub>2</sub>CO<sub>3</sub>(aq) -> H<sub>2</sub>O(l) + CO<sub>2</sub>(g) + NaCl(aq)");
+    m_equations.push_back("FeCl<sub>3</sub>(aq) + Na<sub>2</sub>CO<sub>3</sub>(aq) -> FeO(s) + CO<sub>2</sub>(g) + NaCl(aq)<br/>Note: FeO is a dark brown solid.");
 }
 
 void Reactions::addLevelTwo()
@@ -157,28 +157,4 @@ void Reactions::addLevelFour()
     m_equations.push_back("Na<sub>3</sub>PO<sub>4</sub>(aq) + HCl(aq) -> H<sub>3</sub>PO<sub>4</sub>(aq) + NaCl(aq)");
     m_equations.push_back("Na<sub>3</sub>PO<sub>4</sub>(aq) + NaOH(aq) -> Na<sub>3</sub>PO<sub>4</sub>(aq) + NaOH(aq)");
     m_equations.push_back("Na<sub>3</sub>PO<sub>4</sub>(aq) + AgNO<sub>3</sub>(aq) -> Ag<sub>3</sub>PO<sub>4</sub>(s) + NaNO<sub>3</sub>(aq)<br/>Note: Ag<sub>3</sub>PO<sub>4</sub> is a light yellow solid.");
-}
-
-QString Reactions::getStateString(State state) const
-{
-    QString solid;
-    switch(state)
-    {
-    case State::solid:
-        solid = "(s, ";
-        solid += getColorString(QColor());
-        solid += ")";
-        return solid;
-    case State::liquid:
-        return "(l)";
-    case State::gas:
-        return "(g)";
-    case State::aqueous:
-        return "(aq)";
-    }
-}
-
-QString Reactions::getColorString(QColor color) const
-{
-    return "color";
 }
