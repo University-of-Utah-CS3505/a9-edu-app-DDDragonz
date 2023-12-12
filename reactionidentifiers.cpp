@@ -3,22 +3,22 @@
 
 ReactionIdentifiers::ReactionIdentifiers(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::ReactionIdentifiers)
+    m_ui(new Ui::ReactionIdentifiers)
 {
-    ui->setupUi(this);
-    ui->colorBox->addItem("Dark Brown");
-    ui->colorBox->addItem("White");
-    ui->colorBox->addItem("Grey");
-    ui->colorBox->addItem("Light Yellow");
-    ui->colorBox->addItem("Yellow");
-    ui->submitButton->setEnabled(false);
+    m_ui->setupUi(this);
+    m_ui->colorBox->addItem("Dark Brown");
+    m_ui->colorBox->addItem("White");
+    m_ui->colorBox->addItem("Grey");
+    m_ui->colorBox->addItem("Light Yellow");
+    m_ui->colorBox->addItem("Yellow");
+    m_ui->submitButton->setEnabled(false);
 
-    connect(ui->solidBox,
+    connect(m_ui->solidBox,
             &QCheckBox::toggled,
-            ui->colorBox,
+            m_ui->colorBox,
             &QComboBox::setEnabled);
 
-    connect(ui->submitButton,
+    connect(m_ui->submitButton,
             &QPushButton::clicked,
             this,
             &ReactionIdentifiers::submitSelected);
@@ -26,40 +26,40 @@ ReactionIdentifiers::ReactionIdentifiers(QWidget *parent) :
 
 ReactionIdentifiers::~ReactionIdentifiers()
 {
-    delete ui;
+    delete m_ui;
 }
 
 void ReactionIdentifiers::mixSelected()
 {
-    ui->submitButton->setEnabled(true);
+    m_ui->submitButton->setEnabled(true);
 }
 
 void ReactionIdentifiers::doneMixingSelected()
 {
-    ui->submitButton->setEnabled(false);
+    m_ui->submitButton->setEnabled(false);
 }
 
 void ReactionIdentifiers::submitSelected()
 {
     QString identifiers;
-    if (ui->bubblesBox->isChecked())
+    if (m_ui->bubblesBox->isChecked())
     {
-        ui->bubblesBox->setChecked(false);
+        m_ui->bubblesBox->setChecked(false);
         identifiers.append("bubbles");
     }
-    if (ui->noReactionBox->isChecked())
+    if (m_ui->noReactionBox->isChecked())
     {
-        ui->noReactionBox->setChecked(false);
+        m_ui->noReactionBox->setChecked(false);
         if (identifiers.length() != 0)
         {
             identifiers.append(", ");
         }
         identifiers.append("no reaction");
     }
-    if (ui->solidBox->isChecked())
+    if (m_ui->solidBox->isChecked())
     {
-        ui->solidBox->setChecked(false);
-        QString color = ui->colorBox->currentText();
+        m_ui->solidBox->setChecked(false);
+        QString color = m_ui->colorBox->currentText();
         if (identifiers.length() != 0)
         {
             identifiers.append(", ");

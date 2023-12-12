@@ -62,6 +62,7 @@ SOURCES += \
     identifychemicals.cpp \
     main.cpp \
     mainwindow.cpp \
+    mixingchemical.cpp \
     mysteries.cpp \
     mysterycombopair.cpp \
     mysterysubstancebuttoncombo.cpp \
@@ -70,7 +71,6 @@ SOURCES += \
     reaction.cpp \
     reactionidentifiers.cpp \
     reactions.cpp \
-    chemicalbox2d.cpp \
     contactlistener.cpp \
     mixinglogic.cpp \
     mixingmodel.cpp \
@@ -130,6 +130,7 @@ HEADERS += \
     helpwindow.h \
     identifychemicals.h \
     mainwindow.h \
+    mixingchemical.h \
     mysteries.h \
     mysterycombopair.h \
     mysterysubstancebuttoncombo.h \
@@ -138,7 +139,6 @@ HEADERS += \
     reaction.h \
     reactionidentifiers.h \
     reactions.h \
-    chemicalbox2d.h \
     contactlistener.h \
     mixinglogic.h \
     mixingmodel.h \

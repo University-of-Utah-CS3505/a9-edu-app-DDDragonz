@@ -2,6 +2,9 @@
 #define MYSTERYSUBSTANCEBUTTONCOMBO_H
 
 #include <QWidget>
+#include <QPixmap>
+#include <QImage>
+#include <QGraphicsColorizeEffect>
 
 namespace Ui {
 class MysterySubstanceButtonCombo;
@@ -17,6 +20,9 @@ public:
 
 private:
     Ui::MysterySubstanceButtonCombo *ui;
+    QPixmap m_pixmap;
+    QGraphicsColorizeEffect* m_effect;
+
 
 public slots:
     void buttonSelected();

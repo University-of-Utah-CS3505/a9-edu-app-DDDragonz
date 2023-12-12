@@ -27,7 +27,7 @@ QString Reactions::getAllReactions() const
 {
     QString allReactions = "";
 
-    for(int i = 0; i < m_equations.size(); i++)
+    for(unsigned long i = 0; i < m_equations.size(); i++)
     {
         allReactions += m_equations.at(i);
         allReactions+= "<br/><br/>";

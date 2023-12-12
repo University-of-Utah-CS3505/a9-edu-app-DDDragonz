@@ -4,22 +4,22 @@
 
 ChemicalEquations::ChemicalEquations(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::ChemicalEquations)
+    m_ui(new Ui::ChemicalEquations)
 {
-    ui->setupUi(this);
+    m_ui->setupUi(this);
 }
 
 void ChemicalEquations::receiveFormula(QString formulas)
 {
-    ui->equationsLabel->setText(formulas);
+    m_ui->equationsLabel->setText(formulas);
 }
 
 void ChemicalEquations::addEquation(QString equation)
 {
-    ui->equationsLabel->setText(equation);
+    m_ui->equationsLabel->setText(equation);
 }
 
 ChemicalEquations::~ChemicalEquations()
 {
-    delete ui;
+    delete m_ui;
 }

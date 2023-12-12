@@ -5,6 +5,8 @@
 
 class myContactListener : public b2ContactListener
 {
+    /// @brief Checks for collisions among circles
+    /// @param contact The items in contact
     virtual void BeginContact(b2Contact* contact);
 };
 

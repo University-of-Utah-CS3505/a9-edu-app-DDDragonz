@@ -173,7 +173,7 @@ void ChemistryLogicModel::chemicalsMixed(QString formula1, QString formula2)
     Chemical chemical2 = m_chemicals.find(m_mysteries.getChemical(formula2)).value();
 
     Reaction reaction = m_reactions.getReaction(chemical1, chemical2);
-    emit sendChemicalMixResult(chemical1, chemical2, reaction);
+    emit sendChemicalMixResult(reaction);
     emit sendReaction(reaction);
 }
 

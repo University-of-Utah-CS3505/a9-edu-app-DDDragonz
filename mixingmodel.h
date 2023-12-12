@@ -2,7 +2,7 @@
 #define MIXINGMODEL_H
 
 #include "mixinglogic.h"
-#include "chemicalBox2D.h"
+#include "mixingchemical.h"
 #include "reaction.h"
 #include <QWidget>
 #include <Box2D/Box2D.h>
@@ -32,38 +32,36 @@ public:
     void paintEvent(QPaintEvent*) override;
 
     /// @brief Moves the vial around only if it exists
-    /// @param event the object that triggered the event.
+    /// @param event The object that triggered the event.
     void mouseMoveEvent(QMouseEvent *event) override;
 
     /// @brief Moves the vial according to keyboard input only if the vial exists
     /// @param event the object that triggered the event.
     void keyPressEvent(QKeyEvent *event) override;
 
-
-    //FIX!!
-    /// @brief Resizes stuff
-    /// @param event the object that triggered the event.
+    /// @brief Moves the world objects to fit window
+    /// @param event The object that triggered the event.
     void resizeEvent(QResizeEvent* event) override;
 
     /// @brief Paints an edge
-    /// @param painter what to draw with
-    /// @param body the object to get details from
-    /// @param edge the edge to draw
+    /// @param painter What to draw with
+    /// @param body The object to get details from
+    /// @param edge The edge to draw
     void drawEdge(QPainter& painter, b2Body* body, b2EdgeShape* edge);
 
     /// @brief Paints a polygon
-    /// @param painter what to draw with
-    /// @param body the object to get details from
-    /// @param polygon the polygon to draw
-    /// @param color the color to draw the polygon with
-    /// @param notSolid a bool determining whether or not the polygon is a chemical solid
+    /// @param painter What to draw with
+    /// @param body The object to get details from
+    /// @param polygon The polygon to draw
+    /// @param color The color to draw the polygon with
+    /// @param notSolid A bool determining whether or not the polygon is a chemical solid
     void drawPolygon(QPainter& painter, b2Body* body, b2PolygonShape* polygon, QColor color, bool notSolid);
 
     /// @brief Paints a circle
-    /// @param painter what to draw with
-    /// @param body the object to get details from
-    /// @param circle the circle to draw
-    /// @param color the color to draw the circles
+    /// @param painter What to draw with
+    /// @param body The object to get details from
+    /// @param circle The circle to draw
+    /// @param color The color to draw the circles
     void drawCircle(QPainter& painter, b2Body* body, b2CircleShape* circle, QColor color);
 
     /// @brief Displays a help menu on how to move the vials around
@@ -79,36 +77,34 @@ public slots:
     /// @brief Removes all bodies from the world
     void eraseScene();
 
-    /// @brief
-    /// @param cheimcal1
-    /// @param chemical2
-    /// @param reactionResult
-    void createScene(Chemical chemical1, Chemical chemical2, Reaction reaction);
+    /// @brief Creates all objects of the world and default sets the chemicals
+    /// @param reaction The information to produce when chemicals are mixing
+    void createScene(Reaction reaction);
 
 private:
     QTimer *m_timer;
-    Ui::MixingModel *ui;
-    MixingLogic *world;
+    Ui::MixingModel *m_ui;
+    MixingLogic *m_world;
     float m_windowWidth;
     float m_scale = 20.0f;
     float m_windowHeight;
     Reaction m_reactionResult;
     QPushButton *m_helpButton;
+    std::vector<MixingChemical> m_mixingChemicals;
+    MixingChemical m_chemA[200];
+    MixingChemical m_chemB[200];
 
-    std::vector<chemicalBox2D> chemicalBox2Ds;
-    chemicalBox2D m_chemA[200];
-    chemicalBox2D m_chemB[200];
-
-    int chemCount = 0;
+    int m_chemCount = 0;
 
     /// @brief Converts Box2D coordinates to Qt.
     /// @param vect The x,y coordinates to scale
+    /// @return the coordinates in Qt
     QPointF convertCoordsBox2DToQt(b2Vec2 vec);
 
     /// @brief Sets the paint color
-    /// @param painter the painter object
-    /// @param color the color to paint in
-    /// @param brush the style of brush
+    /// @param painter The painter object
+    /// @param color The color to paint in
+    /// @param brush The style of brush
     void setPaintColor(QPainter& painter, QColor color, QBrush brush);
 };
 

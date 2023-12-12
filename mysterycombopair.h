@@ -15,6 +15,7 @@ class MysteryComboPair : public QWidget
     Q_OBJECT
 
 public:
+    /// @brief
     explicit MysteryComboPair(QWidget *parent = nullptr);
     MysteryComboPair(int index, QString mystery, vector<QString> chemicals, QWidget *parent = nullptr);
     void addComboItem(QString name, int index);

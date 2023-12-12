@@ -12,15 +12,23 @@ class ReactionIdentifiers : public QWidget
     Q_OBJECT
 
 public:
+    /// @brief Standard Constructor. Makes connections and sets up the ui
     explicit ReactionIdentifiers(QWidget *parent = nullptr);
+
+    /// @brief Standard Deconstructor.
     ~ReactionIdentifiers();
 
 private:
-    Ui::ReactionIdentifiers *ui;
+    Ui::ReactionIdentifiers *m_ui;
 
 public slots:
+    /// @brief Disable button
     void mixSelected();
+
+    /// @brief Disable button
     void doneMixingSelected();
+
+    /// @brief Creates a string of the selected identifiers
     void submitSelected();
 
 signals:

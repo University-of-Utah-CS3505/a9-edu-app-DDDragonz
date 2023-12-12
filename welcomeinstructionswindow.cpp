@@ -3,14 +3,14 @@
 
 WelcomeInstructionsWindow::WelcomeInstructionsWindow(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::WelcomeInstructionsWindow)
+    m_ui(new Ui::WelcomeInstructionsWindow)
 {
-    ui->setupUi(this);
+    m_ui->setupUi(this);
 }
 
 WelcomeInstructionsWindow::~WelcomeInstructionsWindow()
 {
-    delete ui;
+    delete m_ui;
 }
 
 void WelcomeInstructionsWindow::on_pushButton_clicked()

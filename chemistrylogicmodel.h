@@ -45,7 +45,7 @@ signals:
     void addReactants(int number);
     void levelKeep();
     void gameComplete();
-    void sendChemicalMixResult(Chemical chemical1, Chemical chemical2, Reaction reactionResult);
+    void sendChemicalMixResult(Reaction reactionResult);
     void sendReaction(Reaction reaction);
     void sendReactionIdentifiers(QString substance1, QString substance2, QString identifiers);
 

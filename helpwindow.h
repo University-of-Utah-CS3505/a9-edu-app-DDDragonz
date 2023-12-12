@@ -12,11 +12,14 @@ class HelpWindow : public QWidget
     Q_OBJECT
 
 public:
+    /// @brief Standard Constructor
     explicit HelpWindow(QWidget *parent = nullptr);
+
+    /// @brief Standard Deconstructor
     ~HelpWindow();
 
 private:
-    Ui::HelpWindow *ui;
+    Ui::HelpWindow *m_ui;
 };
 
 #endif // HELPWINDOW_H

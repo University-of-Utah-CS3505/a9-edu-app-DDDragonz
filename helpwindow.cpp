@@ -3,12 +3,12 @@
 
 HelpWindow::HelpWindow(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::HelpWindow)
+    m_ui(new Ui::HelpWindow)
 {
-    ui->setupUi(this);
+    m_ui->setupUi(this);
 }
 
 HelpWindow::~HelpWindow()
 {
-    delete ui;
+    delete m_ui;
 }

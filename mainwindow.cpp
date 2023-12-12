@@ -11,47 +11,49 @@ using std::vector;
 
 MainWindow::MainWindow(ChemistryLogicModel& logicModel, QWidget *parent)
     : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
+    , m_ui(new Ui::MainWindow)
 {
-    ui->setupUi(this);
-    ui->vialButtonsWidget->addMysterySubstances(logicModel.getAllReactants().size());
+    m_ui->setupUi(this);
+    m_ui->vialButtonsWidget->addMysterySubstances(logicModel.getAllReactants().size());
 
-    observationTable = new ObservationTable();
-    connect(ui->possibleElementsWidget, &IdentifyChemicals::submitToNextLevel, &logicModel, &ChemistryLogicModel::levelUp);
+    m_observationTable = new ObservationTable();
+    connect(m_ui->possibleElementsWidget, &IdentifyChemicals::submitToNextLevel, &logicModel, &ChemistryLogicModel::levelUp);
     connect(&logicModel, &ChemistryLogicModel::sendLevel, this, &MainWindow::updateLevelLabel);
-    connect(&logicModel, &ChemistryLogicModel::sendAllReactionsFormula, ui->significantReactionsWidget, &ChemicalEquations::receiveFormula);
-    connect(&logicModel, &ChemistryLogicModel::sendAllReactants, ui->possibleElementsWidget, &IdentifyChemicals::addElements);
-    connect(&logicModel, &ChemistryLogicModel::sendReactant, ui->possibleElementsWidget, &IdentifyChemicals::addElement);
-    connect(&logicModel, &ChemistryLogicModel::addReactants, ui->vialButtonsWidget, &MysterySubstances::addMysterySubstances);
-    connect(ui->pushButton, &QPushButton::clicked, this, &MainWindow::showHelp);
-    connect(ui->viewTableButton, &QPushButton::clicked, this, &MainWindow::showObservationTable);
-    connect(&logicModel, &ChemistryLogicModel::sendLevel, observationTable, &ObservationTable::levelUp);
+    connect(&logicModel, &ChemistryLogicModel::sendAllReactionsFormula, m_ui->significantReactionsWidget, &ChemicalEquations::receiveFormula);
+    connect(&logicModel, &ChemistryLogicModel::sendAllReactants, m_ui->possibleElementsWidget, &IdentifyChemicals::addElements);
+    connect(&logicModel, &ChemistryLogicModel::sendReactant, m_ui->possibleElementsWidget, &IdentifyChemicals::addElement);
+    connect(&logicModel, &ChemistryLogicModel::addReactants, m_ui->vialButtonsWidget, &MysterySubstances::addMysterySubstances);
+    connect(m_ui->pushButton, &QPushButton::clicked, this, &MainWindow::showHelp);
+    connect(m_ui->viewTableButton, &QPushButton::clicked, this, &MainWindow::showObservationTable);
+    connect(&logicModel, &ChemistryLogicModel::sendLevel, m_observationTable, &ObservationTable::levelUp);
     connect(&logicModel, &ChemistryLogicModel::levelKeep, this, &MainWindow::wrongAnswerReminder);
-    connect(ui->vialButtonsWidget, &MysterySubstances::mixingChemicals, &logicModel, &ChemistryLogicModel::chemicalsMixed);
-    connect(ui->vialButtonsWidget, &MysterySubstances::mixChemicals, ui->reactionIdentifiersWidget, &ReactionIdentifiers::mixSelected);
-    connect(ui->vialButtonsWidget, &MysterySubstances::doneMixing, ui->reactionIdentifiersWidget, &ReactionIdentifiers::doneMixingSelected);
-    connect(ui->reactionIdentifiersWidget, &ReactionIdentifiers::sendIdentifiers, &logicModel, &ChemistryLogicModel::receiveIdentifiers);
-    connect(&logicModel, &ChemistryLogicModel::sendReactionIdentifiers, observationTable, &ObservationTable::receiveIdentifiers);
-    connect(&logicModel, &ChemistryLogicModel::sendLevel, ui->vialButtonsWidget, &MysterySubstances::levelUp);
+    connect(m_ui->vialButtonsWidget, &MysterySubstances::mixingChemicals, &logicModel, &ChemistryLogicModel::chemicalsMixed);
+    connect(m_ui->vialButtonsWidget, &MysterySubstances::mixChemicals, m_ui->reactionIdentifiersWidget, &ReactionIdentifiers::mixSelected);
+    connect(m_ui->vialButtonsWidget, &MysterySubstances::doneMixing, m_ui->reactionIdentifiersWidget, &ReactionIdentifiers::doneMixingSelected);
+    connect(m_ui->reactionIdentifiersWidget, &ReactionIdentifiers::sendIdentifiers, &logicModel, &ChemistryLogicModel::receiveIdentifiers);
+    connect(&logicModel, &ChemistryLogicModel::sendReactionIdentifiers, m_observationTable, &ObservationTable::receiveIdentifiers);
+    connect(&logicModel, &ChemistryLogicModel::sendLevel, m_ui->vialButtonsWidget, &MysterySubstances::levelUp);
     connect(&logicModel, &ChemistryLogicModel::gameComplete, this, &MainWindow::gameComplete);
+    connect(m_ui->possibleElementsWidget, &IdentifyChemicals::submitToNextLevel, m_ui->vialButtonsWidget, &MysterySubstances::doneButtonClicked);
+    connect(m_ui->vialButtonsWidget, &MysterySubstances::doneMixing, m_ui->mixingWidget, &MixingModel::eraseScene);
+    connect(&logicModel, &ChemistryLogicModel::sendChemicalMixResult, m_ui->mixingWidget, &MixingModel::createScene);
+    connect(m_ui->possibleElementsWidget, &IdentifyChemicals::clearWorld, m_ui->mixingWidget, &MixingModel::eraseScene);
+    connect(m_ui->mixingWidget, &MixingModel::resetScene, m_ui->vialButtonsWidget, &MysterySubstances::doneButtonClicked);
+    connect(m_ui->mixingWidget, &MixingModel::resetScene, m_ui->vialButtonsWidget, &MysterySubstances::updateMixButton);
 
-    connect(ui->vialButtonsWidget, &MysterySubstances::doneMixing, ui->mixingWidget, &MixingModel::eraseScene);
-    connect(&logicModel, &ChemistryLogicModel::sendChemicalMixResult, ui->mixingWidget, &MixingModel::createScene);
-    connect(ui->possibleElementsWidget, &IdentifyChemicals::clearWorld, ui->mixingWidget, &MixingModel::eraseScene);
-    connect(ui->mixingWidget, &MixingModel::resetScene, ui->vialButtonsWidget, &MysterySubstances::doneButtonClicked);
-    ui->mixingWidget->setFocusPolicy(Qt::StrongFocus);
+    m_ui->mixingWidget->setFocusPolicy(Qt::StrongFocus);
     logicModel.levelUp(vector<QString>());
 }
 
 void MainWindow::updateLevelLabel(int level)
 {
     QString levelText = "Level " + QString::number(level);
-    ui->levelLabel->setText(levelText);
+    m_ui->levelLabel->setText(levelText);
 }
 
 MainWindow::~MainWindow()
 {
-    delete ui;
+    delete m_ui;
 }
 
 void MainWindow::showHelp()
@@ -67,7 +69,7 @@ void MainWindow::wrongAnswerReminder()
 
 void MainWindow::showObservationTable()
 {
-    observationTable->show();
+    m_observationTable->show();
 }
 
 void MainWindow::gameComplete()
@@ -75,3 +77,4 @@ void MainWindow::gameComplete()
     QMessageBox::information(this, "Game Complete", "Congratulation! You have completed all the tasks!", "OK");
     this->close();
 }
+

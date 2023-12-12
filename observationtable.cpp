@@ -6,16 +6,16 @@ ObservationTable::ObservationTable(QWidget *parent) :
     ui(new Ui::ObservationTable)
 {
     ui->setupUi(this);
-    tables.append(ui->levelOneTable);
-    tables.append(ui->levelTwoTable);
-    tables.append(ui->levelThreeTable);
-    tables.append(ui->levelFourTable);
+    m_tables.append(ui->levelOneTable);
+    m_tables.append(ui->levelTwoTable);
+    m_tables.append(ui->levelThreeTable);
+    m_tables.append(ui->levelFourTable);
 
     ui->levelTwoTable->hide();
     ui->levelThreeTable->hide();
     ui->levelFourTable->hide();
 
-    level = 1;
+    m_level = 1;
 }
 
 ObservationTable::~ObservationTable()
@@ -25,19 +25,19 @@ ObservationTable::~ObservationTable()
 
 void ObservationTable::levelUp(int nextLevel)
 {
-    QTableWidget* currentTable = tables.at(level);
+    QTableWidget* currentTable = m_tables.at(m_level);
     currentTable->hide();
-    level = nextLevel-1;
-    if (level < 4)
+    m_level = nextLevel-1;
+    if (m_level < 4)
     {
-        currentTable = tables.at(level);
+        currentTable = m_tables.at(m_level);
         currentTable->show();
     }
 }
 
 void ObservationTable::receiveIdentifiers(QString substance1, QString substance2, QString identifiers)
 {
-    QTableWidget* currentTable = tables.at(level);
+    QTableWidget* currentTable = m_tables.at(m_level);
     QTableWidgetItem* text = new QTableWidgetItem{identifiers};
     int sub1 = substance1.at(10).toLatin1() - 'A';
     int sub2 = substance2.at(10).toLatin1() - 'A';

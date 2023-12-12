@@ -6,20 +6,20 @@ using std::string;
 
 MysterySubstances::MysterySubstances(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::MysterySubstances)
+    m_ui(new Ui::MysterySubstances)
 {
-    ui->setupUi(this);
+    m_ui->setupUi(this);
     m_numberSelected = 0;
     updateMixButton();
-    ui->doneButton->setEnabled(false);
+    m_ui->doneButton->setEnabled(false);
     m_chemicalSize = 3;
 
-    connect(ui->mixButton,
+    connect(m_ui->mixButton,
             &QPushButton::clicked,
             this,
             &MysterySubstances::mixButtonClicked);
 
-    connect(ui->doneButton,
+    connect(m_ui->doneButton,
             &QPushButton::clicked,
             this,
             &MysterySubstances::doneButtonClicked);
@@ -27,7 +27,7 @@ MysterySubstances::MysterySubstances(QWidget *parent) :
 
 MysterySubstances::~MysterySubstances()
 {
-    delete ui;
+    delete m_ui;
 }
 
 void MysterySubstances::addMysterySubstances(int number)
@@ -46,7 +46,7 @@ void MysterySubstances::addMysterySubstance(int number)
     }
 
     MysterySubstanceButtonCombo* toAdd = new MysterySubstanceButtonCombo(number);
-    ui->layout->addWidget(toAdd);
+    m_ui->layout->addWidget(toAdd);
 
     connect(toAdd,
             &MysterySubstanceButtonCombo::mysterySubstanceSelected,
@@ -95,20 +95,20 @@ void MysterySubstances::updateMixButton()
 {
     if(m_numberSelected == 2)
     {
-        ui->mixButton->setEnabled(true);
+        m_ui->mixButton->setEnabled(true);
     }
     else
     {
-        ui->mixButton->setEnabled(false);
+        m_ui->mixButton->setEnabled(false);
     }
 }
 
 void MysterySubstances::mixButtonClicked()
 {
     m_numberSelected = 0;
-    ui->mixButton->setEnabled(false);
+    m_ui->mixButton->setEnabled(false);
     emit mixChemicals();
-    ui->doneButton->setEnabled(true);
+    m_ui->doneButton->setEnabled(true);
 
     QString chemicalA = "Substance ";
     QString chemicalB = "Substance ";
@@ -136,11 +136,12 @@ void MysterySubstances::mixButtonClicked()
 void MysterySubstances::doneButtonClicked()
 {
     emit doneMixing();
-    ui->doneButton->setEnabled(false);
+    m_ui->doneButton->setEnabled(false);
     for(int i = 0; i < m_chemicalSize; i++)
     {
         m_chemicalSelected[i] = false;
     }
+    m_numberSelected = 0;
 }
 
 void MysterySubstances::chemicalSelected(QString chemical)
