@@ -32,21 +32,6 @@ void Mysteries::shuffle()
     }
 }
 
-bool Mysteries::checkSubstances(QString substances[])
-{
-    if(substances->size() != m_size)
-    {
-        return false;
-    }
-    for(int i = 0; i < m_size; i++)
-    {
-        if(substances[i] != m_substances[i])
-            return false;
-    }
-
-    return true;
-}
-
 void Mysteries::addChemical(QString chemical)
 {
     m_substances[m_size++] = chemical;
