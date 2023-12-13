@@ -18,6 +18,7 @@ void ChemistryLogicModel::levelUp(vector<QString> choices)
 {
     if(m_mysteries.checkChemicals(choices))
     {
+        // For presentation, remove this section
         if(m_level != 0)
         {
             for(int i = m_level; i < 3; i++)
