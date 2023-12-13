@@ -15,12 +15,15 @@ class MysterySubstanceButtonCombo : public QWidget
     Q_OBJECT
 
 public:
+    /// @brief Creates a MysterySubstanceButtonCombo. This should sit at the bottom of the view.
+    /// @param number The number of chemicals already in the MysterySubstances. This informs what the name of the
+    /// mystery substance is expected to be (ie: 0 = Substance A, 1 = Substance B, etc.)
     explicit MysterySubstanceButtonCombo(int number, QWidget *parent = nullptr);
     ~MysterySubstanceButtonCombo();
 
 private:
     Ui::MysterySubstanceButtonCombo *ui;
-    QPixmap m_pixmap;
+    QPixmap m_pixmap;   // The image to show
     QGraphicsColorizeEffect* m_effect;
 
 
