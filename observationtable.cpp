@@ -16,6 +16,8 @@ ObservationTable::ObservationTable(QWidget *parent) :
     ui->levelFourTable->hide();
 
     m_level = 1;
+
+    setWindowFlags(Qt::WindowStaysOnTopHint);
 }
 
 ObservationTable::~ObservationTable()
