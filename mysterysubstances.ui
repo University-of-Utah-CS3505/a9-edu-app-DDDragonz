@@ -20,6 +20,12 @@
    <string>Form</string>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
    <item>
     <widget class="QScrollArea" name="scrollArea">
      <property name="maximumSize">
@@ -43,7 +49,7 @@
         <x>0</x>
         <y>0</y>
         <width>296</width>
-        <height>176</height>
+        <height>200</height>
        </rect>
       </property>
       <property name="maximumSize">
