@@ -30,12 +30,27 @@ private:
     int m_chemicalSize;
 
 public slots:
+    /// @brief Receives information that a chemical was selected
     void buttonSelected();
+
+    /// @brief Receives information that a chemical was deselected
     void buttonDeselected();
+
+    /// @brief Receives information that the mix button was clicked
     void mixButtonClicked();
+
+    /// @brief Receives information that the done mixing button was clicked
     void doneButtonClicked();
+
+    /// @brief Receives information that a mystery substance needs to be added
     void addMysterySubstances(int number);
+
+    /// @brief Receives information about which chemical was selected
+    /// @param chemical The name of the chemical that was selected
     void chemicalSelected(QString chemical);
+
+    /// @brief Receives information about which chemical was deselected
+    /// @param chemical The name of the chemical that was deselected
     void chemicalDeselected(QString chemical);
 
     /// @brief Receives information that everything needs to advance to the next level
@@ -46,8 +61,15 @@ public slots:
     void updateMixButton();
 
 signals:
+    /// @brief Sends information to the program that chemicals need to be mixed
     void mixChemicals();
+
+    /// @brief Sends information to the program that chemicals need to be mixed
+    /// @param chemicalA One of the chemicals being mixed
+    /// @param chemicalB One of the chemicals being mixed
     void mixingChemicals(QString chemicalA, QString chemicalB);
+
+    /// @brief Sends information to the program that chemicals are done mixing
     void doneMixing();
 };
 
