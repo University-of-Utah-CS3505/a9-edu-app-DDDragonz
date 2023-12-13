@@ -28,14 +28,29 @@ private:
 
 
 public slots:
+    /// @brief Receives information that the button was selected
     void buttonSelected();
+
+    /// @brief Receives information that the mixing button was selected
     void mixingChemicals();
+
+
+    /// @brief Receives information that the done mixing button was selected
     void doneMixingChemicals();
 
 signals:
+    /// @brief Informs the program that this substance was selected
+    /// @param name The name of the substance
     void substanceSelected(QString name);
+
+    /// @brief Informs the program that this substance was deselected
+    /// @param name The name of the substance
     void substanceDeselected(QString name);
+
+    /// @brief Informs the program that a substance was selected
     void mysterySubstanceSelected();
+
+    /// @brief Informs the program that a substance was deselected
     void mysterySubstanceDeselected();
 };
 

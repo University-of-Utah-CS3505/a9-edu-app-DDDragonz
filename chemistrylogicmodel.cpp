@@ -39,6 +39,7 @@ void ChemistryLogicModel::levelUp(vector<QString> choices)
             emit gameComplete();
         }
 
+        // For presentation, remove this section
         if(m_level == 3)
         {
             m_level++;

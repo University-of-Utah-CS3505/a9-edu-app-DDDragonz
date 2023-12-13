@@ -38,11 +38,11 @@ public slots:
     void chemicalSelected(QString chemical);
     void chemicalDeselected(QString chemical);
 
-    /// @brief Advances everything to the next level
+    /// @brief Receives information that everything needs to advance to the next level
     /// @param level The level to go to
     void levelUp(int level);
 
-    /// @brief Makes sure only 2 buttons can be pressed
+    /// @brief Receives information to make sure only 2 buttons can be pressed and mixed
     void updateMixButton();
 
 signals:
