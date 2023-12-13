@@ -12,16 +12,15 @@ class Chemical
 {
 public:
     /// @brief Constructor for Chemical
-    /// @param cName Chemical's common name
     /// @param formula Chemical's chemical formula
-    /// @param sName Chemical's systematic name
-    /// @param pH Chemical's pH if in liquid state, -1 if not applicable
-    /// @param note Any notes about Chemical that should be displayed when user clicks for more information
     /// @param state Chemical's state at STP, should be a solid, liquid, or gas
+    /// @param color The color of the chemical
     explicit Chemical(QString formula, State state, QColor color);
 
+    /// @brief Copy Constructor Operator
     Chemical(const Chemical& other);
 
+    /// @brief Assignment Operator
     Chemical& operator=(const Chemical& other);
 
     /// @brief Getter for chemical's formula
@@ -32,6 +31,8 @@ public:
     /// @return Returns state of chemical as QString
     State getState() const;
 
+    /// @brief Getter for the color of the solid
+    /// @return the color of the solid
     QColor getColorOfSolid() const;
 
 private:

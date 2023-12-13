@@ -19,14 +19,17 @@ public:
 
     /// @brief Checks if the chemicals in the given order are the correct order
     /// @param toCheck The chemicals given in the selected order
+    /// @return always return true
     bool checkChemicals(vector<QString> toCheck);
 
     /// @brief Gets the name of a mystery substance
     /// @param mysteryName The mystery name of the substance (ie- Substance A)
+    /// @return the chemical
     QString getChemical(QString mysteryName);
 
     /// @brief Gets the name of a mystery substance with the specified number
     /// @param number The number associated with the substance
+    /// @return the position of the chemical
     QString getChemical(int number);
 
 private:

@@ -7,23 +7,23 @@
 
 MysterySubstanceButtonCombo::MysterySubstanceButtonCombo(int number, QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::MysterySubstanceButtonCombo),
+    m_ui(new Ui::MysterySubstanceButtonCombo),
     m_pixmap(":/images/vial.png")
 {
-    ui->setupUi(this);
+    m_ui->setupUi(this);
     char character = 'A' + number;
     QString textString = "Substance ";
     textString += character;
-    ui->label->setText(textString);
-    ui->selectButton->setText(textString);
+    m_ui->label->setText(textString);
+    m_ui->selectButton->setText(textString);
 
     //Create image
     int scaleFactor = 6;
     m_effect = new QGraphicsColorizeEffect();
-    m_pixmap = m_pixmap.scaled(ui->label->size() * scaleFactor, Qt::KeepAspectRatio);
-    ui->label->setPixmap(m_pixmap);
+    m_pixmap = m_pixmap.scaled(m_ui->label->size() * scaleFactor, Qt::KeepAspectRatio);
+    m_ui->label->setPixmap(m_pixmap);
 
-    connect(ui->selectButton,
+    connect(m_ui->selectButton,
             &QPushButton::clicked,
             this,
             &MysterySubstanceButtonCombo::buttonSelected);
@@ -31,40 +31,40 @@ MysterySubstanceButtonCombo::MysterySubstanceButtonCombo(int number, QWidget *pa
 
 MysterySubstanceButtonCombo::~MysterySubstanceButtonCombo()
 {
-    delete ui;
+    delete m_ui;
 }
 
 void MysterySubstanceButtonCombo::buttonSelected()
 {
-    if(ui->selectButton->isChecked())
+    if(m_ui->selectButton->isChecked())
     {
         m_effect->setColor(QColor(0, 0, 255));
-        ui->label->setGraphicsEffect(m_effect);
-        ui->label->setPixmap(m_pixmap);
-        emit substanceSelected(ui->selectButton->text());
+        m_ui->label->setGraphicsEffect(m_effect);
+        m_ui->label->setPixmap(m_pixmap);
+        emit substanceSelected(m_ui->selectButton->text());
         emit mysterySubstanceSelected();
     }
     else
     {
         m_effect->setColor(QColor(169, 169, 169));
-        ui->label->setGraphicsEffect(m_effect);
-        ui->label->setPixmap(m_pixmap);
-        emit substanceDeselected(ui->selectButton->text());
+        m_ui->label->setGraphicsEffect(m_effect);
+        m_ui->label->setPixmap(m_pixmap);
+        emit substanceDeselected(m_ui->selectButton->text());
         emit mysterySubstanceDeselected();
     }
 }
 
 void MysterySubstanceButtonCombo::mixingChemicals()
 {
-    ui->selectButton->setChecked(false);
-    ui->selectButton->setEnabled(false);
+    m_ui->selectButton->setChecked(false);
+    m_ui->selectButton->setEnabled(false);
 }
 
 void MysterySubstanceButtonCombo::doneMixingChemicals()
 {
     m_effect->setColor(QColor(169, 169, 169));
-    ui->label->setGraphicsEffect(m_effect);
-    ui->label->setPixmap(m_pixmap);
-    ui->selectButton->setChecked(false);
-    ui->selectButton->setEnabled(true);
+    m_ui->label->setGraphicsEffect(m_effect);
+    m_ui->label->setPixmap(m_pixmap);
+    m_ui->selectButton->setChecked(false);
+    m_ui->selectButton->setEnabled(true);
 }

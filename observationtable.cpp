@@ -3,17 +3,17 @@
 
 ObservationTable::ObservationTable(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::ObservationTable)
+    m_ui(new Ui::ObservationTable)
 {
-    ui->setupUi(this);
-    m_tables.append(ui->levelOneTable);
-    m_tables.append(ui->levelTwoTable);
-    m_tables.append(ui->levelThreeTable);
-    m_tables.append(ui->levelFourTable);
-
-    ui->levelTwoTable->hide();
-    ui->levelThreeTable->hide();
-    ui->levelFourTable->hide();
+    m_ui->setupUi(this);
+    m_tables.append(m_ui->levelOneTable);
+    m_tables.append(m_ui->levelTwoTable);
+    m_tables.append(m_ui->levelThreeTable);
+    m_tables.append(m_ui->levelFourTable);
+    
+    m_ui->levelTwoTable->hide();
+    m_ui->levelThreeTable->hide();
+    m_ui->levelFourTable->hide();
 
     m_level = 1;
 
@@ -22,7 +22,7 @@ ObservationTable::ObservationTable(QWidget *parent) :
 
 ObservationTable::~ObservationTable()
 {
-    delete ui;
+    delete m_ui;
 }
 
 void ObservationTable::levelUp(int nextLevel)

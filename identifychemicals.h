@@ -20,10 +20,12 @@ public:
     /// @brief Constructor for IdentifyChemicals
     /// @param parent The parent for the Qt object
     IdentifyChemicals(QWidget *parent = nullptr);
+
+    /// @brief Standard Deconstructor.
     ~IdentifyChemicals();
 
 private:
-    Ui::IdentifyChemicals *ui;
+    Ui::IdentifyChemicals *m_ui;
     vector<MysteryComboPair*> m_comboPairs; // Keeps track of the combo pairs, so added chemicals can be added
     vector<QString> m_prevChemicals;    // Keeps track of the names of previously added chemicals
     int m_numberOfSubstances;

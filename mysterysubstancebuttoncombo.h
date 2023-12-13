@@ -19,10 +19,12 @@ public:
     /// @param number The number of chemicals already in the MysterySubstances. This informs what the name of the
     /// mystery substance is expected to be (ie: 0 = Substance A, 1 = Substance B, etc.)
     explicit MysterySubstanceButtonCombo(int number, QWidget *parent = nullptr);
+
+    /// @brief Standard Deconstructor.
     ~MysterySubstanceButtonCombo();
 
 private:
-    Ui::MysterySubstanceButtonCombo *ui;
+    Ui::MysterySubstanceButtonCombo *m_ui;
     QPixmap m_pixmap;   // The image to show
     QGraphicsColorizeEffect* m_effect;
 

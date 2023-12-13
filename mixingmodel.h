@@ -68,6 +68,7 @@ public:
     void showControls();
 
 signals:
+    /// @brief A call to clear the scene
     void resetScene();
 
 public slots:

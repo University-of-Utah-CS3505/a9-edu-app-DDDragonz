@@ -30,10 +30,12 @@ public:
     /// @param name The name of the new option
     /// @param index The new index of the pair
     void addComboItem(QString name, int index);
+
+    /// @brief Standard Deconstructor.
     ~MysteryComboPair();
 
 private:
-    Ui::MysteryComboPair *ui;
+    Ui::MysteryComboPair *m_ui;
     int m_index;    // The index of the pair within the identify chemicals
 
 signals:

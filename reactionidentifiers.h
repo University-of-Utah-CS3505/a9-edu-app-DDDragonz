@@ -32,6 +32,8 @@ public slots:
     void submitSelected();
 
 signals:
+    /// @brief Send the identifiers
+    /// @param identifiers A string of the identifiers
     void sendIdentifiers(QString identifiers);
 };
 

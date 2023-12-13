@@ -20,7 +20,7 @@ public:
     ~ObservationTable();
 
 private:
-    Ui::ObservationTable *ui;
+    Ui::ObservationTable *m_ui;
     QList<QTableWidget*> m_tables;
     int m_level;
 

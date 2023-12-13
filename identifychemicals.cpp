@@ -8,11 +8,11 @@ using std::string;
 
 IdentifyChemicals::IdentifyChemicals(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::IdentifyChemicals),
+    m_ui(new Ui::IdentifyChemicals),
     m_choicesSize(0)
 {
-    ui->setupUi(this);
-    connect(ui->pushButton, &QPushButton::clicked, this, &IdentifyChemicals::submitClick);
+    m_ui->setupUi(this);
+    connect(m_ui->pushButton, &QPushButton::clicked, this, &IdentifyChemicals::submitClick);
     m_numberOfSubstances = 0;
 }
 
@@ -52,7 +52,7 @@ void IdentifyChemicals::addElement(QString chemical)
     m_prevChemicals.push_back(chemical);
     MysteryComboPair* toAdd = new MysteryComboPair(m_numberOfSubstances, QString::fromStdString(name), m_prevChemicals);
     connect(toAdd, &MysteryComboPair::choiceChange, this, &IdentifyChemicals::choiceChange);
-    ui->layout->addWidget(toAdd);
+    m_ui->layout->addWidget(toAdd);
 
     for(int i = 0; i < (int)m_comboPairs.size(); i++)
     {
@@ -71,5 +71,5 @@ void IdentifyChemicals::choiceChange(QString chemical, int index)
 
 IdentifyChemicals::~IdentifyChemicals()
 {
-    delete ui;
+    delete m_ui;
 }
